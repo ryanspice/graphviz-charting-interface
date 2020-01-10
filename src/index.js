@@ -25,7 +25,7 @@ if (!window.overrun){
   window.app = app;
   window.store = store;
 
-};
+}
 
 export {
   store

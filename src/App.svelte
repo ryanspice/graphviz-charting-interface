@@ -51,7 +51,6 @@
 
       <ColourPicker></ColourPicker>
 
-
     </Section>
 
   </Row>
@@ -194,10 +193,9 @@
 
   store.subscribe(() => {
 
-    console.log(store.getState())
-
     applicationCode = store.getState().action.data;
     applicationTheme = store.getState().theme;
+
   });
 
 </script>
