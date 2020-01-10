@@ -76,6 +76,10 @@
         ]);
 
         window.store = Store;
+        const svg = document.querySelector('svg');
+        svg.setAttribute("width","100%");
+        svg.setAttribute("height","100%");
+
       });
 
     });

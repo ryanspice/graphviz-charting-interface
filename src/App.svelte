@@ -37,10 +37,10 @@
 
         <IconButton class="material-icons" aria-label="add">add</IconButton>
 
-        {#if codeView===false}
+        {#if ((codeView===false)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
         {/if}
-        {#if codeView===true}
+        {#if ((codeView===true)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="insert_chart" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
         {/if}
 
@@ -48,10 +48,21 @@
 
       <Section align="end" toolbar>
 
+  {#if ((true)&&(applicationDigraphSource===false))}
         <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
         const html = d3.select("#graph0").html();
-        downloadSource(html);
+        //downloadSource(html);
+        codeView=true; applicationDigraphSource=html;
 }} alt="print">code</IconButton>
+  {/if}
+        {#if ((true)&&(applicationDigraphSource))}
+          <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
+          codeView=false; applicationDigraphSource=false;
+}} alt="print">insert_chart</IconButton>
+        {/if}
+
+
+
 
         <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
         const html = d3.select("#graph0").html();
@@ -130,7 +141,7 @@
   </VirtualList>
 
   {#if codeView}
-    <CodeView code={applicationCode}></CodeView>
+    <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationCode}></CodeView>
   {/if}
 {/if}
 <script>
@@ -163,6 +174,7 @@
   import downloadSource from './utils/downloadSource'
 
   let applicationCode = ``;
+  let applicationDigraphSource = false;
   let applicationReady = false;
   let applicationTheme = {
     primary:""
@@ -170,6 +182,7 @@
 
   let fullscreen = false;
   let codeView = false;
+  let codeViewD3 = false;
 
   const components = {
     drawer: new Drawer({target: document.body})
