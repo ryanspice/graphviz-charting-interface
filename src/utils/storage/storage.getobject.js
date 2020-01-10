@@ -2,6 +2,7 @@
 
 Storage.prototype.getObject = function(key) {
 
+  	try {
 	let value:object = this.getItem(key);
 	let ttl:object = this.getItem(key + "~ttl");
 
@@ -18,4 +19,8 @@ Storage.prototype.getObject = function(key) {
 	}
 
 	return value && JSON.parse(value);
+  	} catch(e){
+  	  new Error(e);
+  	  return key;
+	}
 };

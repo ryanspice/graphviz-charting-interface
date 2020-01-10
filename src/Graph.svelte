@@ -30,7 +30,6 @@
     }
 
     D3Graph.renderDot(Store.data).on("end", function() {
-
       store.dispatch({
         type:APPLICATION_LOAD,
         data:(Store.data)

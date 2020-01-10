@@ -1,7 +1,9 @@
 
 import application from "./controllers/application";
 
-const __TEST_GRAPH__ = "./models/example_chart_b";
+const __TEST_GRAPH__ = "./models/example_chart_c.js";
+
+//import generalChart from "./models/example_chart_b.js";
 
 interface GraphRow {
   id:any;
@@ -193,7 +195,7 @@ let graph = `subgraph ${name || "cluster"} {
 
   /**/
 
-  initialize(){
+  async initialize(){
     this.#buildGraph();
     this.#parseGraph();
     this.#closeData();
@@ -202,6 +204,8 @@ let graph = `subgraph ${name || "cluster"} {
   ${this.map.get("style") + (this.map.get("subgraphs")||[]).join("\n") + this.map.get("connections")}
 }`;
 
+
+//    this.data = __TEST_GRAPH__;
   }
 
 }

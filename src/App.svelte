@@ -35,13 +35,14 @@
 
       <Section align="start" toolbar>
 
-        <IconButton class="material-icons" aria-label="add">add</IconButton>
-
+        {#if ((applicationDigraphSource===false))}
+          <IconButton class="material-icons" aria-label="add">add</IconButton>
+        {/if}
         {#if ((codeView===false)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
+          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
         {/if}
         {#if ((codeView===true)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="insert_chart" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
+          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
         {/if}
 
       </Section>
@@ -52,12 +53,14 @@
         <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
         const html = d3.select("#graph0").html();
         //downloadSource(html);
-        codeView=true; applicationDigraphSource=html;
+        //codeView=true;
+        applicationDigraphSource=html;
 }} alt="print">code</IconButton>
   {/if}
         {#if ((true)&&(applicationDigraphSource))}
           <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          codeView=false; applicationDigraphSource=false;
+          codeView=codeView;
+          applicationDigraphSource=false;
 }} alt="print">insert_chart</IconButton>
         {/if}
 
@@ -140,7 +143,7 @@
 
   </VirtualList>
 
-  {#if codeView}
+  {#if (codeView||applicationDigraphSource)}
     <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationCode}></CodeView>
   {/if}
 {/if}
@@ -182,7 +185,6 @@
 
   let fullscreen = false;
   let codeView = false;
-  let codeViewD3 = false;
 
   const components = {
     drawer: new Drawer({target: document.body})
@@ -222,13 +224,11 @@
     fullscreen = !fullscreen;
   };
 
-  store.subscribe(() => {
-
-    const {action, theme} = store.getState();
+  store.subscribe(async () => {
+    const {action,theme} = await store.getState();
 
     applicationCode = action.data;
     applicationTheme = theme;
-
     applicationReady = true;
 
   });

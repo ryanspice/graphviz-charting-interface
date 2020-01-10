@@ -1,4 +1,4 @@
-export default `digraph D {
+export default `digraph A {
 
   node [shape=plaintext fontname="Sans serif" fontsize="8"];
 

@@ -10,7 +10,7 @@ import {
   TOGGLE_TODO
 } from '../actions/application'
 
-function application(state = [], action) {
+async function application(state = [], action) {
   switch (action.type) {
 	case APPLICATION_TOGGLE_FULLSCREEN:
 	  return {...state, action:action};
@@ -21,21 +21,14 @@ function application(state = [], action) {
 	case APPLICATION_SAVE:
 	  return {...state, action:action};
 	case APPLICATION_LOAD:
-	  const theme = localStorage.getObject('theme');
-
-	  if (theme){
-		return {
-		  ...state,
-		  theme,
-		  action:action
-		}
-	  }
-
+	  const swatches = (await import("../../theme/colors.js")).default;
+	  const theme = localStorage.getObject('theme') || swatches[3];
+		//console.log(theme,swatches);
 	  return {
 		  ...state,
+		theme,
 		action:action
 	  };
-
 	case APPLICATION_LOAD_PREVIOUS:
 	  return {...state, action:action};
 	case APPLICATION_LOAD_EXAMPLE:
@@ -59,7 +52,8 @@ function application(state = [], action) {
 	  });
 	case APPLICATION_ASSIGN_THEME:
 
-	  localStorage.setObject('theme', action.data);
+	  if (action.data)
+		  localStorage.setObject('theme', action.data);
 
 	  return {
 	    ...state,

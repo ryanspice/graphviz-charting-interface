@@ -4,6 +4,8 @@
 </svelte:head>
 
 <script>
+	import {onMount} from "svelte";
+
   import Highlight from 'svelte-highlight';
   import { javascript } from 'svelte-highlight/languages';
   import { github } from 'svelte-highlight/styles';
@@ -14,6 +16,9 @@
   import Radio from '@smui/radio';
   import Slider from '@smui/slider';
   import FormField from '@smui/form-field';
+
+  import {APPLICATION_ASSIGN_THEME} from "./store/actions/application";
+  import {store} from "./index";
 
   export let code;
 
@@ -52,11 +57,34 @@
 	selection = 'Radishes';
   }
 
+	let applicationTheme = '';
+  /*
+  store.dispatch({
+	  type:APPLICATION_ASSIGN_THEME,
+	  data:''
+  })
+
+   */
+	(async()=>{
+
+		const {theme} = await store.getState();
+		applicationTheme = theme.primary;
+
+		store.subscribe(async () => {
+			const {theme} = await store.getState();
+			applicationTheme = theme.primary;
+			//console.log(theme);
+			//console.log(store.getState());
+		});
+
+	})()
+
+
 </script>
 
-<section  id="code-view">
+<section  id="code-view" >
 
-    <div  id="third-bar">
+    <div  id="third-bar" class={applicationTheme}>
 
       <Dialog bind:this={sliderDialog} aria-labelledby="slider-title" aria-describedby="slider-content">
 
