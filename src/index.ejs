@@ -31,6 +31,27 @@ htmlWebpackPlugin.options.scripts = htmlWebpackPlugin.options.scripts || []
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="icon" type="image/png" href="https://www.graphviz.org/_pages/Resources/favicon.png">
+    <style>
+      .load {
+        position: absolute;
+        left: 45%;
+        top:30%;
+        margin: 0px auto;
+        width: 400px;
+        margin-left: -25px;
+        width: 15%;
+        opacity: 0.5;
+        text-align:center;
+      }
+      .load-text {
+        margin-top:50vh;
+        font-size:calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+        font-family: Segoe UI, Open-Sans;
+      }
+      loader {
+        top:35%;
+      }
+    </style>
     <%
 
     if (htmlWebpackPlugin.options.mobile) { %>
@@ -102,7 +123,14 @@ htmlWebpackPlugin.options.scripts = htmlWebpackPlugin.options.scripts || []
 
     for (item of htmlWebpackPlugin.options.appMountIds) { %>
     <div id="<%= item %>"></div><%
-    } %><%
+    } %>
+
+        <loader>
+          <spinner></spinner>
+          <message></message>
+        </loader>
+
+        <%
 
     if (htmlWebpackPlugin.options.window) { %>
     <script type="text/javascript"><%

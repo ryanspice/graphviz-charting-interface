@@ -2,6 +2,19 @@
 @import "./theme/_smui-theme.scss";
 @import "./theme/mixins.scss";
 
+/*! CSS Used from: Embedded */
+@media print{
+  *,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+/*! CSS Used from: Embedded */
+*{-webkit-transition:all 0.3s ease;transition:all 0.3s ease;}
+::-webkit-scrollbar{width:0.5em;height:0.5em;}
+::-webkit-scrollbar-thumb{background:slategray;}
+::-webkit-scrollbar-track{background:#b8c0c8;}
+
+
 html, body {
   height:100%;
 

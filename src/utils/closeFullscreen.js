@@ -1,5 +1,4 @@
 export default function closeFullscreen() {
-
   if (document.exitFullscreen) {
 	document.exitFullscreen();
   } else if (document.mozCancelFullScreen) {

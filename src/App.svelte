@@ -1,124 +1,124 @@
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
+{#if applicationReady}
+  <TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
-<TopAppBar {dense} {prominent} {variant} bind:collapsed>
+    <Row class={applicationTheme.primary}>
 
-  <Row class={applicationTheme.primary}>
+      <Section>
 
-    <Section>
+        <IconButton class="material-icons" on:click={()=>{
+          window.temp.$$.ctx[9]()
+        }}>menu</IconButton>
 
-      <IconButton class="material-icons" on:click={()=>{
-        window.temp.$$.ctx[9]()
-      }}>menu</IconButton>
+        <Title>{title}</Title>
 
-      <Title>{title}</Title>
+      </Section>
 
-    </Section>
+      <Section align="end" toolbar>
 
-    <Section align="end" toolbar>
+        <IconButton class="material-icons" aria-label="Print this page">print</IconButton>
+        <IconButton class="material-icons" aria-label="Download">file_download</IconButton>
 
-      <IconButton class="material-icons" aria-label="Print this page">print</IconButton>
-      <IconButton class="material-icons" aria-label="Download">file_download</IconButton>
+      </Section>
 
-    </Section>
+    </Row>
 
-  </Row>
+    <Row class={applicationTheme.primary+"-accent"}>
 
-  <Row class={applicationTheme.primary+"-accent"}>
+      <Section align="start" toolbar>
 
-    <Section align="start" toolbar>
+        <IconButton class="material-icons" aria-label="add">add</IconButton>
 
-      <IconButton class="material-icons" aria-label="add">add</IconButton>
-
-      {#if codeView===false}
-        <IconButton class="material-icons" aria-label="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
-      {/if}
-      {#if codeView===true}
-        <IconButton class="material-icons" aria-label="insert_chart" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
-      {/if}
-
-    </Section>
-
-    <Section align="end" toolbar>
-
-      {#if fullscreen===false}
-        <IconButton class="material-icons" on:click = {openFullscreen}>fullscreen</IconButton>
-      {/if}
-      {#if fullscreen===true}
-        <IconButton class="material-icons" on:click = {closeFullscreen}>fullscreen_exit</IconButton>
-      {/if}
-
-      <ColourPicker></ColourPicker>
-
-    </Section>
-
-  </Row>
-
-</TopAppBar>
-
-<Item bind:this={hoverFab} style="z-index:232;position:fixed;top:200px;left:0px;display:none;" href="javascript:void(0)"  on:mouseout={()=>{
-  hovering = false;
-  if (hovering==false){
-    hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
-    return;
-  }}}
->
-  <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>close</Graphic>
-
-  <Text></Text>
-
-</Item>
-
-<VirtualList items={data} let:item>
-  <Item href="javascript:void(0)"
-    on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
-    on:mouseover={(evt)=>{
-
-      hovering = item.name;
-
-      setTimeout(()=>{
-
-        if (hovering===false){
-          hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
-          return;
-        }
-
-        if (hoverFab.$$.ctx[23].style !== "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;")
-          hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
-
-        if (hoverFab.$$.ctx[11].children[1].innerText!==item.name){
-          hoverFab.$$.ctx[11].children[1].innerText = item.name;
-          hoverFab.$$.ctx[11].children[0].style.pointerEvents = "auto";
-          hoverFab.$$.ctx[11].children[1].style.pointerEvents = "none";
-          hoverFab.$$.ctx[11].style.pointerEvents = "auto";
-        }
-      },0)
-    }}
-    on:mouseout={()=>{
-
-      hovering = false;
-
-    }}
-  >
-
-    <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
-
-        {#if hovering==item.name}
-        {:else}
-          <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
+        {#if codeView===false}
+          <IconButton class="material-icons" aria-label="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
+        {/if}
+        {#if codeView===true}
+          <IconButton class="material-icons" aria-label="insert_chart" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
         {/if}
 
-    <Text>{item.name}</Text>
+      </Section>
+
+      <Section align="end" toolbar>
+
+        {#if fullscreen===false}
+          <IconButton class="material-icons" on:click = {openFullscreen}>fullscreen</IconButton>
+        {/if}
+        {#if fullscreen===true}
+          <IconButton class="material-icons" on:click = {closeFullscreen}>fullscreen_exit</IconButton>
+        {/if}
+
+        <ColourPicker></ColourPicker>
+
+      </Section>
+
+    </Row>
+
+  </TopAppBar>
+
+  <Item bind:this={hoverFab} style="z-index:232;position:fixed;top:200px;left:0px;display:none;" href="javascript:void(0)"  on:mouseout={()=>{
+    hovering = false;
+    if (hovering==false){
+      hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
+      return;
+    }}}
+  >
+    <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>close</Graphic>
+
+    <Text></Text>
 
   </Item>
 
-</VirtualList>
+  <VirtualList items={data} let:item>
+    <Item href="javascript:void(0)"
+      on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
+      on:mouseover={(evt)=>{
 
-{#if codeView}
-  <CodeView code={applicationCode}></CodeView>
+        hovering = item.name;
+
+        setTimeout(()=>{
+
+          if (hovering===false){
+            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
+            return;
+          }
+
+          if (hoverFab.$$.ctx[23].style !== "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;")
+            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
+
+          if (hoverFab.$$.ctx[11].children[1].innerText!==item.name){
+            hoverFab.$$.ctx[11].children[1].innerText = item.name;
+            hoverFab.$$.ctx[11].children[0].style.pointerEvents = "auto";
+            hoverFab.$$.ctx[11].children[1].style.pointerEvents = "none";
+            hoverFab.$$.ctx[11].style.pointerEvents = "auto";
+          }
+        },0)
+      }}
+      on:mouseout={()=>{
+
+        hovering = false;
+
+      }}
+    >
+
+      <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
+
+          {#if hovering==item.name}
+          {:else}
+            <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
+          {/if}
+
+      <Text>{item.name}</Text>
+
+    </Item>
+
+  </VirtualList>
+
+  {#if codeView}
+    <CodeView code={applicationCode}></CodeView>
+  {/if}
 {/if}
-
 <script>
 
   import 'redux';
@@ -143,6 +143,8 @@
 
   import CodeView from './CodeView';
   import ColourPicker from "./ColourPicker.svelte";
+
+  let applicationReady = false;
 
   let applicationTheme = {
     primary:""
@@ -193,8 +195,12 @@
 
   store.subscribe(() => {
 
-    applicationCode = store.getState().action.data;
-    applicationTheme = store.getState().theme;
+    const {action, theme} = store.getState();
+
+    applicationCode = action.data;
+    applicationTheme = theme;
+
+    applicationReady = true;
 
   });
 
