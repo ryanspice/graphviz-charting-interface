@@ -18,8 +18,14 @@
 
       <Section align="end" toolbar>
 
-        <IconButton class="material-icons" aria-label="Print this page">print</IconButton>
-        <IconButton class="material-icons" aria-label="Download">file_download</IconButton>
+        <ColourPicker></ColourPicker>
+
+        {#if fullscreen===false}
+          <IconButton class="material-icons" on:click = {openFullscreen}>fullscreen</IconButton>
+        {/if}
+        {#if fullscreen===true}
+          <IconButton class="material-icons" on:click = {closeFullscreen}>fullscreen_exit</IconButton>
+        {/if}
 
       </Section>
 
@@ -42,14 +48,22 @@
 
       <Section align="end" toolbar>
 
-        {#if fullscreen===false}
-          <IconButton class="material-icons" on:click = {openFullscreen}>fullscreen</IconButton>
-        {/if}
-        {#if fullscreen===true}
-          <IconButton class="material-icons" on:click = {closeFullscreen}>fullscreen_exit</IconButton>
-        {/if}
+        <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
+        const html = d3.select("#graph0").html();
+        downloadSource(html);
+}} alt="print">code</IconButton>
 
-        <ColourPicker></ColourPicker>
+        <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
+        const html = d3.select("#graph0").html();
+        const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+        win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;
+}} alt="print">print</IconButton>
+
+
+        <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
+        const svg = document.querySelector("svg");
+        downloadSvg(svg);
+}}>file_download</IconButton>
 
       </Section>
 
@@ -135,29 +149,31 @@
   } from '@smui/top-app-bar';
   import VirtualList from '@sveltejs/svelte-virtual-list';
   import IconButton from '@smui/icon-button';
+
   import Drawer, {DrawerToggle} from './Drawer.svelte';
+  import CodeView from './CodeView';
+  import ColourPicker from "./ColourPicker.svelte";
+
   import List, {Item, Graphic, Text} from '@smui/list';
 
   import openFullscreen from './utils/openFullscreen';
   import closeFullscreen from './utils/closeFullscreen';
 
-  import CodeView from './CodeView';
-  import ColourPicker from "./ColourPicker.svelte";
+  import downloadSvg from './utils/downloadSvg'
+  import downloadSource from './utils/downloadSource'
 
+  let applicationCode = ``;
   let applicationReady = false;
-
   let applicationTheme = {
     primary:""
   };
 
+  let fullscreen = false;
   let codeView = false;
 
   const components = {
     drawer: new Drawer({target: document.body})
   };
-
-  let fullscreen = false;
-  let applicationCode = ``;
 
   let data = [
     {name: '', number: ''}

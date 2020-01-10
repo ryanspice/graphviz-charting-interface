@@ -144,7 +144,7 @@ let graph = `subgraph ${name || "cluster"} {
     graphs = subgraphTemp.match(/[^\r\n]+/g).map(item =>{
 
       let b;
-      console.log(b = item.trim().split(" ").filter(item => {return item==""?false:true}));
+      (b = item.trim().split(" ").filter(item => {return item==""?false:true}));
       return `cluster${b[1]}`;
 
     });
@@ -197,7 +197,7 @@ let graph = `subgraph ${name || "cluster"} {
     this.#buildGraph();
     this.#parseGraph();
     this.#closeData();
-    let name = "FUYCK"
+    let name = "d"
     this.data = `digraph ${name} {
   ${this.map.get("style") + (this.map.get("subgraphs")||[]).join("\n") + this.map.get("connections")}
 }`;

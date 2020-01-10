@@ -4,7 +4,7 @@
 
 /*! CSS Used from: Embedded */
 @media print{
-  *,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+ // *,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
 }
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 :after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
@@ -85,6 +85,7 @@ svelte-virtual-list-viewport {
   width:100%;
 }
 
+
 #code-view {
   position:fixed;
   top:96px;
@@ -97,4 +98,8 @@ svelte-virtual-list-viewport {
 
 #third-bar{
   background:$mdc-theme-secondary;
+}
+
+.hidden {
+  display:none;
 }
