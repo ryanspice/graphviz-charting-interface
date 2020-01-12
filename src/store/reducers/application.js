@@ -6,61 +6,43 @@ import {
   APPLICATION_TOGGLE_CODE,
   APPLICATION_TOGGLE_DIALOGUE,
   APPLICATION_TOGGLE_FULLSCREEN,
-  APPLICATION_ASSIGN_THEME,
-  TOGGLE_TODO
+  APPLICATION_ASSIGN_THEME
 } from '../actions/application'
 
 async function application(state = [], action) {
   switch (action.type) {
 	case APPLICATION_TOGGLE_FULLSCREEN:
-	  return {...state, action:action};
+	  return {...state, action};
 	case APPLICATION_TOGGLE_DIALOGUE:
-	  return {...state, action:action};
+	  return {...state, action};
 	case APPLICATION_TOGGLE_CODE:
-	  return {...state, action:action};
+	  return {...state, action};
 	case APPLICATION_SAVE:
-	  return {...state, action:action};
+	  return {...state, action};
 	case APPLICATION_LOAD:
 	  const swatches = (await import("../../theme/colors.js")).default;
 	  const theme = localStorage.getObject('theme') || swatches[3];
-		//console.log(theme,swatches);
+	  const data = localStorage.getObject('data') || action.data;
 	  return {
 		  ...state,
-		theme,
-		action:action
+      theme,
+      action,
+      data
 	  };
 	case APPLICATION_LOAD_PREVIOUS:
-	  return {...state, action:action};
+	  return {...state, action};
 	case APPLICATION_LOAD_EXAMPLE:
-	  return {...state, action:action};
-	case ADD_TODO:
-	  return {
-		...state,
-		...{
-		  text: action.text,
-			completed: false
-		}
-	  };
-	case TOGGLE_TODO:
-	  return state.map((todo, index) => {
-		if (index === action.index) {
-		  return Object.assign({}, todo, {
-			completed: !todo.completed
-		  })
-		}
-		return todo
-	  });
+	  return {...state, action};
 	case APPLICATION_ASSIGN_THEME:
-
-	  if (action.data)
+	  if (action.data){
 		  localStorage.setObject('theme', action.data);
-
-	  return {
-	    ...state,
-		...{
-		  theme: action.data
-		}
-	  };
+      return {
+        ...state,
+        theme: action.data,
+        action
+      };
+    }
+    return {...state,action};
 
 	default:
 	  return state

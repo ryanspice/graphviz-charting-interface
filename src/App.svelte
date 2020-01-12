@@ -1,7 +1,105 @@
+
 <svelte:head>
+
   <title>{title}</title>
+
 </svelte:head>
+
+<script>
+
+  import 'redux';
+  import {store} from "./index";
+
+  import TopAppBar, {
+    Row,
+    Section,
+    Title,
+    FixedAdjust,
+    DenseFixedAdjust,
+    ProminentFixedAdjust,
+    ShortFixedAdjust
+  } from '@smui/top-app-bar';
+  import VirtualList from '@sveltejs/svelte-virtual-list';
+  import IconButton from '@smui/icon-button';
+
+  import Drawer, {DrawerToggle} from './Drawer.svelte';
+  import CodeView from './CodeView';
+  import ColourPicker from "./ColourPicker.svelte";
+
+  import {Item, Graphic, Text} from '@smui/list';
+
+  import openFullscreen from './utils/openFullscreen';
+  import closeFullscreen from './utils/closeFullscreen';
+
+  import downloadSvg from './utils/downloadSvg';
+  import downloadSource from './utils/downloadSource';
+
+  let applicationSourceCode = ``;
+  let applicationDigraphSource = false;
+
+  let applicationFullscreen = false;
+  let applicationCodeView = false;
+
+  let applicationReady = false;
+  let applicationTheme = {
+    primary:""
+  };
+
+  let applicationDrawerData = [
+    {name: '', number: ''}
+  ];
+
+  const components = {
+    drawer: new Drawer({target: document.body})
+  };
+
+
+
+  let hoverFab;
+  let hovering = false;
+
+  let dense = true;
+  let prominent = false;
+  let variant = 'short';
+  let collapsed = false;
+  let title = '';
+  let Adjust = FixedAdjust;
+
+  title = 'Example.graphviz';
+  Adjust = ShortFixedAdjust;
+
+  window.temp = components.drawer;
+
+  window.updateList = function (incoming) {
+    applicationDrawerData = incoming;
+  };
+
+  /*
+  window.onscroll = (evt)=>{
+    document.children[0].setAttribute('data-scroll',Math.round(window.scrollY));
+  };
+ */
+
+  document.onfullscreenchange = function () {
+    applicationFullscreen = !applicationFullscreen;
+  };
+
+  store.subscribe(async () => {
+
+    const {action,theme, data} = await store.getState();
+    console.log(await store.getState());
+    applicationSourceCode = data;
+    applicationTheme = theme;
+    applicationReady = true;
+
+  });
+
+  const toggleCodeView = ()=>{applicationCodeView=!applicationCodeView};
+
+</script>
+
 {#if applicationReady}
+
   <TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
     <Row class={applicationTheme.primary}>
@@ -9,7 +107,10 @@
       <Section>
 
         <IconButton class="material-icons" on:click={()=>{
-          window.temp.$$.ctx[9]()
+
+          // not sure a better way to do this
+          window.temp.$$.ctx[9]();
+
         }}>menu</IconButton>
 
         <Title>{title}</Title>
@@ -20,12 +121,7 @@
 
         <ColourPicker></ColourPicker>
 
-        {#if fullscreen===false}
-          <IconButton class="material-icons" on:click = {openFullscreen}>fullscreen</IconButton>
-        {/if}
-        {#if fullscreen===true}
-          <IconButton class="material-icons" on:click = {closeFullscreen}>fullscreen_exit</IconButton>
-        {/if}
+        <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
 
       </Section>
 
@@ -38,11 +134,11 @@
         {#if ((applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="add">add</IconButton>
         {/if}
-        {#if ((codeView===false)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{codeView=!codeView}}>edit</IconButton>
+        {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
         {/if}
-        {#if ((codeView===true)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={()=>{codeView=!codeView}}>insert_chart</IconButton>
+        {#if ((applicationCodeView===true)&&(applicationDigraphSource===false))}
+          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
         {/if}
 
       </Section>
@@ -53,13 +149,13 @@
         <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
         const html = d3.select("#graph0").html();
         //downloadSource(html);
-        //codeView=true;
+        //applicationCodeView=true;
         applicationDigraphSource=html;
 }} alt="print">code</IconButton>
   {/if}
         {#if ((true)&&(applicationDigraphSource))}
           <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          codeView=codeView;
+          applicationCodeView=applicationCodeView;
           applicationDigraphSource=false;
 }} alt="print">insert_chart</IconButton>
         {/if}
@@ -85,7 +181,7 @@
 
   </TopAppBar>
 
-  <Item bind:this={hoverFab} style="z-index:232;position:fixed;top:200px;left:0px;display:none;" href="javascript:void(0)"  on:mouseout={()=>{
+  <Item id="hovering-fab" bind:this={hoverFab} style="" href="javascript:void(0)"  on:mouseout={()=>{
     hovering = false;
     if (hovering==false){
       hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
@@ -98,7 +194,7 @@
 
   </Item>
 
-  <VirtualList items={data} let:item>
+  <VirtualList items={applicationDrawerData} let:item>
     <Item href="javascript:void(0)"
       on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
       on:mouseover={(evt)=>{
@@ -143,94 +239,7 @@
 
   </VirtualList>
 
-  {#if (codeView||applicationDigraphSource)}
-    <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationCode}></CodeView>
+  {#if (applicationCodeView||applicationDigraphSource)}
+    <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationSourceCode}></CodeView>
   {/if}
 {/if}
-<script>
-
-  import 'redux';
-  import {store} from "./index";
-
-  import TopAppBar, {
-    Row,
-    Section,
-    Title,
-    FixedAdjust,
-    DenseFixedAdjust,
-    ProminentFixedAdjust,
-    ShortFixedAdjust
-  } from '@smui/top-app-bar';
-  import VirtualList from '@sveltejs/svelte-virtual-list';
-  import IconButton from '@smui/icon-button';
-
-  import Drawer, {DrawerToggle} from './Drawer.svelte';
-  import CodeView from './CodeView';
-  import ColourPicker from "./ColourPicker.svelte";
-
-  import List, {Item, Graphic, Text} from '@smui/list';
-
-  import openFullscreen from './utils/openFullscreen';
-  import closeFullscreen from './utils/closeFullscreen';
-
-  import downloadSvg from './utils/downloadSvg'
-  import downloadSource from './utils/downloadSource'
-
-  let applicationCode = ``;
-  let applicationDigraphSource = false;
-  let applicationReady = false;
-  let applicationTheme = {
-    primary:""
-  };
-
-  let fullscreen = false;
-  let codeView = false;
-
-  const components = {
-    drawer: new Drawer({target: document.body})
-  };
-
-  let data = [
-    {name: '', number: ''}
-  ];
-
-
-  let hoverFab;
-  let hovering = false;
-
-  let dense = true;
-  let prominent = false;
-  let variant = 'short';
-  let collapsed = false;
-  let title = '';
-  let Adjust = FixedAdjust;
-
-  title = 'Example.graphviz';
-  Adjust = ShortFixedAdjust;
-
-  window.temp = components.drawer;
-
-  window.updateList = function (incoming) {
-    data = incoming;
-  };
-
-  /*
-  window.onscroll = (evt)=>{
-    document.children[0].setAttribute('data-scroll',Math.round(window.scrollY));
-  };
- */
-
-  document.onfullscreenchange = function () {
-    fullscreen = !fullscreen;
-  };
-
-  store.subscribe(async () => {
-    const {action,theme} = await store.getState();
-
-    applicationCode = action.data;
-    applicationTheme = theme;
-    applicationReady = true;
-
-  });
-
-</script>
