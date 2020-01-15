@@ -86,8 +86,13 @@
 
   store.subscribe(async () => {
 
-    const {action,theme, data} = await store.getState();
-    console.log(await store.getState());
+    const {
+      action,
+      theme,
+      data,
+      nodes
+    } = await store.getState();
+
     applicationSourceCode = data;
     applicationTheme = theme;
     applicationReady = true;

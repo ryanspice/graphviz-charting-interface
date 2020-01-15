@@ -14,7 +14,6 @@
   let clicked = 'nothing yet';
   let myDrawer;
   let myDrawerOpen = false;
-  let myDrawerOpen2 = false;
   let active = 'Gray Kittens';
   let myDrawer2;
   let active2 = 'Inbox';

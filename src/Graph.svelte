@@ -34,8 +34,9 @@
 
       const {action} =  await store.getState();
 
-      if (container.style.opacity==0)
-      await D3Graphviz(action.data);
+      if (container.style.opacity==0){
+        const data = await D3Graphviz(action.data);
+      }
 
       container.style.opacity = 1;
 
