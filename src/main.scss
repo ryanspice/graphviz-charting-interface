@@ -85,9 +85,8 @@ body > header:nth-child(5) > div:nth-child(2) {
 svelte-virtual-list-viewport {
   position:absolute !important;
   left:0px !important;
-  top:170px !important;
-  top:5px !important;
-  z-index:12 !important;
+  top:0px;
+  z-index:2;
   width:100%;
 }
 

@@ -9,6 +9,7 @@
 
   import 'redux';
   import {store} from "./index";
+  import { afterUpdate } from 'svelte';
 
   import TopAppBar, {
     Row,
@@ -83,22 +84,24 @@
   document.onfullscreenchange = function () {
     applicationFullscreen = !applicationFullscreen;
   };
+  afterUpdate(function(){
 
-  store.subscribe(async () => {
+    store.subscribe(async () => {
 
-    const {
-      action,
-      theme,
-      data,
-      nodes
-    } = await store.getState();
+      const {
+        action,
+        theme,
+        data,
+        nodes
+      } = await store.getState();
 
-    applicationSourceCode = data;
-    applicationTheme = theme;
-    applicationReady = true;
+      applicationSourceCode = data;
+      applicationTheme = theme;
+      applicationReady = true;
+
+    });
 
   });
-
   const toggleCodeView = ()=>{applicationCodeView=!applicationCodeView};
 
 </script>
@@ -213,9 +216,8 @@
             return;
           }
 
-          if (hoverFab.$$.ctx[23].style !== "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;")
-            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:"+(110+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
-
+          if (hoverFab.$$.ctx[23].style !== "min-width:222px;z-index:232;position:fixed;top:"+(91+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;")
+            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:"+(91+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;"
           if (hoverFab.$$.ctx[11].children[1].innerText!==item.name){
             hoverFab.$$.ctx[11].children[1].innerText = item.name;
             hoverFab.$$.ctx[11].children[0].style.pointerEvents = "auto";
