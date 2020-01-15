@@ -3,7 +3,10 @@
  * builds a graphviz object based on the D3 library
  * @param       {[type]} GraphStore [description]
  * @constructor
- */
+*/
+
+import {store} from "../index";
+import {APPLICATION_LOAD} from "../store/actions/application";
 
 const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-container'){
 

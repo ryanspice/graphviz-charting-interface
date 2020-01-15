@@ -1,7 +1,7 @@
 
 import application from "./controllers/application";
 
-const __TEST_GRAPH__ = "./models/example_chart_c.js";
+const __TEST_GRAPH__ = "./models/example_chart_app.js";
 
 //import generalChart from "./models/example_chart_b.js";
 
@@ -143,11 +143,13 @@ let graph = `subgraph ${name || "cluster"} {
     let graphs;
     file.filter(checkForSubgraph);
 
+    //CLUSTERS
+
     graphs = subgraphTemp.match(/[^\r\n]+/g).map(item =>{
 
       let b;
       (b = item.trim().split(" ").filter(item => {return item==""?false:true}));
-      return `cluster${b[1]}`;
+      return `${b[1]}`;
 
     });
 
@@ -185,7 +187,19 @@ let graph = `subgraph ${name || "cluster"} {
     return [...(graphs.match(/[^\r\n]+/g))].map(item => {return {name:item, icon:"show_chart"}});
   }
 
-  /**/
+  /**
+   * [name description]
+   * @type {String}
+   */
+
+   get digraph(){
+     return this.map.get('digraph');
+   }
+
+
+  /**
+   *
+   */
 
   constructor(){
 

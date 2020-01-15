@@ -2,6 +2,8 @@
  * action types
  */
 
+export const GRAPH_UPDATE = `GRAPH_UPDATE`;
+
 export const ADD_CONNECTION = 'ADD_CONNECTION';
 export const ADD_DIGRAPH = 'ADD_DIGRAPH';
 export const ADD_SUBGRAPH = 'ADD_SUBGRAPH';
@@ -23,6 +25,7 @@ export const APPLICATION_LOAD_EXAMPLE = `APPLICATION_LOAD_EXAMPLE`;
 
 export const APPLICATION_ASSIGN_THEME = `APPLICATION_ASSIGN_THEME`;
 
+
 /*
  * action creators
  */
@@ -39,6 +42,7 @@ export function addSubgraph(...args) {
 export function addStyle(...args) {
   return { type: ADD_STYLE, ...args }
 }
+//
 export function retrieveConnection(...args) {
   return { type: RETRIEVE_DIGRAPH, ...args }
 }
@@ -51,6 +55,7 @@ export function retrieveSubgraph(...args) {
 export function retrieveStyle(...args) {
   return { type: RETRIEVE_CONNECTION, ...args }
 }
+//
 export function applicationToggleFullscreen(...args){
   return { type: APPLICATION_TOGGLE_FULLSCREEN, ...args }
 }
