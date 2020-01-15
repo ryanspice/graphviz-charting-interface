@@ -15,11 +15,15 @@ digraph reactiveChartInterface {
 
   }
   subgraph app {
-    index[label="index.js"];
-    scss[label="main.scss"];
+    index;
+    scss;
+  	componentA;
+  	microfrontendA;
   }
   subgraph store {
     redux[label="store" shape = "circle"];
+	   //componentB;
+    //microfrontendB;
   }
   subgraph utils {
     utils;
@@ -71,9 +75,10 @@ digraph reactiveChartInterface {
     ]
   }
 
-scss->index;
+index->scss->index;
+index:s -> componentA:w [dir="both"];
 
-colors, mixins, material -> scss;
+colors, mixins, material -> scss -> index;
 
 drawer -> drawerItem[label="" dir="both"];
 
@@ -84,6 +89,16 @@ content -> redux[label="subscribe" dir="both"];
 content->app;
 
 first, second -> app -> index;
+
+componentA, componentB -> microfrontendA;
+microfrontendServices, microfrontendA -> microfrontendShell;
+microfrontendServices -> componentA:n, componentB:n, microfrontendA:n[style="dotted"]
+webpack -> index, scss, utils;
+
+
+
+redux -> microfrontendServices[dir="both" label="subscribe"];
+
 
 
 }
