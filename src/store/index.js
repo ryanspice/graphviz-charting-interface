@@ -3,8 +3,6 @@ import application from "./controllers/application";
 
 const __TEST_GRAPH__ = "./models/example_chart_app.js";
 
-//import generalChart from "./models/example_chart_b.js";
-
 interface GraphRow {
   id:any;
   name:any;
@@ -13,7 +11,10 @@ interface GraphRow {
   todo:any;
 }
 
-
+/**
+ * Better name to be decided, handles all details of graph
+ * @type {GraphStore}
+ */
 
 export default class GraphStore {
 
@@ -99,6 +100,7 @@ let graph = `subgraph ${name || "cluster"} {
 
     const graph:String = (await import(__TEST_GRAPH__)).default  ;
     const file:Array<String> = graph.match(/[^\r\n]+/g);
+
     // CONNECTIONS
 
     const checkForConnection = (item) => {
@@ -122,18 +124,19 @@ let graph = `subgraph ${name || "cluster"} {
       const subgraph = item.indexOf('subgraph')>-1;
       const close = item.trim()==="}";
 
-      //console.log(subgraph)
       if (subgraph){
         subgraphLast = subgraph;
         subgraphTemp+=`\n`;
       }
+
       if (subgraphLast){
         subgraphTemp+=item;
-
       }
+
       if (close) {
         subgraphLast = false;
       }
+
       //if (arrow);
       //return false;
 
@@ -196,10 +199,7 @@ let graph = `subgraph ${name || "cluster"} {
      return this.map.get('digraph');
    }
 
-
-  /**
-   *
-   */
+  /**/
 
   constructor(){
 
@@ -217,9 +217,6 @@ let graph = `subgraph ${name || "cluster"} {
     this.data = `digraph ${name} {
   ${this.map.get("style") + (this.map.get("subgraphs")||[]).join("\n") + this.map.get("connections")}
 }`;
-
-
-//    this.data = __TEST_GRAPH__;
   }
 
 }

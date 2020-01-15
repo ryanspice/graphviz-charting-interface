@@ -9,7 +9,8 @@
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 :after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 /*! CSS Used from: Embedded */
-*{-webkit-transition:all 0.3s ease;transition:all 0.3s ease;}
+//*{-webkit-transition:all 0.3s ease;transition:all 0.3s ease;}
+*{-webkit-transition:all 0.1s ease;transition:all 0.1s ease;}
 ::-webkit-scrollbar{width:0.5em;height:0.5em;}
 ::-webkit-scrollbar-thumb{background:slategray;}
 ::-webkit-scrollbar-track{background:#b8c0c8;}
