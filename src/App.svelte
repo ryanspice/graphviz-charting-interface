@@ -54,7 +54,7 @@
     drawer: new Drawer({target: document.body})
   };
 
-
+  const getItemStyle = offset => "top:"+offset+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
 
   let hoverFab;
   let hovering = false;
@@ -189,13 +189,16 @@
 
   </TopAppBar>
 
+  <!-- Bad code -->
+
   <Item id="hovering-fab" bind:this={hoverFab} style="" href="javascript:void(0)"  on:mouseout={()=>{
     hovering = false;
     if (hovering==false){
-      hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
+      hoverFab.$$.ctx[23].style = getItemStyle("-200") + "display:none;";
       return;
-    }}}
-  >
+    }
+  }}>
+
     <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>close</Graphic>
 
     <Text></Text>
@@ -203,28 +206,37 @@
   </Item>
 
   <VirtualList items={applicationDrawerData} let:item>
+
     <Item href="javascript:void(0)"
       on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
       on:mouseover={(evt)=>{
 
         hovering = item.name;
 
+        let offset;
+        let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop
+
         setTimeout(()=>{
 
+
           if (hovering===false){
-            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:-200px;left:0px;display:none;pointer-events:auto ;";
+
+            hoverFab.$$.ctx[23].style = getItemStyle("-200");
             return;
           }
 
-          if (hoverFab.$$.ctx[23].style !== "min-width:222px;z-index:232;position:fixed;top:"+(91+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;")
-            hoverFab.$$.ctx[23].style = "min-width:222px;z-index:232;position:fixed;top:"+(91+evt.target.offsetTop)+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;"
+          if (hoverFab.$$.ctx[23].style !== getItemStyle(91+evt.target.offsetTop-scrollTop))
+            hoverFab.$$.ctx[23].style = getItemStyle(91+evt.target.offsetTop-scrollTop);
+
           if (hoverFab.$$.ctx[11].children[1].innerText!==item.name){
             hoverFab.$$.ctx[11].children[1].innerText = item.name;
             hoverFab.$$.ctx[11].children[0].style.pointerEvents = "auto";
             hoverFab.$$.ctx[11].children[1].style.pointerEvents = "none";
             hoverFab.$$.ctx[11].style.pointerEvents = "auto";
           }
+
         },0)
+
       }}
       on:mouseout={()=>{
 
@@ -247,6 +259,9 @@
   </VirtualList>
 
   {#if (applicationCodeView||applicationDigraphSource)}
+
     <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationSourceCode}></CodeView>
+
   {/if}
+
 {/if}

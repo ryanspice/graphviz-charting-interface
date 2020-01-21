@@ -13,6 +13,11 @@ const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-contai
   const D3 = (await import("d3-graphviz"));
   const D3Graph = await D3.graphviz(target);
 
+  D3Graph.options({
+    fit:true
+  })
+
+  console.log(D3Graph)
   D3Graph.renderDot(GraphStore.data).on("end", function() {
 
     const svg = document.querySelector('body > section > div > section > svg');

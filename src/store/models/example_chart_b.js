@@ -2,6 +2,7 @@ export default `digraph B {
   graph [ rankdir = LR, splines = "ortho", fontsize = 12, label = "c4f6aab828f8bd68f4a5", labelloc = "t", fontname = "gotham-book,sans-serif", compound = true ];
   node [ fontsize = 12, width = 0, height = 0, margin = "0.2,0.1", fontname = "gotham-book,sans-serif" ];
   edge [ fontsize = 10, fontname = "gotham-book,sans-serif" ];
+
 subgraph "cluster_0" {
   graph [ label = "main [entry] [initial]", fontcolor = "0,0,0.28", bgcolor = "0,0,0.95", color = "0,0,0.55" ];
 subgraph "cluster_@babel/runtime" {

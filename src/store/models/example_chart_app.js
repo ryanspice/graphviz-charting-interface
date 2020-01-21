@@ -1,9 +1,13 @@
 export default `
 digraph reactiveChartInterface {
 
-  graph [ fontsize = 12, labelloc = "t",label="reactiveChartInterface", fontname = "Nramit", compound = true ];
-  node [ shape = "record" fontsize = 12, width = 0, height = 0, margin = "0.2,0.1", fontname = "Niramit" ];
-  edge [ fontsize = 10, fontname = "Niramit" ];
+  graph [ bgcolor="transparent", fontcolor="white", color="white", fontsize = 12, labelloc = "t",label="reactiveChartInterface", fontname = "Nramit", compound = true ];
+  node [ fontcolor="white", color="white",shape = "record" fontsize = 12, width = 0, height = 0, margin = "0.2,0.1", fontname = "Niramit" ];
+  edge [ fontcolor="white", color="white",fontsize = 10, fontname = "Niramit" ];
+
+    graph [fontname = "Handlee"];
+    node [fontname = "Handlee"];
+    edge [fontname = "Handlee"];
 
   subgraph theme {
 
@@ -15,6 +19,7 @@ digraph reactiveChartInterface {
 
   }
   subgraph app {
+
     index[label="index.js"];
     scss[label="main.scss"];
   }
@@ -62,7 +67,11 @@ digraph reactiveChartInterface {
             shape = "record"
     ]
     drawerItem [
-            label = "{Item|+ data() : Object\}"
+            label = "{Item|title : String\|nodes : Array\|+ modify() : Promise\}"
+            shape = "record"
+    ]
+    drawerHoverFab [
+            label = "{HoverFab|title : String\|nodes : Array\|+ modify() : Promise\}"
             shape = "record"
     ]
     content [
@@ -75,9 +84,12 @@ scss->index;
 
 colors, mixins, material -> scss;
 
+drawerItem -> drawerHoverFab[style=dotted, label="modify"];
+drawerHoverFab -> drawer[style=dotted];
+
 drawer -> drawerItem[label="" dir="both"];
 
-drawer -> redux[label="subscribe" dir="both"];
+drawer -> redux[label="subscribe + dispatch" dir="both"];
 drawer->app;
 
 content -> redux[label="subscribe" dir="both"];

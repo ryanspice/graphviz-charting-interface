@@ -10,7 +10,7 @@
 :after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 /*! CSS Used from: Embedded */
 //*{-webkit-transition:all 0.3s ease;transition:all 0.3s ease;}
-::-webkit-scrollbar{width:0.5em;height:0.5em;}
+::-webkit-scrollbar{width:0.15em;height:0.5em;}
 ::-webkit-scrollbar-thumb{background:slategray;}
 ::-webkit-scrollbar-track{background:#b8c0c8;}
 
@@ -82,6 +82,12 @@ body > header:nth-child(5) > div:nth-child(2) {
  -moz-box-shadow:0px 1px 1px rgba(25,25,25,0.25);
  box-shadow:0px 1px 1px rgba(25,25,25,0.25);
 }
+
+.draggable {
+  cursor:'ew-resize';
+}
+
+
 svelte-virtual-list-viewport {
   position:absolute !important;
   left:0px !important;
@@ -90,6 +96,26 @@ svelte-virtual-list-viewport {
   width:100%;
 }
 
+
+#drawer-resize-control {
+  user-select: none;
+  position: absolute;
+  right: 0px;
+  width: 3rem;
+  z-index: 234;
+  height: 100%;
+  cursor: w-resize;
+  &.__debug {
+
+    background:rgba(255,255,255,0.15);
+  }
+}
+
+#hovering-fab {
+  min-width:254px;
+  z-index:232;
+  position:fixed;
+}
 
 #code-view {
   position:fixed;

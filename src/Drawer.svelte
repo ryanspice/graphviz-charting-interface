@@ -7,6 +7,9 @@
 
   import Graph from './Graph.svelte';
 
+  let drawer;
+
+
   let open = true;
   function calculate(){
   //console.log('eh')
@@ -15,7 +18,6 @@
   let myDrawer;
   let myDrawerOpen = false;
   let active = 'Gray Kittens';
-  let myDrawer2;
   let active2 = 'Inbox';
   function setActive(value) {
     active = value;
@@ -31,20 +33,87 @@
   const a = (t) => {
     //console.log(t);
     open = !open; };
-</script>
-<script context="module" >
-  const DrawerToggle = (t)=>{
-    //console.log(t)
-  }
 
-  export {DrawerToggle};
+
+  let DragMouse = [0,0];
+  let DragBounds = [48,1248];
+  let DragResize = false;
+  let DragX = 0;
+
+  /**
+   * return {X,Y} of mouse based on MouseEvent
+   * @param event
+   */
+
+  const handleMouseMove = (event)=> {
+	return DragMouse = {x:event.x,y:event.y};
+  };
+
+  /**
+   * assigns width to (TODO: fix ref) drawer
+   * @param event
+   */
+
+  const handleDragResize = (event)=> {
+
+    if (!event)
+      return;
+
+    let ClientX = (event.x || event.screenX || event.clientX);
+    let x = ClientX || DragX;
+
+    if (x>=DragBounds[0])
+    if (x<=DragBounds[1])
+    if (DragResize)
+	    document.querySelector('body > section > div > aside').style.width = `${x + 24}px`;
+
+    if (DragResize)
+	  requestAnimationFrame(()=>{handleDragResize(DragMouse)});
+	DragX = x;
+  };
+
+  /**
+   * initialize
+   * @param event
+   */
+
+  const handleDragStart = (event)=> {
+
+    if (!DragResize){
+        DragResize = true;
+        requestAnimationFrame(()=>{handleDragResize(DragMouse)});
+    }
+
+	console.log(drawer)
+  };
+
+  /**
+   * stop drag
+   */
+
+  const handleDragStop = () => {
+
+	requestAnimationFrame(()=>{
+    	DragResize = false;
+    });
+  };
+
+  /** document events */
+
+  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('mouseup', handleDragStop);
+
 </script>
 
 <section>
 
   <div class="drawer-container">
 
-    <Drawer variant="modal" bind:this={myDrawer2} bind:open={open}>
+    <Drawer variant="modal" bind:this={drawer} bind:open={open}>
+
+      <div id="drawer-resize-control"
+           on:mousedown = {handleDragStart}
+      ></div>
 
        <Header style="color:white;" >
 
