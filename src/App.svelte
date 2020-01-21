@@ -117,7 +117,7 @@
         <IconButton class="material-icons" on:click={()=>{
 
           // not sure a better way to do this
-          window.temp.$$.ctx[9]();
+          window.temp.$$.ctx[2]();
 
         }}>menu</IconButton>
 
@@ -189,7 +189,7 @@
 
   </TopAppBar>
 
-  <!-- Bad code -->
+  <!-- material "fab" moves to position of list item to show details -->
 
   <Item id="hovering-fab" bind:this={hoverFab} style="" href="javascript:void(0)"  on:mouseout={()=>{
     hovering = false;
@@ -204,6 +204,8 @@
     <Text></Text>
 
   </Item>
+
+  <!-- working project node list -->
 
   <VirtualList items={applicationDrawerData} let:item>
 

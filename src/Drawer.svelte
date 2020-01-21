@@ -7,7 +7,7 @@
 
   import Graph from './Graph.svelte';
 
-  let drawer;
+  let myDrawer2;
 
 
   let open = true;
@@ -65,7 +65,7 @@
     if (x>=DragBounds[0])
     if (x<=DragBounds[1])
     if (DragResize)
-	    document.querySelector('body > section > div > aside').style.width = `${x + 24}px`;
+	    document.querySelector('body > section > div > aside').style.width = `${x+5}px`;
 
     if (DragResize)
 	  requestAnimationFrame(()=>{handleDragResize(DragMouse)});
@@ -84,7 +84,6 @@
         requestAnimationFrame(()=>{handleDragResize(DragMouse)});
     }
 
-	console.log(drawer)
   };
 
   /**
@@ -94,14 +93,37 @@
   const handleDragStop = () => {
 
 	requestAnimationFrame(()=>{
-    	DragResize = false;
-    });
+	  DragResize = false;
+	});
+  };
+
+  /**
+   * stop drag
+   */
+
+  const handleDoubleClick = () => {
+
+    const x = document.querySelector('body > section > div > aside').style.width.replace('px','');
+
+	requestAnimationFrame(()=>{
+
+
+	  if (x<100)
+	    document.querySelector('body > section > div > aside').style.width = `${600}px`;
+	  else
+	  if (x>256)
+	    document.querySelector('body > section > div > aside').style.width = `${256}px`;
+	  else
+	    document.querySelector('body > section > div > aside').style.width = `${58}px`;
+	});
+
   };
 
   /** document events */
 
   document.addEventListener('mousemove', handleMouseMove);
   document.addEventListener('mouseup', handleDragStop);
+  document.addEventListener('dblclick', handleDoubleClick);
 
 </script>
 
@@ -109,16 +131,17 @@
 
   <div class="drawer-container">
 
-    <Drawer variant="modal" bind:this={drawer} bind:open={open}>
+    <Drawer variant="modal" bind:this={myDrawer2} bind:open={open}>
 
       <div id="drawer-resize-control"
            on:mousedown = {handleDragStart}
+           on: = {handleDragStart}
       ></div>
 
        <Header style="color:white;" >
 
          <IconButton class="material-icons" style="position:relative;left:-200px;" on:click={()=>{
-             window.temp.$$.ctx[9]()
+             window.temp.$$.ctx[2]()
         }}>add</IconButton>
 
       </Header>
