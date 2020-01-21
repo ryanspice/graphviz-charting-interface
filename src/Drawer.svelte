@@ -40,12 +40,14 @@
   let DragResize = false;
   let DragX = 0;
 
+  let DrawerAside;
   /**
    * return {X,Y} of mouse based on MouseEvent
    * @param event
    */
 
   const handleMouseMove = (event)=> {
+    DrawerAside = document.querySelector('body > section > div > aside');
 	return DragMouse = {x:event.x,y:event.y};
   };
 
@@ -76,7 +78,6 @@
    * initialize
    * @param event
    */
-
   const handleDragStart = (event)=> {
 
     if (!DragResize){
@@ -93,9 +94,15 @@
 
   const handleDragStop = () => {
 
+    const x = DrawerAside.style.width.replace('px','');
+
 	requestAnimationFrame(()=>{
 	  DragResize = false;
-      document.querySelector('body > section > div > aside').style.pointerEvents = ""
+      DrawerAside.style.pointerEvents = "";
+
+      if (x<92)
+        DrawerAside.style.width = `${58}px`;
+
 	});
   };
 
@@ -105,18 +112,18 @@
 
   const handleDoubleClick = () => {
 
-    const x = document.querySelector('body > section > div > aside').style.width.replace('px','');
+    const x = DrawerAside.style.width.replace('px','');
 
 	requestAnimationFrame(()=>{
 
 
-	  if (x<100)
-	    document.querySelector('body > section > div > aside').style.width = `${600}px`;
+	  if (x<92)
+        DrawerAside.style.width = `${window.innerWidth/2}px`;
 	  else
 	  if (x>256)
-	    document.querySelector('body > section > div > aside').style.width = `${256}px`;
+        DrawerAside.style.width = `${256}px`;
 	  else
-	    document.querySelector('body > section > div > aside').style.width = `${58}px`;
+        DrawerAside.style.width = `${58}px`;
 	});
 
   };
