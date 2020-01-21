@@ -109,6 +109,11 @@ svelte-virtual-list-viewport {
 
     background:rgba(255,255,255,0.15);
   }
+  &:hover {
+
+    transition:all 200ms;
+    background:rgba(255,255,255,0.05);
+  }
 }
 
 #hovering-fab {

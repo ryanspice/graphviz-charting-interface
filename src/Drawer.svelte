@@ -82,6 +82,7 @@
     if (!DragResize){
         DragResize = true;
         requestAnimationFrame(()=>{handleDragResize(DragMouse)});
+      document.querySelector('body > section > div > aside').style.pointerEvents = "none"
     }
 
   };
@@ -94,6 +95,7 @@
 
 	requestAnimationFrame(()=>{
 	  DragResize = false;
+      document.querySelector('body > section > div > aside').style.pointerEvents = ""
 	});
   };
 
