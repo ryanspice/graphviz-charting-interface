@@ -24,6 +24,7 @@
   import IconButton from '@smui/icon-button';
 
   import Drawer, {DrawerToggle} from './Drawer.svelte';
+  import Graph from './Graph.svelte';
   import CodeView from './CodeView';
   import ColourPicker from "./ColourPicker.svelte";
 
@@ -51,7 +52,8 @@
   ];
 
   const components = {
-    drawer: new Drawer({target: document.body})
+    drawer: new Drawer({target: document.body}),
+    graph: new Graph({target: document.body})
   };
 
   const getItemStyle = offset => "top:"+offset+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
@@ -84,6 +86,7 @@
   document.onfullscreenchange = function () {
     applicationFullscreen = !applicationFullscreen;
   };
+
   afterUpdate(function(){
 
     store.subscribe(async () => {
@@ -266,4 +269,10 @@
 
   {/if}
 
+
+
 {/if}
+
+<Graph channel={"home"} calculate={()=>{
+  console.log('calculate')
+  }} />

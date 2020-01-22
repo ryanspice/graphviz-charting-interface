@@ -208,10 +208,6 @@
 
     </Drawer>
 
-    <Graph channel={"home"} calculate={()=>{
-      console.log('calculate')
-    }} />
-
     <Scrim />
 
     <AppContent class="app-content">

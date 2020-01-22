@@ -67,7 +67,7 @@ digraph reactiveChartInterface {
             shape = "record"
     ]
     drawerItem [
-            label = "{Item|title : String\|nodes : Array\|+ modify() : Promise\}"
+            label = "{Item|title : String\|nodes : Array\}"
             shape = "record"
     ]
     drawerHoverFab [
@@ -85,11 +85,12 @@ scss->index;
 colors, mixins, material -> scss;
 
 drawerItem -> drawerHoverFab[style=dotted, label="modify"];
-drawerHoverFab -> drawer[style=dotted];
+drawerHoverFab -> redux[label="dispatch",style=dotted];
+drawerHoverFab -> app;
 
 drawer -> drawerItem[label="" dir="both"];
 
-drawer -> redux[label="subscribe + dispatch" dir="both"];
+drawer -> redux[label="subscribe" dir="both"];
 drawer->app;
 
 content -> redux[label="subscribe" dir="both"];

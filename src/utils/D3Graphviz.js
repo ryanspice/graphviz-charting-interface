@@ -20,7 +20,7 @@ const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-contai
   console.log(D3Graph)
   D3Graph.renderDot(GraphStore.data).on("end", function() {
 
-    const svg = document.querySelector('body > section > div > section > svg');
+    const svg = document.querySelector(target + ' > svg');
     //const scale = 0.5;
     const scale = 1;
     const dimensions = {
@@ -56,6 +56,7 @@ const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-contai
       ]);
 
       //window.store = GraphStore;
+
       const svg = document.querySelector('svg');
       svg.setAttribute("width","100%");
       svg.setAttribute("height","100%");

@@ -43,6 +43,7 @@ section {
   .drawer-container {
     height:100%;
     display:block;
+    margin-top: 96px;
   }
   height:100%;
   display:block;
@@ -55,6 +56,12 @@ section {
   //margin-top: 68px;
   //margin-top: 112px;
   margin-top: 96px;
+
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+
   svg {
 
     width: 100%;
