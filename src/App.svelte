@@ -9,6 +9,8 @@
 
   import 'redux';
   import {store} from "./index";
+  import {APPLICATION_TOGGLE_MENU} from "./store/actions/application";
+
   import { afterUpdate } from 'svelte';
 
   import TopAppBar, {
@@ -46,6 +48,8 @@
   let applicationTheme = {
     primary:""
   };
+
+  let applicationNavigationMenuState = true;
 
   let applicationDrawerData = [
     {name: '', number: ''}
@@ -95,18 +99,31 @@
         action,
         theme,
         data,
-        nodes
+        nodes,
+        navigation
       } = await store.getState();
 
       applicationSourceCode = data;
       applicationTheme = theme;
       applicationReady = true;
+      applicationNavigationMenuState = navigation;
 
     });
 
   });
   const toggleCodeView = ()=>{applicationCodeView=!applicationCodeView};
 
+  const toggleMenu = () => {
+
+    store.dispatch({
+      type:APPLICATION_TOGGLE_MENU,
+      navigation:applicationNavigationMenuState
+    });
+
+    // not sure a better way to do this
+    window.temp.$$.ctx[2]();
+
+  };
 </script>
 
 {#if applicationReady}
@@ -117,12 +134,7 @@
 
       <Section>
 
-        <IconButton class="material-icons" on:click={()=>{
-
-          // not sure a better way to do this
-          window.temp.$$.ctx[2]();
-
-        }}>menu</IconButton>
+        <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
 
         <Title>{title}</Title>
 

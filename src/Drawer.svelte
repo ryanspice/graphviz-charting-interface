@@ -132,13 +132,13 @@
 
   document.addEventListener('mousemove', handleMouseMove);
   document.addEventListener('mouseup', handleDragStop);
-  document.addEventListener('dblclick', handleDoubleClick);
+  //document.addEventListener('dblclick', handleDoubleClick);
 
 </script>
 
 <section>
 
-  <div class="drawer-container">
+  <div class="drawer-container" on:dblclick = {handleDoubleClick}>
 
     <Drawer variant="modal" bind:this={myDrawer2} bind:open={open}>
 
@@ -208,7 +208,7 @@
 
     </Drawer>
 
-    <Scrim />
+    <Scrim style="display: none"/>
 
     <AppContent class="app-content">
 

@@ -18,6 +18,7 @@ export const RETRIEVE_ = 'RETRIEVE_';
 export const APPLICATION_TOGGLE_FULLSCREEN = `APPLICATION_TOGGLE_FULLSCREEN`;
 export const APPLICATION_TOGGLE_DIALOGUE = `APPLICATION_TOGGLE_DIALOGUE`;
 export const APPLICATION_TOGGLE_CODE = `APPLICATION_TOGGLE_CODE`;
+export const APPLICATION_TOGGLE_MENU = `APPLICATION_TOGGLE_MENU`;
 export const APPLICATION_SAVE = `APPLICATION_SAVE`;
 export const APPLICATION_LOAD = `APPLICATION_LOAD`;
 export const APPLICATION_LOAD_PREVIOUS = `APPLICATION_LOAD_PREVIOUS`;
@@ -64,6 +65,9 @@ export function applicationToggleDialogue(...args){
 }
 export function applicationToggleCode(...args){
   return { type: APPLICATION_TOGGLE_CODE, ...args }
+}
+export function applicationToggleMenu(...args){
+  return { type: APPLICATION_TOGGLE_MENU, ...args }
 }
 export function applicationSave(...args){
   return { type: APPLICATION_SAVE, ...args }
