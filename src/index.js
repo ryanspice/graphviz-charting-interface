@@ -21,7 +21,7 @@ if (!window.overrun){
 	props: {}
   });
 
-  window.overrun = app;
+  window.overrun = true;
   window.app = app;
   window.store = store;
 

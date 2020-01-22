@@ -17,7 +17,10 @@ const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-contai
     fit:true
   })
 
-  console.log(D3Graph)
+  //console.log(D3Graph)
+  window.D3Graph = D3Graph;
+  window.GraphStore = GraphStore;
+
   D3Graph.renderDot(GraphStore.data).on("end", function() {
 
     const svg = document.querySelector(target + ' > svg');

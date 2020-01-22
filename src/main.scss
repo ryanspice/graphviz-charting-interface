@@ -14,6 +14,11 @@
 ::-webkit-scrollbar-thumb{background:slategray;}
 ::-webkit-scrollbar-track{background:#b8c0c8;}
 
+:root {
+  --theme-color: white;
+  --theme-background: black;
+}
+
 
 html, body {
   height:100%;
@@ -22,7 +27,8 @@ html, body {
   margin: 0px;
 
   overflow-y:hidden;
-  color:white;
+  color: var(--theme-color);
+  background: var(--theme-background);
   font-family: Niramit;
 }
 /*

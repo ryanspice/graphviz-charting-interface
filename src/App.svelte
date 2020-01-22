@@ -46,6 +46,7 @@
   let applicationDigraphSource = false;
 
   let applicationFullscreen = false;
+  let applicationDayOrNight = false;
   let applicationCodeView = false;
 
   let applicationReady = false;
@@ -107,6 +108,26 @@
 
   };
 
+  let a = '';
+  let b = '';
+  const handleDayOrNight = async () => {
+	applicationDayOrNight=!applicationDayOrNight;
+
+	a = !applicationDayOrNight?'#000000':'#ffffff';
+	b = !applicationDayOrNight?'#ffffff':'#000000';
+
+	await document.documentElement.style.setProperty('--theme-background', a);
+	await document.documentElement.style.setProperty('--theme-color', b);
+
+	applicationSourceCode.data = await (await applicationSourceCode.data).replace(a,b);
+
+
+	document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`,b));
+	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`,b));
+	//await D3Graph.renderDot(await applicationSourceCode.data)
+
+  }
+
   afterUpdate(function () {
 
 	store.subscribe(async () => {
@@ -119,12 +140,12 @@
 		navigation,
 		title
 	  } = await store.getState();
-
 	  applicationSourceCode = data;
 	  applicationTheme = theme;
 	  applicationReady = true;
 	  applicationNavigationMenuState = navigation;
 	  applicationTitle = title;
+	  //applicationDayOrNight = false;
 
 	});
 
@@ -148,10 +169,11 @@
 
       <Section align="end" toolbar>
 
+		<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
+
         <ColourPicker></ColourPicker>
 
         <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
-
       </Section>
 
     </Row>

@@ -49,6 +49,7 @@ async function application(state = [], action) {
 	case APPLICATION_LOAD_PREVIOUS:
 	  return {...state, action};
 	case APPLICATION_LOAD_EXAMPLE:
+
 	  return {...state, action};
 
 	  // TODO :: move to another reducer
