@@ -34,9 +34,8 @@
     open = !open;
   }
   const a = (t) => {
-    //console.log(t);
-    open = !open; };
-
+    open = !open;
+  };
 
   let DragMouse = [0,0];
   let DragBounds = [48,1248];
@@ -44,6 +43,7 @@
   let DragX = 0;
 
   let DrawerAside;
+
   /**
    * return {X,Y} of mouse based on MouseEvent
    * @param event

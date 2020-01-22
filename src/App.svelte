@@ -9,18 +9,21 @@
 
   import 'redux';
   import {store} from "./index";
-  import {APPLICATION_TOGGLE_MENU} from "./store/actions/application";
+  import {
+	RETRIEVE_ITEM,
+    APPLICATION_TOGGLE_MENU
+  } from "./store/actions/application";
 
-  import { afterUpdate } from 'svelte';
+  import {afterUpdate} from 'svelte';
 
   import TopAppBar, {
-    Row,
-    Section,
-    Title,
-    FixedAdjust,
-    DenseFixedAdjust,
-    ProminentFixedAdjust,
-    ShortFixedAdjust
+	Row,
+	Section,
+	Title,
+	FixedAdjust,
+	DenseFixedAdjust,
+	ProminentFixedAdjust,
+	ShortFixedAdjust
   } from '@smui/top-app-bar';
   import VirtualList from '@sveltejs/svelte-virtual-list';
   import IconButton from '@smui/icon-button';
@@ -37,6 +40,7 @@
 
   import downloadSvg from './utils/downloadSvg';
   import downloadSource from './utils/downloadSource';
+  import HoverFab from "./HoverFab.svelte";
 
   let applicationSourceCode = ``;
   let applicationDigraphSource = false;
@@ -46,21 +50,21 @@
 
   let applicationReady = false;
   let applicationTheme = {
-    primary:""
+	primary: ""
   };
 
   let applicationNavigationMenuState = true;
 
   let applicationDrawerData = [
-    {name: '', number: ''}
+	{name: '', number: ''}
   ];
 
   const components = {
-    drawer: new Drawer({target: document.body}),
-    graph: new Graph({target: document.body})
+	drawer: new Drawer({target: document.body}),
+	graph: new Graph({target: document.body})
   };
 
-  const getItemStyle = offset => "top:"+offset+"px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
+  const getItemStyle = offset => "top:" + offset + "px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
 
   let hoverFab;
   let hovering = false;
@@ -77,7 +81,7 @@
   window.temp = components.drawer;
 
   window.updateList = function (incoming) {
-    applicationDrawerData = incoming;
+	applicationDrawerData = incoming;
   };
 
   /*
@@ -87,40 +91,42 @@
  */
 
   document.onfullscreenchange = function () {
-    applicationFullscreen = !applicationFullscreen;
+	applicationFullscreen = !applicationFullscreen;
   };
 
-  const toggleCodeView = ()=>{applicationCodeView=!applicationCodeView};
+  const toggleCodeView = () => {
+	applicationCodeView = !applicationCodeView
+  };
 
   const toggleMenu = () => {
 
-    store.dispatch({
-      type:APPLICATION_TOGGLE_MENU,
-      navigation:applicationNavigationMenuState
-    });
+	store.dispatch({
+	  type: APPLICATION_TOGGLE_MENU,
+	  navigation: applicationNavigationMenuState
+	});
 
   };
 
-  afterUpdate(function(){
+  afterUpdate(function () {
 
-    store.subscribe(async () => {
+	store.subscribe(async () => {
 
-      const {
-        action,
-        theme,
-        data,
-        nodes,
-        navigation,
-        title
-      } = await store.getState();
+	  const {
+		action,
+		theme,
+		data,
+		nodes,
+		navigation,
+		title
+	  } = await store.getState();
 
-      applicationSourceCode = data;
-      applicationTheme = theme;
-      applicationReady = true;
-      applicationNavigationMenuState = navigation;
-      applicationTitle = title;
+	  applicationSourceCode = data;
+	  applicationTheme = theme;
+	  applicationReady = true;
+	  applicationNavigationMenuState = navigation;
+	  applicationTitle = title;
 
-    });
+	});
 
   });
 
@@ -205,6 +211,8 @@
   -->
 
   <!-- material "fab" moves to position of list item to show details -->
+  <HoverFab></HoverFab>
+  <!--
 
   <Item id="hovering-fab" bind:this={hoverFab} style="" href="javascript:void(0)"  on:mouseout={()=>{
     hovering = false;
@@ -219,6 +227,7 @@
     <Text></Text>
 
   </Item>
+   -->
 
   <!-- working project node list -->
 
@@ -228,31 +237,15 @@
       on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
       on:mouseover={(evt)=>{
 
-        hovering = item.name;
-
         let offset;
         let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop
 
-        setTimeout(()=>{
-
-
-          if (hovering===false){
-
-            hoverFab.$$.ctx[23].style = getItemStyle("-200");
-            return;
-          }
-
-          if (hoverFab.$$.ctx[23].style !== getItemStyle(91+evt.target.offsetTop-scrollTop))
-            hoverFab.$$.ctx[23].style = getItemStyle(91+evt.target.offsetTop-scrollTop);
-
-          if (hoverFab.$$.ctx[11].children[1].innerText!==item.name){
-            hoverFab.$$.ctx[11].children[1].innerText = item.name;
-            hoverFab.$$.ctx[11].children[0].style.pointerEvents = "auto";
-            hoverFab.$$.ctx[11].children[1].style.pointerEvents = "none";
-            hoverFab.$$.ctx[11].style.pointerEvents = "auto";
-          }
-
-        },0)
+        store.dispatch({
+          type: RETRIEVE_ITEM,
+          item: item,
+          //itemPosition: {x:0, y:getItemStyle(91+evt.target.offsetTop-scrollTop)}
+          itemPosition: {x:0, y:(91+evt.target.offsetTop-scrollTop)}
+        });
 
       }}
       on:mouseout={()=>{
@@ -282,7 +275,5 @@
     <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationSourceCode}></CodeView>
 
   {/if}
-
-
 
 {/if}

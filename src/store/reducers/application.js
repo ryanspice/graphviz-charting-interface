@@ -7,7 +7,9 @@ import {
   APPLICATION_TOGGLE_CODE,
   APPLICATION_TOGGLE_DIALOGUE,
   APPLICATION_TOGGLE_FULLSCREEN,
-  APPLICATION_ASSIGN_THEME
+  APPLICATION_ASSIGN_THEME,
+
+  RETRIEVE_ITEM
 } from '../actions/application'
 
 async function application(state = [], action) {
@@ -30,7 +32,8 @@ async function application(state = [], action) {
 		sidebar:{
 		  width:58
 		},
-		title:title
+		title:title,
+		itemPosition:{x:0,y:0}
 	  };
 	case APPLICATION_TOGGLE_MENU:
 	  localStorage.setObject('navigation', !action.navigation);
@@ -47,6 +50,11 @@ async function application(state = [], action) {
 	  return {...state, action};
 	case APPLICATION_LOAD_EXAMPLE:
 	  return {...state, action};
+
+	  // TODO :: move to another reducer
+	case RETRIEVE_ITEM:
+	  return {...state, action, item:action.item, itemPosition:action.itemPosition};
+
 	case APPLICATION_ASSIGN_THEME:
 	  if (action.data){
 		  localStorage.setObject('theme', action.data);

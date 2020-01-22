@@ -13,6 +13,7 @@ export const RETRIEVE_DIGRAPH = 'RETRIEVE_DIGRAPH';
 export const RETRIEVE_SUBGRAPH = 'RETRIEVE_SUBGRAPH';
 export const RETRIEVE_STYLE = 'RETRIEVE_STYLE';
 export const RETRIEVE_CONNECTION = 'RETRIEVE_CONNECTION';
+export const RETRIEVE_ITEM = 'RETRIEVE_ITEM';
 export const RETRIEVE_ = 'RETRIEVE_';
 
 export const APPLICATION_TOGGLE_FULLSCREEN = `APPLICATION_TOGGLE_FULLSCREEN`;
@@ -25,7 +26,6 @@ export const APPLICATION_LOAD_PREVIOUS = `APPLICATION_LOAD_PREVIOUS`;
 export const APPLICATION_LOAD_EXAMPLE = `APPLICATION_LOAD_EXAMPLE`;
 
 export const APPLICATION_ASSIGN_THEME = `APPLICATION_ASSIGN_THEME`;
-
 
 /*
  * action creators
@@ -55,6 +55,9 @@ export function retrieveSubgraph(...args) {
 }
 export function retrieveStyle(...args) {
   return { type: RETRIEVE_CONNECTION, ...args }
+}
+export function retrieveItem(...args) {
+  return { type: RETRIEVE_ITEM, ...args }
 }
 //
 export function applicationToggleFullscreen(...args){

@@ -25,7 +25,7 @@ html, body {
   color:white;
   font-family: Niramit;
 }
-
+/*
 html:not([data-scroll='0']) {
   body {
     padding-top: 3em;
@@ -38,6 +38,8 @@ html:not([data-scroll='0']) {
     margin-top: 0px;
   }
 }
+
+*/
 
 section {
   .drawer-container {
@@ -123,8 +125,12 @@ svelte-virtual-list-viewport {
 
 #hovering-fab {
   min-width:254px;
+  //max-width:100%;
+  //width:100%;
   z-index:232;
   position:fixed;
+  left:0px;
+  pointer-events:auto ;  border-radius: 4px; background:#892787;
 }
 
 #code-view {
