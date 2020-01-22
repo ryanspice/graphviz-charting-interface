@@ -1,16 +1,21 @@
 <script>
+
+  import 'redux';
+  import {store} from "./index";
+  import { afterUpdate } from 'svelte';
+
+  import Graph from './Graph.svelte';
+
   import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import IconButton from '@smui/icon-button';
   import H6 from '@smui/common/H6.svelte';
 
-  import Graph from './Graph.svelte';
-
   let myDrawer2;
 
 
-  let open = true;
+  let open = false;
   function calculate(){
   //console.log('eh')
   }
@@ -116,7 +121,6 @@
 
 	requestAnimationFrame(()=>{
 
-
 	  if (x<92)
         DrawerAside.style.width = `${window.innerWidth/2}px`;
 	  else
@@ -134,6 +138,20 @@
   document.addEventListener('mouseup', handleDragStop);
   //document.addEventListener('dblclick', handleDoubleClick);
 
+  afterUpdate(()=>{
+
+    store.subscribe(async () => {
+
+      const {
+        navigation
+      } = await store.getState();
+
+      open = navigation;
+
+    })
+
+  })
+
 </script>
 
 <section>
@@ -144,7 +162,6 @@
 
       <div id="drawer-resize-control"
            on:mousedown = {handleDragStart}
-           on: = {handleDragStart}
       ></div>
 
        <Header style="color:white;" >
@@ -208,9 +225,13 @@
 
     </Drawer>
 
+    <!-- TODO :: REMOVE? -->
+
     <Scrim style="display: none"/>
 
-    <AppContent class="app-content">
+    <!-- TODO :: REMOVE? -->
+
+    <AppContent class="app-content" style="display: none">
 
         <main class="main-content" hidden>
 

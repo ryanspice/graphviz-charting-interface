@@ -19,14 +19,20 @@ async function application(state = [], action) {
 	  const swatches = (await import("../../theme/colors.js")).default;
 	  const theme = localStorage.getObject('theme') || swatches[3];
 	  const data = localStorage.getObject('data') || action.data;
+	  const navigation = localStorage.getObject('navigation');
 	  return {
 		...state,
 		theme,
 		action,
 		data,
-		navigation:true
+		navigation:navigation,
+		sidebar:{
+		  width:58
+		},
+		title:'Example.graphviz'
 	  };
 	case APPLICATION_TOGGLE_MENU:
+	  localStorage.setObject('navigation', !action.navigation);
 	  return {...state, navigation:!action.navigation};
 	case APPLICATION_TOGGLE_FULLSCREEN:
 	  return {...state, action};

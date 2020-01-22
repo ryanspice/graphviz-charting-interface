@@ -1,7 +1,7 @@
 
 <svelte:head>
 
-  <title>{title}</title>
+  <title>{applicationTitle}</title>
 
 </svelte:head>
 
@@ -69,10 +69,9 @@
   let prominent = false;
   let variant = 'short';
   let collapsed = false;
-  let title = '';
+  let applicationTitle;
   let Adjust = FixedAdjust;
 
-  title = 'Example.graphviz';
   Adjust = ShortFixedAdjust;
 
   window.temp = components.drawer;
@@ -91,26 +90,6 @@
     applicationFullscreen = !applicationFullscreen;
   };
 
-  afterUpdate(function(){
-
-    store.subscribe(async () => {
-
-      const {
-        action,
-        theme,
-        data,
-        nodes,
-        navigation
-      } = await store.getState();
-
-      applicationSourceCode = data;
-      applicationTheme = theme;
-      applicationReady = true;
-      applicationNavigationMenuState = navigation;
-
-    });
-
-  });
   const toggleCodeView = ()=>{applicationCodeView=!applicationCodeView};
 
   const toggleMenu = () => {
@@ -120,10 +99,31 @@
       navigation:applicationNavigationMenuState
     });
 
-    // not sure a better way to do this
-    window.temp.$$.ctx[2]();
-
   };
+
+  afterUpdate(function(){
+
+    store.subscribe(async () => {
+
+      const {
+        action,
+        theme,
+        data,
+        nodes,
+        navigation,
+        title
+      } = await store.getState();
+
+      applicationSourceCode = data;
+      applicationTheme = theme;
+      applicationReady = true;
+      applicationNavigationMenuState = navigation;
+      applicationTitle = title;
+
+    });
+
+  });
+
 </script>
 
 {#if applicationReady}
@@ -136,7 +136,7 @@
 
         <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
 
-        <Title>{title}</Title>
+        <Title>{applicationTitle}</Title>
 
       </Section>
 
