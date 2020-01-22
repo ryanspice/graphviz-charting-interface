@@ -108,13 +108,12 @@
 
   };
 
-  let a = '';
-  let b = '';
   const handleDayOrNight = async () => {
+
 	applicationDayOrNight=!applicationDayOrNight;
 
-	a = !applicationDayOrNight?'#000000':'#ffffff';
-	b = !applicationDayOrNight?'#ffffff':'#000000';
+	const a = !applicationDayOrNight?'#000000':'#ffffff';
+	const b = !applicationDayOrNight?'#ffffff':'#000000';
 
 	await document.documentElement.style.setProperty('--theme-background', a);
 	await document.documentElement.style.setProperty('--theme-color', b);
@@ -124,8 +123,6 @@
 
 	document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`,b));
 	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`,b));
-	//await D3Graph.renderDot(await applicationSourceCode.data)
-
   }
 
   afterUpdate(function () {

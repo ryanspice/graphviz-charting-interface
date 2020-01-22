@@ -12,13 +12,14 @@
   let hidden = true;
   let y = -200;
   let data = {
-    title:``
+    name:``
   };
 
 
   function handleMouseOut() {
 
 	hidden = true;
+	y = -200;
 
   }
   function handleMouseIn() {
@@ -35,7 +36,9 @@
       hidden = false;
       y = itemPosition.y;
 
-      data = item;
+      if (item)
+        data = item;
+
     })
   });
 
