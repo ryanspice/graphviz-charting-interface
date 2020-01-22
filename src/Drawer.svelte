@@ -4,8 +4,6 @@
   import {store} from "./index";
   import { afterUpdate } from 'svelte';
 
-  import Graph from './Graph.svelte';
-
   import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';

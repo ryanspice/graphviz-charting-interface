@@ -183,15 +183,11 @@
 }} alt="print">insert_chart</IconButton>
         {/if}
 
-
-
-
         <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
         const html = d3.select("#graph0").html();
         const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
         win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;
 }} alt="print">print</IconButton>
-
 
         <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
         const svg = document.querySelector("svg");
@@ -203,6 +199,10 @@
     </Row>
 
   </TopAppBar>
+
+  <!--
+  should probably redo this to use the store so its not doing what we all know we shouldnt
+  -->
 
   <!-- material "fab" moves to position of list item to show details -->
 
@@ -262,12 +262,14 @@
       }}
     >
 
+      <!-- thats narsty -->
+
       <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
 
-          {#if hovering==item.name}
-          {:else}
-            <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
-          {/if}
+        {#if hovering==item.name}
+        {:else}
+          <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
+        {/if}
 
       <Text>{item.name}</Text>
 
@@ -284,7 +286,3 @@
 
 
 {/if}
-
-<Graph channel={"home"} calculate={()=>{
-  console.log('calculate')
-  }} />

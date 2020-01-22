@@ -20,6 +20,7 @@ async function application(state = [], action) {
 	  const theme = localStorage.getObject('theme') || swatches[3];
 	  const data = localStorage.getObject('data') || action.data;
 	  const navigation = localStorage.getObject('navigation');
+	  const title = localStorage.getObject('title') || 'Example.graphviz';
 	  return {
 		...state,
 		theme,
@@ -29,7 +30,7 @@ async function application(state = [], action) {
 		sidebar:{
 		  width:58
 		},
-		title:'Example.graphviz'
+		title:title
 	  };
 	case APPLICATION_TOGGLE_MENU:
 	  localStorage.setObject('navigation', !action.navigation);
