@@ -100,6 +100,10 @@ body > header:nth-child(5) > div:nth-child(2) {
   cursor:'ew-resize';
 }
 
+.hidden {
+  display:none;
+}
+
 
 svelte-virtual-list-viewport {
   position:absolute !important;
@@ -153,6 +157,8 @@ svelte-virtual-list-viewport {
   //background:$mdc-theme-secondary;
 }
 
-.hidden {
-  display:none;
+@import "@material/linear-progress/mixins";
+.my-colored-bar {
+  @include mdc-linear-progress-bar-color($material-color-green-500);
+  @include mdc-linear-progress-buffer-color($material-color-green-100);
 }

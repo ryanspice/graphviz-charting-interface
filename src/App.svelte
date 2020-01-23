@@ -11,7 +11,7 @@
   import {store} from "./index";
   import {
 	RETRIEVE_ITEM,
-    APPLICATION_TOGGLE_MENU
+	APPLICATION_TOGGLE_MENU
   } from "./store/actions/application";
 
   import {afterUpdate} from 'svelte';
@@ -41,6 +41,9 @@
   import downloadSvg from './utils/downloadSvg';
   import downloadSource from './utils/downloadSource';
   import HoverFab from "./HoverFab.svelte";
+
+  //export let store;
+  export let loading;
 
   let applicationSourceCode = ``;
   let applicationDigraphSource = false;
@@ -110,24 +113,28 @@
 
   const handleDayOrNight = async () => {
 
-	applicationDayOrNight=!applicationDayOrNight;
+	applicationDayOrNight = !applicationDayOrNight;
 
-	const a = !applicationDayOrNight?'#000000':'#ffffff';
-	const b = !applicationDayOrNight?'#ffffff':'#000000';
+	const a = !applicationDayOrNight ? '#000000' : '#ffffff';
+	const b = !applicationDayOrNight ? '#ffffff' : '#000000';
 
 	await document.documentElement.style.setProperty('--theme-background', a);
 	await document.documentElement.style.setProperty('--theme-color', b);
 
-	applicationSourceCode.data = await (await applicationSourceCode.data).replace(a,b);
+	applicationSourceCode.data = await (await applicationSourceCode.data).replace(a, b);
 
 
-	document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`,b));
-	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`,b));
+	document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`, b));
+	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`, b));
   }
 
   afterUpdate(function () {
 
 	store.subscribe(async () => {
+
+	  //app.$$.ctx[app.$$.props.loading].reset(0);
+
+	  //app.$$.ctx[app.$$.props.loading].set(0.3);
 
 	  const {
 		action,
@@ -137,12 +144,23 @@
 		navigation,
 		title
 	  } = await store.getState();
+
+	  //app.$$.ctx[app.$$.props.loading].set(0.6);
+
 	  applicationSourceCode = data;
 	  applicationTheme = theme;
 	  applicationReady = true;
 	  applicationNavigationMenuState = navigation;
 	  applicationTitle = title;
 	  //applicationDayOrNight = false;
+
+	  //app.$$.ctx[app.$$.props.loading].set(0.9);
+
+	  requestAnimationFrame(function(){
+
+		app.$$.ctx[app.$$.props.loading].set(1);
+
+	  });
 
 	});
 
@@ -231,22 +249,6 @@
 
   <!-- material "fab" moves to position of list item to show details -->
   <HoverFab></HoverFab>
-  <!--
-
-  <Item id="hovering-fab" bind:this={hoverFab} style="" href="javascript:void(0)"  on:mouseout={()=>{
-    hovering = false;
-    if (hovering==false){
-      hoverFab.$$.ctx[23].style = getItemStyle("-200") + "display:none;";
-      return;
-    }
-  }}>
-
-    <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>close</Graphic>
-
-    <Text></Text>
-
-  </Item>
-   -->
 
   <!-- working project node list -->
 
@@ -262,7 +264,6 @@
         store.dispatch({
           type: RETRIEVE_ITEM,
           item: item,
-          //itemPosition: {x:0, y:getItemStyle(91+evt.target.offsetTop-scrollTop)}
           itemPosition: {x:0, y:(91+evt.target.offsetTop-scrollTop)}
         });
 
@@ -271,8 +272,7 @@
 
         hovering = false;
 
-      }}
-    >
+      }}>
 
       <!-- thats narsty -->
 

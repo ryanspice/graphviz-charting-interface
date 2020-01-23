@@ -1,5 +1,6 @@
 
 import App from './App.svelte';
+import LoadingBar, {reset} from "./LoadingBar.svelte";
 
 import {
   application
@@ -13,17 +14,42 @@ const store = Redux.createStore(application
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 let app:App;
+let loading:LoadingBar;
+let props = {};
 
-if (!window.overrun){
+if (!window.overrun){  // TODO :: fix app runs twice for some reason, webpack issue?
 
-  app = new App({
-	target: document.body,
-	props: {}
-  });
+  (async function application(){
 
-  window.overrun = true;
-  window.app = app;
-  window.store = store;
+	loading = await new LoadingBar({
+	  target: document.body
+	});
+
+	await loading.increment(.5);
+
+	app = await new App({
+	  target: document.body,
+	  props: {
+	    loading,
+		store
+	  }
+	});
+
+	await loading.increment(.1);
+
+	//TODO :: remove
+	window.overrun = true; // TODO :: fix app runs twice for some reason, webpack issue?
+	window.app = app;
+	window.store = store;
+
+	requestAnimationFrame(function(){
+	  //loading.set(1);
+	});
+
+	return app;
+  }(
+    props
+  ));
 
 }
 
