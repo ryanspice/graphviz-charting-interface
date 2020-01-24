@@ -128,6 +128,31 @@
 	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`, b));
   }
 
+  // TODO :: REMOVE
+
+  window.code = '';
+  function getCode(source){
+
+    let code = source || applicationSourceCode.data;
+
+    localStorage.setObject('code', code);
+
+	const newCode = code.split("\n");
+
+	code = newCode.map((item, index)=>{
+	  return `${index}. ${item}`;
+    });
+	code.shift();
+
+	return code.join("\n");
+  }
+
+  const getDigraphSource = () => {
+	//localStorage.setObject('code', getCode(applicationDigraphSource));
+
+	return getCode(applicationDigraphSource);
+  }
+
   afterUpdate(function () {
 
 	store.subscribe(async () => {
@@ -291,7 +316,7 @@
 
   {#if (applicationCodeView||applicationDigraphSource)}
 
-    <CodeView code={applicationDigraphSource?applicationDigraphSource:applicationSourceCode}></CodeView>
+    <CodeView code={(applicationDigraphSource?getDigraphSource():getCode())}></CodeView>
 
   {/if}
 

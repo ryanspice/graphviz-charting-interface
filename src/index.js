@@ -17,7 +17,7 @@ let app:App;
 let loading:LoadingBar;
 let props = {};
 
-if (!window.overrun){  // TODO :: fix app runs twice for some reason, webpack issue?
+if (!window.app){  // TODO :: fix app runs twice for some reason, webpack issue?
 
   (async function application(){
 
@@ -38,7 +38,6 @@ if (!window.overrun){  // TODO :: fix app runs twice for some reason, webpack is
 	await loading.increment(.1);
 
 	//TODO :: remove
-	window.overrun = true; // TODO :: fix app runs twice for some reason, webpack issue?
 	window.app = app;
 	window.store = store;
 

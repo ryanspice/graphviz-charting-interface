@@ -8,7 +8,7 @@
 
   import colors from './theme/colors';
 
-
+  import 'ColourPicker.svelte.scss';
   let select;
 
   const selectFocus = function(){
@@ -30,22 +30,22 @@
 
 </script>
 
-    <IconButton class="material-icons" on:click={selectFocus}>color_lens</IconButton>
+<IconButton class="material-icons" on:click={selectFocus}>color_lens</IconButton>
 
-    <Select bind:this={select} enhanced>
+<Select bind:this={select} id="colour-picker" enhanced>
 
-        {#each colors as color}
+    {#each colors as color}
 
-            <Option value={color.name} on:click={()=>{selectChoice(color)}}>
+        <Option value={color.name} on:click={()=>{selectChoice(color)}}>
 
-                <div class={"swatch-color " + color.primary}></div>
+            <div class={"swatch-color " + color.primary}></div>
 
-                <div class={"swatch-color " + color.primary+"-accent"}></div>
+            <div class={"swatch-color " + color.primary+"-accent"}></div>
 
-            </Option>
+        </Option>
 
-        {/each}
+    {/each}
 
-    </Select>
+</Select>
 
-    <!-- <pre class="status">Selected: {colorsPreloaded}</pre> -->
+<!-- <pre class="status">Selected: {colorsPreloaded}</pre> -->

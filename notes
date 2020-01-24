@@ -2,18 +2,18 @@
 now:
 
     global loading bar based off material ✔
-    make the loading bar reflect loading at the start of the application???
-
-
+    make the loading bar reflect loading at the start of the application ✔
+    fix code view ✔
+    color dropdown behind code view ✔
+    fix z-index to be reasonable ✔
+    line numbers ✔
+    copy to clipboard ✔
 
 next:
 
-    color dropdown behind codeview
     re-render properly
     fab + details
     + button
-    fix code view
+    smooth zooming
 
 
-
-GOOD NIGHT !

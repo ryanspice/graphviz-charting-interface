@@ -5,38 +5,42 @@
 
 <script>
 	import {onMount} from "svelte";
+	import Highlight from 'svelte-highlight';
+	import { javascript } from 'svelte-highlight/languages';
+	import { github } from 'svelte-highlight/styles';
 
-  import Highlight from 'svelte-highlight';
-  import { javascript } from 'svelte-highlight/languages';
-  import { github } from 'svelte-highlight/styles';
+	import Dialog, { Title, Content, Actions, InitialFocus} from '@smui/dialog';
+	import Button, {Label} from '@smui/button';
+	import List, {Item, Graphic, Text} from '@smui/list';
+	import Radio from '@smui/radio';
+	import Slider from '@smui/slider';
+	import FormField from '@smui/form-field';
 
-  import Dialog, { Title, Content, Actions, InitialFocus} from '@smui/dialog';
-  import Button, {Label} from '@smui/button';
-  import List, {Item, Graphic, Text} from '@smui/list';
-  import Radio from '@smui/radio';
-  import Slider from '@smui/slider';
-  import FormField from '@smui/form-field';
+	import {APPLICATION_ASSIGN_THEME} from "./store/actions/application";
+	import {store} from "./index";
 
-  import {APPLICATION_ASSIGN_THEME} from "./store/actions/application";
-  import {store} from "./index";
+	import 'CodeView.svelte.scss';
 
-  export let code;
+	import copyToClipboard from "./utils/copyToClipboard";
 
-  let simpleDialog;
-  let eventDialog;
-  let listDialog;
-  let listSelectionDialog;
-  let sliderDialog;
-  let clicked = 'Nothing yet.';
-  let response = 'Nothing yet.';
-  let clickedList = 'Nothing yet.';
-  let selection = 'Radishes';
-  let selected = 'Nothing yet.';
-  let volumeMedia = 100;
-  let volumeRingtone = 80;
-  let volumeAlarm = 80;
+	export let code;
+	let codeContent;
 
-  function closeHandler(e) {
+	let simpleDialog;
+	let eventDialog;
+	let listDialog;
+	let listSelectionDialog;
+	let sliderDialog;
+	let clicked = 'Nothing yet.';
+	let response = 'Nothing yet.';
+	let clickedList = 'Nothing yet.';
+	let selection = 'Radishes';
+	let selected = 'Nothing yet.';
+	let volumeMedia = 100;
+	let volumeRingtone = 80;
+	let volumeAlarm = 80;
+
+	function closeHandler(e) {
 	switch (e.detail.action) {
 	  case 'none':
 		response = 'Ok, well, you\'re wrong.';
@@ -48,36 +52,36 @@
 		response = 'It\'s a simple question. You should be able to answer it.';
 		break;
 	}
-  }
+	}
 
-  function selectionCloseHandler(e) {
+	function selectionCloseHandler(e) {
 	if (e.detail.action === 'accept') {
 	  selected = selection;
 	}
 	selection = 'Radishes';
-  }
+	}
 
 	let applicationTheme = '';
-  /*
-  store.dispatch({
+	/*
+	store.dispatch({
 	  type:APPLICATION_ASSIGN_THEME,
 	  data:''
-  })
+	})
 
-   */
-	(async()=>{
+	*/
+	onMount(async()=>{
 
 		const {theme} = await store.getState();
 		applicationTheme = theme.primary;
 
 		store.subscribe(async () => {
+
 			const {theme} = await store.getState();
 			applicationTheme = theme.primary;
-			//console.log(theme);
-			//console.log(store.getState());
+
 		});
 
-	})()
+	})
 
 
 </script>
@@ -86,15 +90,15 @@
 
     <div  id="third-bar" class={applicationTheme}>
 
-      <Dialog bind:this={sliderDialog} aria-labelledby="slider-title" aria-describedby="slider-content">
+		<Dialog bind:this={sliderDialog} aria-labelledby="slider-title" aria-describedby="slider-content">
 
-        <Title id="slider-title">Export Settings</Title>
+		<Title id="slider-title">Export Settings</Title>
 
-        <Content id="slider-content">
+		<Content id="slider-content">
 
 		  <div>
 			<Dialog bind:this={simpleDialog} aria-labelledby="simple-title" aria-describedby="simple-content">
-      <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+		<!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
 			  <Title id="simple-title">Dialog Title</Title>
 			  <Content id="simple-content">
 				Super awesome dialog body text?
@@ -110,6 +114,7 @@
 			</Dialog>
 
 			<Button on:click={() => simpleDialog.open()}><Label>Export</Label></Button>
+
 		  </div>
 
 		  <pre class="status">Clicked: {clicked}</pre>
@@ -143,11 +148,11 @@
 			<Dialog bind:this={listDialog} aria-labelledby="list-title" aria-describedby="list-content">
 			  <Title id="list-title">Dialog Title</Title>
 			  <Content component={List} id="list-content">
-                  {#each [...Array(100)].map((v, i) => i + 1) as item}
+				  {#each [...Array(100)].map((v, i) => i + 1) as item}
 					<Item on:click={() => {clickedList = item; listDialog.close()} }>
 					<Text>Item #{item}</Text>
 					</Item>
-                  {/each}
+				  {/each}
 			  </Content>
 			</Dialog>
 
@@ -232,20 +237,26 @@
 
 			<Button on:click={() => sliderDialog.open()}><Label>Open Dialog</Label></Button>
 		  </div>
-        </Content>
-        <Actions>
+		</Content>
+		<Actions>
 		  <Button action="cancel" style="float:left;">
 			<Label>Cancel</Label>
 		  </Button>
 		  <Button action="accept">
 			<Label>Export</Label>
 		  </Button>
-        </Actions>
-      </Dialog>
+		</Actions>
+		</Dialog>
 
-      <Button style="padding-left:1rem;padding-right:1rem;" on:click={() => sliderDialog.open()}><Label>Export</Label></Button>
+
+		<!-- add class -->
+		<Button style="padding-left:1rem;padding-right:1rem;float:right;" on:click={() => sliderDialog.open()}><Label>Export</Label></Button>
+
+		<!-- add class -->
+		<Button style="padding-left:1rem;padding-right:1rem;" on:click={copyToClipboard}><Label>Copy</Label></Button>
+
     </div>
 
-    <Highlight language={javascript} {code}/>
+    <Highlight this:bind={codeContent} language={javascript} {code}/>
 
 </section>
