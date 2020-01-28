@@ -15,5 +15,8 @@ export default [
   { name: "Amber", primary: 'swatch-color-amber', secondary: '' },
   { name: "Orange", primary: 'swatch-color-orange', secondary: '' },
   { name: "Deep Orange", primary: 'swatch-color-deep-orange', secondary: '' },
-  { name: "Brown", primary: 'swatch-color-brown', secondary: '' }
+  //{ name: "Brown", primary: 'swatch-color-brown', secondary: '' },
+  { name: "Light", primary: 'swatch-color-light', secondary: '' },
+  { name: "Dark", primary: 'swatch-color-dark', secondary: '' },
+  //{ name: "Black", primary: 'swatch-color-amoled', secondary: '' },
 ];
