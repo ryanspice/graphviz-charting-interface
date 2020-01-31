@@ -3,13 +3,11 @@ now:
 
   refactor / consolidate theme logic including SCSS structure and stuff
 
-
+  day and night mode on load
+      - events must trigger when graph is done loading to override colours
 
 
 next:
-
-    day and night mode on load
-        - events must trigger when graph is done loading to override colours
 
     multiple tabs / graphs
         - render multiple charts
@@ -24,32 +22,26 @@ next:
     + button
     smooth zooming
 
-
-    fab overtop
-
-
     fix highlights
-
-
-    look into native export functionality
-
-      const render = shell.exec(`dot -Tsvg -o ${svgFile} ${dotFile}`);
-      if (render.code !== 0) {
-        error('Render failed');
-        process.exit(1);
-      }
-
-      const svg = shell.cat(svgFile);
-      const svgDatauri = new DataURI();
-      svgDatauri.format('.svg', svg);
-      const htmlFile = path.join(outputDirectory, '/interactive.html');
-      ShellString(interactiveHtml(svgDatauri.content)).to(htmlFile);
-
-
 
 later:
 
   use stats graph to export current app
+
+  look into native export functionality
+
+    const render = shell.exec(`dot -Tsvg -o ${svgFile} ${dotFile}`);
+    if (render.code !== 0) {
+      error('Render failed');
+      process.exit(1);
+    }
+
+    const svg = shell.cat(svgFile);
+    const svgDatauri = new DataURI();
+    svgDatauri.format('.svg', svg);
+    const htmlFile = path.join(outputDirectory, '/interactive.html');
+    ShellString(interactiveHtml(svgDatauri.content)).to(htmlFile);
+
 
 
 

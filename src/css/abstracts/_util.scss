@@ -1,18 +1,35 @@
-
-.wrap-content{
+.wrap-content {
   white-space: normal !important;
 }
-.bold{
-  font-weight: bold;
-}
 
-
-//Dimensions
-.full-width { width: 100%; }
-.full-height { height: 100%; }
-
-//blur
 .blur {
   filter: blur(0.2rem);
   -ms-filter: blur(0.2rem);
 }
+
+.draggable {
+  cursor: 'ew-resize';
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+/** UNUSED **/
+/*
+html:not([data-scroll='0']) {
+  body {
+    padding-top: 3em;
+  }
+  header {
+    position: fixed;
+  }
+  //@include scrollbars(0.5em, $mdc-theme-primary);
+  .graph-container {
+    margin-top: 0px;
+  }
+}
+
+*/

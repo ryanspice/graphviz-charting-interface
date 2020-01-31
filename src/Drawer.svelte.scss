@@ -1,4 +1,12 @@
 
+section {
+  #drawer-container {
+    height: 100%;
+    display: block;
+    margin-top: 96px;
+  }
+}
+
 #drawer-container {
     position: relative;
     overflow: hidden;
@@ -31,6 +39,25 @@
 
     }
 
+}
+
+#drawer-resize-control {
+  user-select: none;
+  position: absolute;
+  right: 0;
+  width: 6px;
+  z-index: 4;
+  height: 100%;
+  cursor: w-resize;
+
+  &.__debug {
+    background: rgba(255,255,255,0.15);
+  }
+
+  &:hover {
+    transition: all 200ms;
+    background: rgba(255,255,255,0.05);
+  }
 }
 
 .drawer-extend-0 {

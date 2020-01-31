@@ -1,6 +1,22 @@
 
-a {
-  color:$link-color;
-}
 
 @include scrollbars(0.1em, $mdc-theme-primary);
+
+@include css-vars((
+  --theme-color: white,
+  --theme-background: black,
+  --theme-primary: #202020,
+  --theme-secondary: #191919,
+  --sidebar-offset: 57px,
+ ));
+
+
+ body,
+ html {
+   color: var(--theme-color);
+   background: var(--theme-background);
+ }
+
+ a {
+   color:$link-color;
+ }

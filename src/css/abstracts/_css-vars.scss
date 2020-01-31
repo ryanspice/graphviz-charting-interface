@@ -1,7 +1,9 @@
 //// VARIABLES ////
 
 // global map to be filled via variables
-$css-vars: ();
+$css-vars: (
+
+);
 
 // the variable may be set to "true" anywhere in the code,
 // so native CSS custom properties will be used instead of the Sass global map

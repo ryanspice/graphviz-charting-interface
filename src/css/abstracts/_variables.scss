@@ -1,3 +1,11 @@
 @import '_colours';
 
+:root {
+  --theme-color: white;
+  --theme-background: black;
+  --theme-primary: #202020;
+  --theme-secondary: #191919;
+  --sidebar-offset: 57px;
+  --theme-link-color: #FFFFFF;
+}
 $link-color: var(--theme-link-color);

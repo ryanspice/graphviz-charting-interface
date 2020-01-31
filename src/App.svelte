@@ -17,6 +17,8 @@
 
   import {onMount, afterUpdate} from 'svelte';
 
+  import "App.svelte.scss";
+
   import TopAppBar, {
 	Row,
 	Section,
@@ -202,7 +204,7 @@
 
 	  applicationSourceCode = data;
 	  applicationTheme = theme;
-    
+
 	  applicationNavigationMenuState = navigation;
 	  applicationTitle = title;
 	  applicationDayOrNight = setDarkMode(darkMode);
@@ -251,7 +253,7 @@
 
     </Row>
 
-    <Row class={applicationTheme.primary+"-accent"}>
+    <Row class={applicationTheme.primary+"-accent"} id="third-bar">
 
       <Section align="start" toolbar>
 

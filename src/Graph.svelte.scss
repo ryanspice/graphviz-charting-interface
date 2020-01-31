@@ -1,5 +1,7 @@
 .graph-container {
 
+    background-color: var(--theme-background);
+
     width: calc(100% - var(--sidebar-offset));
 
     height: 100%;
