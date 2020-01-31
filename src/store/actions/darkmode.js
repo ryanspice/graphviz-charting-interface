@@ -12,11 +12,15 @@ export default async function(state, action) {
   await document.documentElement.style.setProperty('--theme-background', a);
   await document.documentElement.style.setProperty('--theme-color', b);
 
+
+  //Ideally we want to edit the state, but also we dont want to keep re rendering
+
   state.data.data = await (await state.data.data).replace(a, b);
-
-
   document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`, b));
   document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`, b));
+
+
+  // store locally, i like to store locally lol
 
   localStorage.setObject('darkMode', action.darkMode);
 

@@ -6,12 +6,27 @@
 
   import 'Drawer.svelte.scss';
 
-  import {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
+  import {AppContent, Content, Header, Subtitle, Scrim} from '@smui/drawer';
   import Drawer from 'Drawer.Material.svelte';
+	import Dialog, { Title, Actions, InitialFocus} from '@smui/dialog';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import IconButton from '@smui/icon-button';
   import H6 from '@smui/common/H6.svelte';
+
+  let confirmation;
+  let confirmationDialog = {
+    title:``,
+    text:``,
+    clicked:null,
+    confirm:()=>{},
+    deny:()=>{}
+  };
+  const setConfirmation = (obj) => {
+    Object.assign(confirmationDialog, obj);
+  }
+
+  //
 
   let applicationDrawer;
 
@@ -40,6 +55,8 @@
     open = !open;
   };
 
+  //
+
   let DragMouse = [0,0];
   let DragBounds = [48,1248];
   let DragResize = false;
@@ -55,7 +72,7 @@
 
   const handleMouseMove = (event)=> {
 
-	return DragMouse = {x:event.x,y:event.y};
+	   return DragMouse = {x:event.x,y:event.y};
   };
 
   /**
@@ -111,16 +128,17 @@
 
   const handleDragStop = () => {
 
-	requestAnimationFrame(()=>{
+  	requestAnimationFrame(()=>{
 
-	  DragResize = false;
+  	  DragResize = false;
 
-      drawerCssClass.replace('drag','');
+        drawerCssClass.replace('drag','');
 
-      if (drawerDragX<92)
-        drawerDragX = 58;
+        if (drawerDragX<92)
+          drawerDragX = 58;
 
-	});
+  	});
+
   };
 
   /**
@@ -173,70 +191,69 @@
 
     <Drawer variant="modal" bind:this={applicationDrawer} class={drawerCssClass} width={drawerDragX} bind:open={open}>
 
-      <div id="drawer-resize-control"
-           on:mousedown = {handleDragStart}
-      ></div>
+      <!-- DRAGGABLE AREA -->
 
-       <Header style="color:white;" >
+      <div id="drawer-resize-control" on:mousedown = {handleDragStart} ></div>
 
-         <IconButton class="material-icons" style="position:relative;left:-200px;" on:click={()=>{
-             window.temp.$$.ctx[2]()
-        }}>add</IconButton>
-
-      </Header>
+      <!-- VIRTUAL LIST GETS APPENDED HERE -->
 
       <Content>
 
-        <List>
-
-          <!--
-          <Item href="javascript:void(0)" on:click={() => setActive2('Inbox')} activated={active2 === 'Inbox'}>
-
-              <Graphic class="material-icons" aria-hidden="true">recent_actors</Graphic>
-
-              <Text>Recents</Text>
-
-          </Item>
-
-          <Item href="javascript:void(0)" on:click={() => setActive2('Inbox')} activated={active2 === 'Inbox'}>
-
-              <Graphic class="material-icons" aria-hidden="true">about</Graphic>
-
-              <Text>About</Text>
-
-          </Item>
-
-
-          <Separator nav />
-          <Subheader component={H6} hidden>
-            <IconButton class="material-icons" aria-label="">link</IconButton>
-
-            <IconButton class="material-icons" aria-label="">web_asset</IconButton>
-            <IconButton class="material-icons" aria-label="">code</IconButton>
-            <IconButton class="material-icons" aria-label="">info</IconButton>
-          </Subheader>
-          <Item href="javascript:void(0)" on:click={() => setActive2('Family')} activated={active2 === 'Family'}>
-            <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-            <Text>Family</Text>
-          </Item>
-
-          <Item href="javascript:void(0)" on:click={() => setActive2('Friends')} activated={active2 === 'Friends'}>
-            <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-            <Text>Friends</Text>
-          </Item>
-
-          <Item href="javascript:void(0)" on:click={() => setActive2('Work')} activated={active2 === 'Work'}>
-            <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-            <Text>Work</Text>
-          </Item>
-
-        -->
-
-        </List>
+        <List></List>
 
       </Content>
 
-      <IconButton style="position:absolute;bottom:100px;z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={()=>{}}>delete_forever</IconButton>
+      <!-- CONFIRMATION DIALOG -->
+
+      <Dialog bind:this={confirmation} aria-labelledby="simple-title" aria-describedby="simple-content">
+
+        <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+        <Title>
+
+          {confirmationDialog.title}
+
+        </Title>
+
+        <Content>
+
+          {confirmationDialog.text}
+
+        </Content>
+
+        <Actions>
+
+          <Button on:click={confirmationDialog.confirm}>
+
+            <Label>No</Label>
+
+          </Button>
+
+          <Button on:click={confirmationDialog.deny}>
+
+            <Label>Yes</Label>
+
+          </Button>
+
+        </Actions>
+
+      </Dialog>
+
+      <!-- DELETE GRAPH BUTTON -->
+
+      <IconButton style="position:absolute;bottom:96px;z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={async   () => {
+
+        confirmationDialog = await {
+          title:`Delete {this} Graph?`,
+          text:``,
+          confirm:()=>{
+            // TODO :: DISPATCH EVENT TO REMOVE CURRENT TABLE
+          },
+          deny:()=>{}
+        };
+
+        await confirmation.open();
+
+        }}>delete_forever</IconButton>
 
     </Drawer>
 
@@ -244,22 +261,12 @@
 
     <Scrim style="display: none"/>
 
-    <!-- TODO :: REMOVE? -->
+    <!-- Content that exists East of the Drawer ::: Graph was here, maybe it'll be better for resizing? TODO :: REMOVE? -->
 
     <AppContent class="app-content" style="display: none">
-
-        <main class="main-content" hidden>
-
-          <Button on:click={a} ><Label>Toggle Drawer</Label></Button>
-
-        </main>
 
     </AppContent>
 
   </div>
 
 </section>
-
-<style>
-
-</style>
