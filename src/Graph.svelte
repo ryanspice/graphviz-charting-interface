@@ -5,24 +5,28 @@
 
 <script>
 
-  import { afterUpdate } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
 
   import {store} from "./index";
   import {APPLICATION_LOAD} from "./store/actions/application";
 
+  import "Graph.svelte.scss";
+
   import D3Graphviz from "./utils/D3Graphviz";
 
   let GraphContainer;
+  let GraphStore;
+  let Store;
 
   /**/
 
-  afterUpdate(async () => {
-
-    const GraphStore = (await import("./store")).default;
-    const Store = await new GraphStore();
+  onMount(async () => {
 
     const container = GraphContainer;
     container.style.opacity = 0;
+
+    GraphStore = (await import("./store")).default;
+    Store = await new GraphStore();
 
     if (!Store.data){
       return new Error("GraphStore data is invalid");
@@ -51,6 +55,12 @@
 
   });
 
-  export let channel;
-  export let calculate;
+  /**/
+
+  afterUpdate(async () => {
+
+  });
+
+  //export let channel;
+  //export let calculate;
 </script>

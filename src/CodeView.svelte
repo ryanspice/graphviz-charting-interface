@@ -1,8 +1,4 @@
 
-<svelte:head>
-    {@html github}
-</svelte:head>
-
 <script>
 	import {onMount} from "svelte";
 	import Highlight from 'svelte-highlight';
@@ -16,7 +12,6 @@
 	import Slider from '@smui/slider';
 	import FormField from '@smui/form-field';
 
-	import {APPLICATION_ASSIGN_THEME} from "./store/actions/application";
 	import {store} from "./index";
 
 	import 'CodeView.svelte.scss';
@@ -25,6 +20,9 @@
 
 	export let code;
 	let codeContent;
+	let applicationTheme = '';
+
+	/* EXPORT STUFF */
 
 	let simpleDialog;
 	let eventDialog;
@@ -41,17 +39,17 @@
 	let volumeAlarm = 80;
 
 	function closeHandler(e) {
-	switch (e.detail.action) {
-	  case 'none':
-		response = 'Ok, well, you\'re wrong.';
-		break;
-	  case 'all':
-		response = 'You are correct. All dogs are the best dog.';
-		break;
-	  default:
-		response = 'It\'s a simple question. You should be able to answer it.';
-		break;
-	}
+		switch (e.detail.action) {
+		  case 'none':
+			response = 'Ok, well, you\'re wrong.';
+			break;
+		  case 'all':
+			response = 'You are correct. All dogs are the best dog.';
+			break;
+		  default:
+			response = 'It\'s a simple question. You should be able to answer it.';
+			break;
+		}
 	}
 
 	function selectionCloseHandler(e) {
@@ -61,14 +59,8 @@
 	selection = 'Radishes';
 	}
 
-	let applicationTheme = '';
-	/*
-	store.dispatch({
-	  type:APPLICATION_ASSIGN_THEME,
-	  data:''
-	})
+	/** END EXPORT STUFF */
 
-	*/
 	onMount(async()=>{
 
 		const {theme} = await store.getState();
@@ -83,12 +75,13 @@
 
 	})
 
-
 </script>
 
 <section  id="code-view" >
 
     <div  id="third-bar" class={applicationTheme}>
+
+		<!-- EXPORT DIALOG :: TODO :: MOVE INTO OWN COMPONENT -->
 
 		<Dialog bind:this={sliderDialog} aria-labelledby="slider-title" aria-describedby="slider-content">
 
@@ -248,11 +241,12 @@
 		</Actions>
 		</Dialog>
 
-
 		<!-- add class -->
+
 		<Button style="padding-left:1rem;padding-right:1rem;float:right;" on:click={() => sliderDialog.open()}><Label>Export</Label></Button>
 
 		<!-- add class -->
+
 		<Button style="padding-left:1rem;padding-right:1rem;" on:click={copyToClipboard}><Label>Copy</Label></Button>
 
     </div>

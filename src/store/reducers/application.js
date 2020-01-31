@@ -1,40 +1,30 @@
 
 import {
-  ADD_TODO,
-  APPLICATION_LOAD, APPLICATION_LOAD_EXAMPLE, APPLICATION_LOAD_PREVIOUS,
-  APPLICATION_SAVE,
-  APPLICATION_TOGGLE_MENU,
-  APPLICATION_TOGGLE_CODE,
-  APPLICATION_TOGGLE_DIALOGUE,
-  APPLICATION_TOGGLE_FULLSCREEN,
-  APPLICATION_ASSIGN_THEME,
+	ADD_TODO,
+	APPLICATION_LOAD, APPLICATION_LOAD_EXAMPLE, APPLICATION_LOAD_PREVIOUS,
+	APPLICATION_SAVE,
+	APPLICATION_TOGGLE_MENU,
+	APPLICATION_TOGGLE_CODE,
+	APPLICATION_TOGGLE_DIALOGUE,
+	APPLICATION_TOGGLE_FULLSCREEN,
+	APPLICATION_TOGGLE_DARKMODE,
+	APPLICATION_ASSIGN_THEME,
 
-  RETRIEVE_ITEM
+	RETRIEVE_ITEM, APPLICATION_ASSIGN_DRAWER_OFFSET
 } from '../actions/application'
+
+import initialization from "../actions/initialization";
+import {setDarkMode} from "../actions/darkmode";
+
 
 async function application(state = [], action) {
 
   state = await state;
 
   switch (action.type) {
+
 	case APPLICATION_LOAD:
-	  const swatches = (await import("../../theme/colors.js")).default;
-	  const theme = localStorage.getObject('theme') || swatches[3];
-	  const data = localStorage.getObject('data') || action.data;
-	  const navigation = localStorage.getObject('navigation');
-	  const title = localStorage.getObject('title') || 'Example.graphviz';
-	  return {
-		...state,
-		theme,
-		action,
-		data,
-		navigation:navigation,
-		sidebar:{
-		  width:58
-		},
-		title:title,
-		itemPosition:{x:0,y:0}
-	  };
+	  return await initialization(await state, action);
 	case APPLICATION_TOGGLE_MENU:
 	  localStorage.setObject('navigation', !action.navigation);
 	  return {...state, navigation:!action.navigation};
@@ -44,6 +34,9 @@ async function application(state = [], action) {
 	  return {...state, action};
 	case APPLICATION_TOGGLE_CODE:
 	  return {...state, action};
+	case APPLICATION_TOGGLE_DARKMODE:
+	  const darkMode = setDarkMode(action.darkMode,state.data);
+	  return {...state, action, darkMode};
 	case APPLICATION_SAVE:
 	  return {...state, action};
 	case APPLICATION_LOAD_PREVIOUS:
@@ -66,7 +59,13 @@ async function application(state = [], action) {
       };
     }
     return {...state,action};
+	case APPLICATION_ASSIGN_DRAWER_OFFSET:
 
+	  if (action.value) {
+		localStorage.setObject('drawer_offset', action.value);
+	  }
+
+	return {...state,action, drawer_offset: action.value};
 	default:
 	  return state
   }

@@ -2,15 +2,18 @@
 
   import 'redux';
   import {store} from "./index";
-  import { afterUpdate } from 'svelte';
+  import { onMount } from 'svelte';
 
-  import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
+  import 'Drawer.svelte.scss';
+
+  import {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
+  import Drawer from 'Drawer.Material.svelte';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import IconButton from '@smui/icon-button';
   import H6 from '@smui/common/H6.svelte';
 
-  let myDrawer2;
+  let applicationDrawer;
 
 
   let open = false;
@@ -40,9 +43,10 @@
   let DragMouse = [0,0];
   let DragBounds = [48,1248];
   let DragResize = false;
-  let DragX = 0;
 
-  let DrawerAside;
+  let drawerDragX = 58;
+  let drawerOffset = localStorage.getObject('drawer_offset') || 0;
+  let drawerCssClass = '';
 
   /**
    * return {X,Y} of mouse based on MouseEvent
@@ -50,12 +54,12 @@
    */
 
   const handleMouseMove = (event)=> {
-    DrawerAside = document.querySelector('body > section > div > aside');
+
 	return DragMouse = {x:event.x,y:event.y};
   };
 
   /**
-   * assigns width to (TODO: fix ref) drawer
+   * assigns width to
    * @param event
    */
 
@@ -65,28 +69,38 @@
       return;
 
     let ClientX = (event.x || event.screenX || event.clientX);
-    let x = ClientX || DragX;
+    let x = ClientX || drawerDragX;
 
     if (x>=DragBounds[0])
     if (x<=DragBounds[1])
-    if (DragResize)
-	    document.querySelector('body > section > div > aside').style.width = `${x+5}px`;
+    if (DragResize){
+      drawerDragX = x + 5;
+    }
+    if (drawerDragX<92)
+      drawerDragX = 58;
 
     if (DragResize)
 	  requestAnimationFrame(()=>{handleDragResize(DragMouse)});
-	DragX = x;
+
+    drawerDragX = x;
+
   };
 
   /**
    * initialize
    * @param event
    */
+
   const handleDragStart = (event)=> {
 
     if (!DragResize){
+
         DragResize = true;
+
         requestAnimationFrame(()=>{handleDragResize(DragMouse)});
-      document.querySelector('body > section > div > aside').style.pointerEvents = "none"
+
+        drawerCssClass = 'drawer-extend-1 drag mdc-drawer--open';
+
     }
 
   };
@@ -97,46 +111,47 @@
 
   const handleDragStop = () => {
 
-    const x = DrawerAside.style.width.replace('px','');
-
 	requestAnimationFrame(()=>{
-	  DragResize = false;
-      DrawerAside.style.pointerEvents = "";
 
-      if (x<92)
-        DrawerAside.style.width = `${58}px`;
+	  DragResize = false;
+
+      drawerCssClass.replace('drag','');
+
+      if (drawerDragX<92)
+        drawerDragX = 58;
 
 	});
   };
 
   /**
-   * stop drag
+   *
    */
 
   const handleDoubleClick = () => {
 
-    const x = DrawerAside.style.width.replace('px','');
+    drawerOffset++;
 
-	requestAnimationFrame(()=>{
+    if (drawerOffset>2)
+      drawerOffset = 0;
 
-	  if (x<92)
-        DrawerAside.style.width = `${window.innerWidth/2}px`;
-	  else
-	  if (x>256)
-        DrawerAside.style.width = `${256}px`;
-	  else
-        DrawerAside.style.width = `${58}px`;
-	});
+    drawerCssClass=`drawer-extend-${drawerOffset} mdc-drawer--open`;
+
+    store.dispatch({
+      type:"APPLICATION_ASSIGN_DRAWER_OFFSET",
+      value:drawerOffset
+    });
 
   };
 
-  /** document events */
+  /**
+   *
+   */
 
-  document.addEventListener('mousemove', handleMouseMove);
-  document.addEventListener('mouseup', handleDragStop);
-  //document.addEventListener('dblclick', handleDoubleClick);
+  onMount(()=>{
 
-  afterUpdate(()=>{
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleDragStop);
+    //document.addEventListener('dblclick', handleDoubleClick);
 
     store.subscribe(async () => {
 
@@ -148,15 +163,15 @@
 
     })
 
-  })
+  });
 
 </script>
 
 <section>
 
-  <div class="drawer-container" on:dblclick = {handleDoubleClick}>
+  <div id="drawer-container" on:dblclick = {handleDoubleClick}>
 
-    <Drawer variant="modal" bind:this={myDrawer2} bind:open={open}>
+    <Drawer variant="modal" bind:this={applicationDrawer} class={drawerCssClass} width={drawerDragX} bind:open={open}>
 
       <div id="drawer-resize-control"
            on:mousedown = {handleDragStart}
@@ -220,6 +235,8 @@
         </List>
 
       </Content>
+
+      <IconButton style="position:absolute;bottom:100px;z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={()=>{}}>delete_forever</IconButton>
 
     </Drawer>
 

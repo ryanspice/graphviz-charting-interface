@@ -1,0 +1,8 @@
+#hovering-fab {
+  min-width:254px;
+  z-index:3;
+  position:fixed;
+  left:0px;
+  pointer-events:auto ;  border-radius: 4px;
+  color: var(--theme-color);
+}

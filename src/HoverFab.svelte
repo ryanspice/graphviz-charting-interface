@@ -1,13 +1,16 @@
 
 <script>
 
-  import { afterUpdate } from 'svelte';
+  import { onMount } from 'svelte';
   import {Item, Graphic, Text} from '@smui/list';
 
   import {store} from "./index";
   import {APPLICATION_LOAD} from "./store/actions/application";
 
+  import "HoverFab.svelte.scss";
 
+
+  let applicationTheme = '';
   let self;
   let hidden = true;
   let y = -200;
@@ -30,10 +33,18 @@
 
   /**/
 
-  afterUpdate(async () => {
+  onMount(async () => {
+
+	const {theme} = await store.getState();
+	applicationTheme = theme.primary;
+
     store.subscribe(async ()=>{
-      const {itemPosition,item} = await store.getState();
+
+	  const {itemPosition,item,theme} = await store.getState();
+
+	  applicationTheme = theme.primary;
       hidden = false;
+
       y = itemPosition.y;
 
       if (item)
@@ -44,9 +55,9 @@
 
 </script>
 
-<Item id="hovering-fab" bind:this={self} style={(hidden)?'display:none':('top:'+y+'px;width:'+data.name.length*8)} href="javascript:void(0)" on:mouseout={handleMouseOut}>
+<Item id="hovering-fab" class={applicationTheme} bind:this={self} style={(hidden)?'display:none':('top:'+y+'px;width:'+data.name.length*8)} href="javascript:void(0)" on:mouseout={handleMouseOut}>
 
-  <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>close</Graphic>
+  <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>open_in_new</Graphic>
 
   <Text>{data.name}</Text>
 

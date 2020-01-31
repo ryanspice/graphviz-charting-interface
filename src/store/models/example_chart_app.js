@@ -9,6 +9,7 @@ digraph reactiveChartInterface {
     node [fontname = "Handlee"];
     edge [fontname = "Handlee"];
 
+
   subgraph theme {
 
     graph [ label = "main [entry] [initial]", fontcolor = "0,0,0.28", bgcolor = "0,0,0.95", color = "0,0,0.55" ];
@@ -20,11 +21,11 @@ digraph reactiveChartInterface {
   }
   subgraph app {
 
-    index[label="index.js"];
+    index[label="index.js", shape="Msquare"];
     scss[label="main.scss"];
   }
   subgraph store {
-    redux[label="store" shape = "circle"];
+    redux[label="store" shape = "cylinder"];
   }
   subgraph utils {
     utils;

@@ -1,0 +1,69 @@
+
+#drawer-container {
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+    margin-left: -9px;
+    height: 100%;
+    padding-bottom: 4vh;
+
+    border: 1px solid rgba(0, 0, 0, .1);
+
+    pointer-events: none;
+
+    > aside {
+
+        pointer-events:all;
+
+        & * {
+            color: var(--theme-color);
+            background-color: var(--theme-background);
+        }
+
+        & .drag {
+
+            * {
+            pointer-events:none;
+            }
+
+        }
+
+
+    }
+
+}
+
+.drawer-extend-0 {
+    min-width:58px !important;
+    max-width:58px !important;
+
+}
+
+.drawer-extend-1 {
+
+}
+
+.drawer-extend-2 {
+    width:50% !important;
+    max-width:50% !important;
+}
+
+* :global(.mdc-drawer--modal, .mdc-drawer-scrim) {
+    /* This is not needed for a page-wide modal. */
+    position: absolute;
+}
+* :global(.app-content) {
+    flex: auto;
+    overflow: auto;
+    position: relative;
+    flex-grow: 1;
+
+
+
+}
+.main-content {
+    overflow: auto;
+    padding: 16px;
+    height: 100%;
+    box-sizing: border-box;
+}

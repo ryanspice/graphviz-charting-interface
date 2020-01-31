@@ -11,10 +11,11 @@
   import {store} from "./index";
   import {
 	RETRIEVE_ITEM,
+	APPLICATION_TOGGLE_DARKMODE,
 	APPLICATION_TOGGLE_MENU
   } from "./store/actions/application";
 
-  import {afterUpdate} from 'svelte';
+  import {onMount, afterUpdate} from 'svelte';
 
   import TopAppBar, {
 	Row,
@@ -29,6 +30,7 @@
   import IconButton from '@smui/icon-button';
 
   import Drawer, {DrawerToggle} from './Drawer.svelte';
+  import Divider from './Divider.Material.svelte';
   import Graph from './Graph.svelte';
   import CodeView from './CodeView';
   import ColourPicker from "./ColourPicker.svelte";
@@ -41,6 +43,8 @@
   import downloadSvg from './utils/downloadSvg';
   import downloadSource from './utils/downloadSource';
   import HoverFab from "./HoverFab.svelte";
+  import ContentEditor from "./ContentEditor.svelte";
+  import {setDarkMode} from "./store/actions/darkmode";
 
   //export let store;
   export let loading;
@@ -65,10 +69,10 @@
 
   const components = {
 	drawer: new Drawer({target: document.body}),
-	graph: new Graph({target: document.body})
+	graph: new Graph({target: document.body}),
+	//editors: new ContentEditor({target: document.body})
   };
 
-  const getItemStyle = offset => "top:" + offset + "px;left:0px;display:;pointer-events:auto ;  border-radius: 4px; background:#892787;";
 
   let hoverFab;
   let hovering = false;
@@ -98,9 +102,29 @@
 	applicationFullscreen = !applicationFullscreen;
   };
 
+  /* TABS TESTING */
+
+  const code_a = require("./store/models/example_chart_a.js").default;
+  const code_b =   require("./store/models/example_chart_b.js").default;
+  const code_c = require("./store/models/example_chart_c.js").default;
+  let tabIndex = 0;
+  const forceCode = async (chart) => {
+	tabIndex++;
+	D3Graph.renderDot(chart);
+  };
+  window.forceCode = forceCode;
+
+  /**
+   *
+   */
+
   const toggleCodeView = () => {
 	applicationCodeView = !applicationCodeView
   };
+
+  /**
+   * dispatch navigation state
+   */
 
   const toggleMenu = () => {
 
@@ -111,22 +135,19 @@
 
   };
 
+  /**
+   * TODO :: dispatch theme change
+   * @returns {Promise<void>}
+   */
+
   const handleDayOrNight = async () => {
-
 	applicationDayOrNight = !applicationDayOrNight;
+	store.dispatch({
+	  type: APPLICATION_TOGGLE_DARKMODE,
+	  darkMode: applicationDayOrNight
+	});
 
-	const a = !applicationDayOrNight ? '#000000' : '#ffffff';
-	const b = !applicationDayOrNight ? '#ffffff' : '#000000';
-
-	await document.documentElement.style.setProperty('--theme-background', a);
-	await document.documentElement.style.setProperty('--theme-color', b);
-
-	applicationSourceCode.data = await (await applicationSourceCode.data).replace(a, b);
-
-
-	document.querySelectorAll(`[stroke="${a}"]`).forEach(i => i.setAttribute(`stroke`, b));
-	document.querySelectorAll(`[fill="${a}"]`).forEach(i => i.setAttribute(`fill`, b));
-  }
+  };
 
   // TODO :: REMOVE
 
@@ -135,25 +156,31 @@
 
     let code = source || applicationSourceCode.data;
 
-    localStorage.setObject('code', code);
 
-	const newCode = code.split("\n");
+	code = code.split("\n");
 
-	code = newCode.map((item, index)=>{
+	code = code.map((item, index)=>{
 	  return `${index}. ${item}`;
     });
-	code.shift();
 
-	return code.join("\n");
+	code.shift();
+	code = code.join("\n");
+
+	localStorage.setObject('code', code);
+	return code;
   }
 
   const getDigraphSource = () => {
 	//localStorage.setObject('code', getCode(applicationDigraphSource));
 
 	return getCode(applicationDigraphSource);
-  }
+  };
 
-  afterUpdate(function () {
+  const onReady = () => {
+
+  };
+
+  onMount(async function () {
 
 	store.subscribe(async () => {
 
@@ -167,28 +194,34 @@
 		data,
 		nodes,
 		navigation,
-		title
+		title,
+		darkMode
 	  } = await store.getState();
 
 	  //app.$$.ctx[app.$$.props.loading].set(0.6);
 
 	  applicationSourceCode = data;
 	  applicationTheme = theme;
-	  applicationReady = true;
+    
 	  applicationNavigationMenuState = navigation;
 	  applicationTitle = title;
-	  //applicationDayOrNight = false;
+	  applicationDayOrNight = setDarkMode(darkMode);
+
+	  if (applicationDayOrNight)
+
+
+	  applicationReady = true;
+
 
 	  //app.$$.ctx[app.$$.props.loading].set(0.9);
 
 	  requestAnimationFrame(function(){
 
-		app.$$.ctx[app.$$.props.loading].set(1);
+		    //app.$$.ctx[app.$$.props.loading].set(1);
 
 	  });
 
 	});
-
   });
 
 </script>
@@ -225,12 +258,35 @@
         {#if ((applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="add">add</IconButton>
         {/if}
-        {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+
+
+        <Divider></Divider>
+
+          <!--
+      {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+        <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>insert_chart</IconButton>
+      {/if}
+
+        <Divider></Divider>
+-->
+
+          <!-- FOR each GRAPH in store.graph.list? -->
+          <!-- disable when viewing other  -->
+        {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
         {/if}
-        {#if ((applicationCodeView===true)&&(applicationDigraphSource===false))}
+        {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
         {/if}
+        {#if ((tabIndex!==0))}
+		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart</IconButton>
+        {/if}
+
+		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_a)}}>bar_chart</IconButton>
+		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_b)}}>bar_chart</IconButton>
+		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>bar_chart</IconButton>
+
+
 
       </Section>
 
@@ -313,6 +369,8 @@
     </Item>
 
   </VirtualList>
+
+  <!-- CODE VIEW -->
 
   {#if (applicationCodeView||applicationDigraphSource)}
 

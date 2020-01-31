@@ -3,7 +3,6 @@
 
   import {onMount, onDestroy} from 'svelte';
   import LinearProgress from '@smui/linear-progress';
-  import './LoadingBar.svelte.scss';
 
   let progress = 0;
   let closed = false;
