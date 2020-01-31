@@ -1,0 +1,58 @@
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+/*
+  BACKGROUND GRADIENTS
+  For example:
+  .gradient {
+    @include gradient(#07c, #06f, vertical);
+  }
+*/
+@mixin gradient($start-color, $end-color, $orientation) {
+  background: $start-color;
+  @if $orientation == 'vertical' {
+    background: -webkit-linear-gradient(top, $start-color, $end-color);
+    background: linear-gradient(to bottom, $start-color, $end-color);
+  } @else if $orientation == 'horizontal' {
+    background: -webkit-linear-gradient(left, $start-color, $end-color);
+    background: linear-gradient(to right, $start-color, $end-color);
+  } @else {
+    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+    background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
+
+
+/*
+  RESPONSIVE MEDIA QUERIES
+  use inside class definitions if styles differ between media resolutions
+  media queries
+
+  For example:
+  @include respond(sm){
+    font-size: 50%
+  }
+*/
+@mixin respond($breakpoint){
+  @if $breakpoint == sm {
+    @media (max-width: 33.75em) { @content }; //540px
+  }
+  @if $breakpoint == md {
+    @media (max-width: 45em) { @content }; //720px
+  }
+  @if $breakpoint == lrg {
+    @media (max-width: 71.25em) { @content }; //1140px
+  }
+  @if $breakpoint == xl {
+    @media (min-width: 80em) { @content }; //1280px
+  }
+}

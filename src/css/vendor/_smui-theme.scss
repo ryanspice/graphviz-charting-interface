@@ -1,0 +1,65 @@
+
+/** TODO REPLACE WITH CSS VARS **/
+
+.swatch-color {
+  width:48px;
+  height:48px;
+}
+.swatch-color-red { background:$material-color-red-400; }
+.swatch-color-pink { background:$material-color-pink-400; }
+.swatch-color-purple { background:$material-color-purple-400; }
+.swatch-color-deep-purple { background:$material-color-deep-purple-400; }
+.swatch-color-indigo { background:$material-color-indigo-400; }
+.swatch-color-blue { background:$material-color-blue-400; }
+.swatch-color-light-blue { background:$material-color-light-blue-400; }
+.swatch-color-cyan { background:$material-color-cyan-400; }
+.swatch-color-teal { background:$material-color-teal-400; }
+.swatch-color-green { background:$material-color-green-400; }
+.swatch-color-light-green { background:$material-color-light-green-400; }
+.swatch-color-lime { background:$material-color-lime-400; }
+.swatch-color-yellow { background:$material-color-yellow-400; }
+.swatch-color-amber { background:$material-color-amber-400; }
+.swatch-color-orange { background:$material-color-orange-400; }
+.swatch-color-deep-orange { background:$material-color-deep-orange-400; }
+.swatch-color-brown { background:$material-color-brown-400; }
+
+.swatch-color-light { background:#f2f2f2; }
+.swatch-color-light-accent { background:#FFFFFF; }
+
+.swatch-color-dark { background:#202020; }
+.swatch-color-dark-accent { background:#191919; }
+
+.swatch-color-amoled { background:#000000; }
+.swatch-color-amoled-accent { background:rgba(0,0,0,0.95); }
+
+.swatch-color-red-accent { background:$material-color-red-a100; }
+.swatch-color-pink-accent { background:$material-color-pink-a100; }
+.swatch-color-purple-accent { background:$material-color-purple-a100; }
+.swatch-color-deep-purple-accent { background:$material-color-deep-purple-a100; }
+.swatch-color-indigo-accent { background:$material-color-indigo-a100; }
+.swatch-color-blue-accent { background:$material-color-blue-a100; }
+.swatch-color-light-blue-accent { background:$material-color-light-blue-a100; }
+.swatch-color-cyan-accent { background:$material-color-cyan-a100; }
+.swatch-color-teal-accent { background:$material-color-teal-a100; }
+.swatch-color-green-accent { background:$material-color-green-a100; }
+.swatch-color-light-green-accent { background:$material-color-light-green-a100; }
+.swatch-color-lime-accent { background:$material-color-lime-a100; }
+.swatch-color-yellow-accent { background:$material-color-yellow-a100; }
+.swatch-color-amber-accent { background:$material-color-amber-a100; }
+.swatch-color-orange-accent { background:$material-color-orange-a100; }
+.swatch-color-deep-orange-accent { background:$material-color-deep-orange-a100; }
+
+/* Main Theme */
+$mdc-theme-error: #892787;
+
+$mdc-theme-primary:#cc33ca;
+$mdc-theme-on-primary: #f0c2ef;
+
+$mdc-theme-secondary: $material-color-purple-400;
+$mdc-theme-on-secondary: #dcbedb;
+
+$mdc-theme-on-surface: #e7e7e7;
+$mdc-theme-surface: #000000;
+
+$mdc-theme-on-background: #F4E2ED;
+$mdc-theme-background: #000000;

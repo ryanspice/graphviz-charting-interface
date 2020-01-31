@@ -1,0 +1,9 @@
+@function get($map, $key, $variant:null) {
+    // color variant is optional
+    @if ($variant != null) {
+        // map inception
+        @return map-get(map-get($map, $key), $variant);
+    } @else {
+        @return map-get($map, $key);
+    }
+}

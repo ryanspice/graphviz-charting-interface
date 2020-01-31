@@ -19,7 +19,7 @@ const app = async env => {
     const name = require("./package.json").short_name;
     const entry = {};
     entry[name] = path.resolve(__dirname, 'src/index.js');
-    entry['css'] = path.resolve(__dirname, 'src/main.scss');
+    entry['css'] = path.resolve(__dirname, 'src/css/main.scss');
     const builds = [];
 
     // override env for parallel-webpack implementation
@@ -34,7 +34,7 @@ const app = async env => {
         mode:env.production?'production':'development',
         entry:entry,
         externals: {
-            "redux": "redux"
+            "redux": "Redux"
         },
         resolve: {
             alias: {
@@ -122,9 +122,8 @@ const app = async env => {
         )):null;
     */
 
-    // remove buggy circular dependency plugin
+    (builds[0].plugins.splice(1,1));  // remove buggy circular dependency plugin
 
-    (builds[0].plugins.splice(1,1));
 
     return builds;
 };
