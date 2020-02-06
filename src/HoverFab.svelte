@@ -35,14 +35,16 @@
 
   onMount(async () => {
 
-	const {theme} = await store.getState();
-	applicationTheme = theme.primary;
+  	const {theme} = await store.getState();
+
+  	applicationTheme = theme.primary;
 
     store.subscribe(async ()=>{
 
-	  const {itemPosition,item,theme} = await store.getState();
+  	  const {itemPosition,item,theme} = await store.getState();
 
-	  applicationTheme = theme.primary;
+      if (theme)
+  	  applicationTheme = theme.primary;
       hidden = false;
 
       y = itemPosition.y;
@@ -50,7 +52,8 @@
       if (item)
         data = item;
 
-    })
+    });
+
   });
 
 </script>

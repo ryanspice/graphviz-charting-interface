@@ -1,7 +1,11 @@
 
 now:
 
-  refactor / consolidate theme logic including SCSS structure and stuff
+  template confirmation dialog ✔
+  SCSS structure and stuff  ✔
+  refactor / consolidate theme logic
+    change UI elements to use css vars
+
 
   day and night mode on load
       - events must trigger when graph is done loading to override colours
@@ -23,6 +27,9 @@ next:
     smooth zooming
 
     fix highlights
+
+
+    mobile settings button 
 
 later:
 

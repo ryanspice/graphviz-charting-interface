@@ -20,14 +20,15 @@
   import "App.svelte.scss";
 
   import TopAppBar, {
-	Row,
-	Section,
-	Title,
-	FixedAdjust,
-	DenseFixedAdjust,
-	ProminentFixedAdjust,
-	ShortFixedAdjust
+  	Row,
+  	Section,
+  	Title,
+  	FixedAdjust,
+  	DenseFixedAdjust,
+  	ProminentFixedAdjust,
+  	ShortFixedAdjust
   } from '@smui/top-app-bar';
+
   import VirtualList from '@sveltejs/svelte-virtual-list';
   import IconButton from '@smui/icon-button';
 
@@ -48,6 +49,8 @@
   import ContentEditor from "./ContentEditor.svelte";
   import {setDarkMode} from "./store/actions/darkmode";
 
+  import DialogWelcome from "./DialogWelcome";
+  import DialogAdd from "./DialogAdd";
   //export let store;
   export let loading;
 
@@ -70,13 +73,12 @@
   ];
 
   const components = {
-	drawer: new Drawer({target: document.body}),
-	graph: new Graph({target: document.body}),
-	//editors: new ContentEditor({target: document.body})
+  	drawer: new Drawer({target: document.body}),
+  	graph: new Graph({target: document.body}),
+  	//hoverFab: new HoverFab({target: document.body})
+  	//editors: new ContentEditor({target: document.body})
   };
 
-
-  let hoverFab;
   let hovering = false;
 
   let dense = true;
@@ -91,14 +93,8 @@
   window.temp = components.drawer;
 
   window.updateList = function (incoming) {
-	applicationDrawerData = incoming;
+	   applicationDrawerData = incoming;
   };
-
-  /*
-  window.onscroll = (evt)=>{
-    document.children[0].setAttribute('data-scroll',Math.round(window.scrollY));
-  };
- */
 
   document.onfullscreenchange = function () {
 	applicationFullscreen = !applicationFullscreen;
@@ -121,7 +117,7 @@
    */
 
   const toggleCodeView = () => {
-	applicationCodeView = !applicationCodeView
+  	applicationCodeView = !applicationCodeView
   };
 
   /**
@@ -130,10 +126,10 @@
 
   const toggleMenu = () => {
 
-	store.dispatch({
-	  type: APPLICATION_TOGGLE_MENU,
-	  navigation: applicationNavigationMenuState
-	});
+  	store.dispatch({
+  	  type: APPLICATION_TOGGLE_MENU,
+  	  navigation: applicationNavigationMenuState
+  	});
 
   };
 
@@ -143,88 +139,113 @@
    */
 
   const handleDayOrNight = async () => {
-	applicationDayOrNight = !applicationDayOrNight;
-	store.dispatch({
-	  type: APPLICATION_TOGGLE_DARKMODE,
-	  darkMode: applicationDayOrNight
-	});
+
+  	applicationDayOrNight = !applicationDayOrNight;
+
+  	store.dispatch({
+  	  type: APPLICATION_TOGGLE_DARKMODE,
+  	  darkMode: applicationDayOrNight
+  	});
 
   };
 
   // TODO :: REMOVE
 
   window.code = '';
+
+  /**
+   * [getCode description]
+   * @param  {[type]} source [description]
+   * @return {[type]}        [description]
+   */
+
   function getCode(source){
 
     let code = source || applicationSourceCode.data;
 
+  	code = code.split("\n");
 
-	code = code.split("\n");
-
-	code = code.map((item, index)=>{
-	  return `${index}. ${item}`;
+  	code = code.map((item, index)=>{
+  	  return `${index}. ${item}`;
     });
 
-	code.shift();
-	code = code.join("\n");
+  	code.shift();
+  	code = code.join("\n");
 
-	localStorage.setObject('code', code);
-	return code;
+  	localStorage.setObject('code', code);
+  	return code;
   }
 
+  /**
+   * [getDigraphSource description]
+   * @return {[type]} [description]
+   */
+
   const getDigraphSource = () => {
-	//localStorage.setObject('code', getCode(applicationDigraphSource));
-
-	return getCode(applicationDigraphSource);
+	   return getCode(applicationDigraphSource);
   };
 
-  const onReady = () => {
-
-  };
+  /**
+   * svelte lifecycle
+   * @return {[type]} [description]
+   */
 
   onMount(async function () {
 
-	store.subscribe(async () => {
+    applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
 
-	  //app.$$.ctx[app.$$.props.loading].reset(0);
+  	store.subscribe(async () => {
 
-	  //app.$$.ctx[app.$$.props.loading].set(0.3);
+  	  app.$$.ctx[app.$$.props.loading].reset(0);
+  	  app.$$.ctx[app.$$.props.loading].set(0.3); // cant i just reset(0.3) i forget lol
 
-	  const {
-		action,
-		theme,
-		data,
-		nodes,
-		navigation,
-		title,
-		darkMode
-	  } = await store.getState();
+  	  const {
+    		action,
+    		theme,
+    		data,
+    		nodes,
+    		navigation,
+    		title,
+    		darkMode
+  	  } = await store.getState();
 
-	  //app.$$.ctx[app.$$.props.loading].set(0.6);
+  	  app.$$.ctx[app.$$.props.loading].set(0.6);
 
-	  applicationSourceCode = data;
-	  applicationTheme = theme;
+  	  applicationSourceCode = data;
+  	  applicationTheme = theme;
 
-	  applicationNavigationMenuState = navigation;
-	  applicationTitle = title;
-	  applicationDayOrNight = setDarkMode(darkMode);
+  	  applicationNavigationMenuState = navigation;
+  	  applicationTitle = title;
+  	  applicationDayOrNight = setDarkMode(darkMode);
 
-	  if (applicationDayOrNight)
+  	  //if (applicationDayOrNight)
 
+  	  applicationReady = true;
 
-	  applicationReady = true;
+  	  app.$$.ctx[app.$$.props.loading].set(0.9);
 
+  	  requestAnimationFrame(function(){
 
-	  //app.$$.ctx[app.$$.props.loading].set(0.9);
+  		    app.$$.ctx[app.$$.props.loading].set(1);
 
-	  requestAnimationFrame(function(){
+  	  });
 
-		    //app.$$.ctx[app.$$.props.loading].set(1);
+  	});
 
-	  });
+    // if first time logging on
+    const welcome = new DialogWelcome({target: document.body});
+    //welcome.open();
 
-	});
   });
+
+  let add;
+  const onAdd = () => {
+    
+    add = new DialogAdd({target:document.body});
+
+  }
+
+ const notMobile = true; // should have probably used css
 
 </script>
 
@@ -232,93 +253,130 @@
 
   <TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
+    <!-- Primary Row -->
+
     <Row class={applicationTheme.primary}>
 
       <Section>
 
         <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
 
-        <Title>{applicationTitle}</Title>
+        <Title class="hidden">{applicationTitle}</Title>
+
+        <!--
+        {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
+          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
+        {/if}
+
+        -->
+
+        {#if ((tabIndex!==0))}
+
+		      <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart</IconButton>
+
+        {/if}
+
+    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_a)}}>bar_chart</IconButton>
+
+    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_b)}}>bar_chart</IconButton>
+
+    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>bar_chart</IconButton>
+
+    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>add_circle_outline</IconButton>
+
+        {#if (notMobile)}
+        {/if}
 
       </Section>
 
       <Section align="end" toolbar>
 
-		<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
+        {#if (notMobile)}
 
-        <ColourPicker></ColourPicker>
+        	<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
 
-        <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
+          <ColourPicker></ColourPicker>
+
+          <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
+
+        {/if}
+
+        {#if (!notMobile)}
+
+          <IconButton class="material-icons" >settings</IconButton>
+
+        {/if}
+
       </Section>
 
     </Row>
 
-    <Row class={applicationTheme.primary+"-accent"} id="third-bar">
+    <!-- Secondary Row -->
+
+    <Row class={applicationTheme.primary+"-accent"} id="second-bar">
 
       <Section align="start" toolbar>
 
-        {#if ((applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="add">add</IconButton>
+        {#if (notMobile)}
+          {#if ((applicationDigraphSource===false))}
+            <IconButton class="material-icons"  on:click={onAdd} aria-label="add">add</IconButton>
+          {/if}
+        {/if}
+
+        {#if (!notMobile)}
+          <IconButton class="material-icons"  on:click={onAdd} aria-label="add">add</IconButton>
         {/if}
 
 
+        <!--
         <Divider></Divider>
 
-          <!--
-      {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
-        <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>insert_chart</IconButton>
-      {/if}
-
+        {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>insert_chart</IconButton>
+        {/if}
+        -->
         <Divider></Divider>
--->
+
 
           <!-- FOR each GRAPH in store.graph.list? -->
           <!-- disable when viewing other  -->
+          <HoverFab></HoverFab>
+          <!--
         {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
         {/if}
-        {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
-        {/if}
-        {#if ((tabIndex!==0))}
-		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart</IconButton>
-        {/if}
-
-		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_a)}}>bar_chart</IconButton>
-		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_b)}}>bar_chart</IconButton>
-		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>bar_chart</IconButton>
-
-
+        -->
 
       </Section>
 
       <Section align="end" toolbar>
 
-  {#if ((true)&&(applicationDigraphSource===false))}
-        <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-        const html = d3.select("#graph0").html();
-        //downloadSource(html);
-        //applicationCodeView=true;
-        applicationDigraphSource=html;
-}} alt="print">code</IconButton>
-  {/if}
-        {#if ((true)&&(applicationDigraphSource))}
+        {#if (notMobile)}
+
+          {#if ((true)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          applicationCodeView=applicationCodeView;
-          applicationDigraphSource=false;
-}} alt="print">insert_chart</IconButton>
+          const html = d3.select("#graph0").html();
+          //downloadSource(html);
+          //applicationCodeView=true;
+          applicationDigraphSource=html;}} alt="print">code</IconButton>
+          {/if}
+
+          {#if ((true)&&(applicationDigraphSource))}
+            <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
+            applicationCodeView=applicationCodeView;
+            applicationDigraphSource=false;}} alt="print">insert_chart</IconButton>
+          {/if}
+
+          <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
+          const html = d3.select("#graph0").html();
+          const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+          win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}} alt="print">print</IconButton>
+
+          <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
+          const svg = document.querySelector("svg");
+          downloadSvg(svg);}}>file_download</IconButton>
+
         {/if}
-
-        <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
-        const html = d3.select("#graph0").html();
-        const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-        win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;
-}} alt="print">print</IconButton>
-
-        <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
-        const svg = document.querySelector("svg");
-        downloadSvg(svg);
-}}>file_download</IconButton>
 
       </Section>
 
@@ -326,14 +384,11 @@
 
   </TopAppBar>
 
-  <!--
-  should probably redo this to use the store so its not doing what we all know we shouldnt
-  -->
-
   <!-- material "fab" moves to position of list item to show details -->
-  <HoverFab></HoverFab>
+  <!-- potentially move to index ? -->
 
   <!-- working project node list -->
+  <!-- potentially move to index ? -->
 
   <VirtualList items={applicationDrawerData} let:item>
 
@@ -373,11 +428,10 @@
   </VirtualList>
 
   <!-- CODE VIEW -->
+  <!-- potentially move to index ? -->
 
   {#if (applicationCodeView||applicationDigraphSource)}
-
     <CodeView code={(applicationDigraphSource?getDigraphSource():getCode())}></CodeView>
-
   {/if}
 
 {/if}

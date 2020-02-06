@@ -25,7 +25,9 @@
   };
 
   onMount(()=>{
-	select.$$.ctx[18].style.width = "0";
+
+     select.$$.ctx[18].style.width = "0";
+     
   })
 
 </script>
