@@ -1,17 +1,4 @@
-<aside
-		bind:this={element}
-		use:useActions={use}
-		use:forwardEvents
-        style={"width:"+width+"px"}
-		class="
-    mdc-drawer
-    {className}
-    {variant === 'dismissible' ? 'mdc-drawer--dismissible' : ''}
-    {variant === 'modal' ? 'mdc-drawer--modal' : ''}
-  "
-		on:MDCDrawer:opened={updateOpen} on:MDCDrawer:closed={updateOpen}
-		{...exclude($$props, ['use', 'class', 'variant', 'open'])}
-><slot></slot></aside>
+
 
 <script>
 
@@ -84,3 +71,17 @@
 	open = value;
   }
 </script>
+<aside
+		bind:this={element}
+		use:useActions={use}
+		use:forwardEvents
+        style={"width:"+width+"px"}
+		class="
+    mdc-drawer
+    {className}
+    {variant === 'dismissible' ? 'mdc-drawer--dismissible' : ''}
+    {variant === 'modal' ? 'mdc-drawer--modal' : ''}
+  "
+		on:MDCDrawer:opened={updateOpen} on:MDCDrawer:closed={updateOpen}
+		{...exclude($$props, ['use', 'class', 'variant', 'open'])}
+><slot></slot></aside>

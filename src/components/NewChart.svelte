@@ -4,7 +4,6 @@
 
   import New from "New.svelte";
 
-
   export let title = 'new';
 
 </script>

@@ -1,7 +1,7 @@
 import App from './App.svelte';
 import LoadingBar, {
   reset
-} from "./LoadingBar.svelte";
+} from "./components/LoadingBar.svelte";
 
 import {
   application

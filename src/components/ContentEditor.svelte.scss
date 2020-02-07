@@ -1,0 +1,45 @@
+#editor-content {
+
+  position:fixed;
+  top:120px;
+  left:58px;
+  width:calc(100% - 58px);
+  height:calc(100% - 120px);
+
+  pointer-events: none;
+
+  color: var(--theme-color);
+
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-content: start;
+  z-index:1;
+}
+
+
+.editor {
+  z-index:1;
+  min-width:320px;
+  width:fit-content;
+  border: 1px solid rgba(0,0,0,.1);
+  padding:0.25em;
+  margin:0.25em;
+  padding-top:0.1px;
+
+
+  color: var(--theme-color);
+  background-color: var(--theme-primary);
+  pointer-events: all;
+
+  h4 {
+    padding:0px;
+    margin:0px;
+    span {
+      //padding-right:0.1em;
+      margin-right:0px;
+    }
+  }
+}

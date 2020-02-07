@@ -4,10 +4,10 @@
   import { onMount } from 'svelte';
   import {Item, Graphic, Text} from '@smui/list';
 
-  import {store} from "./index";
-  import {APPLICATION_LOAD} from "./store/actions/application";
+  import {store} from "../index";
+  import {APPLICATION_LOAD} from "../store/actions/application";
 
-  import "HoverFab.svelte.scss";
+  import "./HoverFab.svelte.scss";
 
 
   let applicationTheme = '';

@@ -3,12 +3,12 @@
   import Select, {Option} from '@smui/select';
   import IconButton from '@smui/icon-button';
 
-  import {APPLICATION_ASSIGN_THEME} from "./store/actions/application";
-  import {store} from "./index";
+  import {APPLICATION_ASSIGN_THEME} from "../store/actions/application";
+  import {store} from "../index";
 
-  import colors from './theme/colors';
+  import colors from '../theme/colors';
 
-  import 'ColourPicker.svelte.scss';
+  import './ColourPicker.svelte.scss';
   let select;
 
   const selectFocus = function(){
@@ -17,17 +17,17 @@
 
   const selectChoice = async function(color) {
 
-	store.dispatch({
-	  type:APPLICATION_ASSIGN_THEME,
-	  data:color
-	});
+  	store.dispatch({
+  	  type:APPLICATION_ASSIGN_THEME,
+  	  data:color
+  	});
 
   };
 
   onMount(()=>{
 
      select.$$.ctx[18].style.width = "0";
-     
+
   })
 
 </script>

@@ -1,18 +1,13 @@
-
-<section bind:this={GraphContainer} class="graph-container">
-
-</section>
-
 <script>
 
   import { onMount, afterUpdate } from 'svelte';
 
-  import {store} from "./index";
-  import {APPLICATION_LOAD} from "./store/actions/application";
+  import {store} from "../index";
+  import {APPLICATION_LOAD} from "../store/actions/application";
 
-  import "Graph.svelte.scss";
+  import "./Graph.svelte.scss";
 
-  import D3Graphviz from "./utils/D3Graphviz";
+  import D3Graphviz from "../utils/D3Graphviz";
 
   let GraphContainer;
   let GraphStore;
@@ -25,7 +20,7 @@
     const container = GraphContainer;
     container.style.opacity = 0;
 
-    GraphStore = (await import("./store")).default;
+    GraphStore = (await import("../store")).default;
     Store = await new GraphStore();
 
     if (!Store.data){
@@ -64,3 +59,7 @@
   //export let channel;
   //export let calculate;
 </script>
+
+<section bind:this={GraphContainer} class="graph-container">
+
+</section>

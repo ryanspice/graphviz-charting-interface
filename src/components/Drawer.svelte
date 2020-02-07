@@ -1,13 +1,13 @@
 <script>
 
   import 'redux';
-  import {store} from "./index";
+  import {store} from "../index";
   import { onMount } from 'svelte';
 
-  import 'Drawer.svelte.scss';
+  import './Drawer.svelte.scss';
 
   import {AppContent, Content, Header, Subtitle, Scrim} from '@smui/drawer';
-  import Drawer from 'Drawer.Material.svelte';
+  import Drawer from './Drawer.Material.svelte';
 	import Dialog, { Title, Actions, InitialFocus} from '@smui/dialog';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';

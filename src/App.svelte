@@ -32,11 +32,11 @@
   import VirtualList from '@sveltejs/svelte-virtual-list';
   import IconButton from '@smui/icon-button';
 
-  import Drawer, {DrawerToggle} from './Drawer.svelte';
-  import Divider from './Divider.Material.svelte';
-  import Graph from './Graph.svelte';
-  import CodeView from './CodeView';
-  import ColourPicker from "./ColourPicker.svelte";
+  import Drawer, {DrawerToggle} from './components/Drawer.svelte';
+  import Divider from './components/Divider.Material.svelte';
+  import Graph from './components/Graph.svelte';
+  import CodeView from './components/CodeView';
+  import ColourPicker from "./components/ColourPicker.svelte";
 
   import {Item, Graphic, Text} from '@smui/list';
 
@@ -45,12 +45,12 @@
 
   import downloadSvg from './utils/downloadSvg';
   import downloadSource from './utils/downloadSource';
-  import HoverFab from "./HoverFab.svelte";
-  import ContentEditor from "./ContentEditor.svelte";
+  import HoverFab from "./components/HoverFab.svelte";
+  import ContentEditor from "./components/ContentEditor.svelte";
   import {setDarkMode} from "./store/actions/darkmode";
 
-  import DialogWelcome from "./DialogWelcome";
-  import DialogAdd from "./DialogAdd";
+  import DialogWelcome from "./components/DialogWelcome";
+  import DialogAdd from "./components/DialogAdd";
   //export let store;
   export let loading;
 
@@ -182,7 +182,8 @@
    */
 
   const getDigraphSource = () => {
-	   return getCode(applicationDigraphSource);
+
+    return getCode(applicationDigraphSource);
   };
 
   /**
@@ -240,7 +241,7 @@
 
   let add;
   const onAdd = () => {
-    
+
     add = new DialogAdd({target:document.body});
 
   }

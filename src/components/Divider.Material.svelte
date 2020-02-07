@@ -9,7 +9,7 @@
 
   onMount(()=>{
 
-    import('Divider.Material.svelte.scss');
+    import('./Divider.Material.svelte.scss');
 
     if (vertical === true) {
       vertical = 'MuiDivider-vertical';
@@ -19,4 +19,5 @@
   })
 
 </script>
+
 <hr class={className}>

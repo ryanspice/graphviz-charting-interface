@@ -17,6 +17,7 @@
     @include gradient(#07c, #06f, vertical);
   }
 */
+
 @mixin gradient($start-color, $end-color, $orientation) {
   background: $start-color;
   @if $orientation == 'vertical' {
@@ -31,7 +32,6 @@
   }
 }
 
-
 /*
   RESPONSIVE MEDIA QUERIES
   use inside class definitions if styles differ between media resolutions
@@ -39,9 +39,11 @@
 
   For example:
   @include respond(sm){
+  @include respond(sm){
     font-size: 50%
   }
 */
+
 @mixin respond($breakpoint){
   @if $breakpoint == sm {
     @media (max-width: 33.75em) { @content }; //540px

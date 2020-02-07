@@ -2,8 +2,8 @@
 
   import {onMount} from 'svelte';
 
-  import New from "New.svelte";
-  import "DialogWelcome.svelte.scss";
+  import New from "./New.svelte";
+  import "./DialogWelcome.svelte.scss";
 
   export let title = 'Welcome!';
 

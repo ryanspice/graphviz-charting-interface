@@ -37,11 +37,11 @@ import FormField from '@smui/form-field';
 
 import {
   store
-} from "./index";
+} from "../index";
 
-import 'CodeView.svelte.scss';
+import './CodeView.svelte.scss';
 
-import copyToClipboard from "./utils/copyToClipboard";
+import copyToClipboard from "../utils/copyToClipboard";
 
 
 

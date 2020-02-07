@@ -2,7 +2,7 @@
 
   import {onMount} from 'svelte';
 
-  import New from "New.svelte";
+  import New from "./New.svelte";
 
   export let title = 'Add';
 
