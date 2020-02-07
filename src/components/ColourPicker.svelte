@@ -1,32 +1,62 @@
 <script>
-  import { onMount } from 'svelte';
-  import Select, {Option} from '@smui/select';
+
+  import './ColourPicker.svelte.scss';
+
+  import {
+    onMount
+  } from 'svelte';
+
+  import Select, {
+    Option
+  } from '@smui/select';
+
   import IconButton from '@smui/icon-button';
 
-  import {APPLICATION_ASSIGN_THEME} from "../store/actions/application";
-  import {store} from "../index";
+  import {
+    APPLICATION_ASSIGN_THEME
+  } from "../store/actions/application";
+
+  import {
+    store
+  } from "../index";
 
   import colors from '../theme/colors';
 
-  import './ColourPicker.svelte.scss';
   let select;
 
-  const selectFocus = function(){
-	select.$$.ctx[18].children[2].click();
+  /**
+   * [description]
+   * @return {[type]} [description]
+   */
+
+  const selectFocus = function() {
+    select.$$.ctx[18].children[2].click();
+
   };
+
+  /**
+   * [description]
+   * @param  {[type]} color [description]
+   * @return {[type]}       [description]
+   */
 
   const selectChoice = async function(color) {
 
-  	store.dispatch({
-  	  type:APPLICATION_ASSIGN_THEME,
-  	  data:color
-  	});
+    store.dispatch({
+      type: APPLICATION_ASSIGN_THEME,
+      data: color
+    });
 
   };
 
-  onMount(()=>{
+  /**
+   * [width description]
+   * @type {String}
+   */
 
-     select.$$.ctx[18].style.width = "0";
+  onMount(() => {
+
+    select.$$.ctx[18].style.width = "0";
 
   })
 
@@ -38,7 +68,7 @@
 
     {#each colors as color}
 
-        <Option value={color.name} on:click={()=>{selectChoice(color)}}>
+        <Option value={color.name} id="colour-picker-list" on:click={()=>{selectChoice(color)}}>
 
             <div class={"swatch-color " + color.primary}></div>
 

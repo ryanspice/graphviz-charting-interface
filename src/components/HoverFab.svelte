@@ -44,7 +44,8 @@
   	  const {itemPosition,item,theme} = await store.getState();
 
       if (theme)
-  	  applicationTheme = theme.primary;
+  	   applicationTheme = theme.primary;
+
       hidden = false;
 
       y = itemPosition.y;
@@ -58,9 +59,19 @@
 
 </script>
 
-<Item id="hovering-fab" class={applicationTheme} bind:this={self} style={(hidden)?'display:none':('top:'+y+'px;width:'+data.name.length*8)} href="javascript:void(0)" on:mouseout={handleMouseOut}>
+<Item
+  id="hovering-fab"
+  class={applicationTheme}
+  style={(hidden)?'display:none':('top:'+y+'px;width:'+data.name.length*8)}
+  href="javascript:void(0)"
+  on:mouseout={handleMouseOut} >
 
-  <Graphic class="material-icons" aria-hidden="true" on:click = {()=>{}}>open_in_new</Graphic>
+  <Graphic
+    class="material-icons"
+    aria-hidden="true"
+    on:click = {()=>{
+       
+    }}>open_in_new</Graphic>
 
   <Text>{data.name}</Text>
 

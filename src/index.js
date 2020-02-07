@@ -1,7 +1,7 @@
 import App from './App.svelte';
 import LoadingBar, {
   reset
-} from "./components/LoadingBar.svelte";
+} from "./components/static/LoadingBar.svelte";
 
 import {
   application
@@ -18,6 +18,8 @@ let loading: LoadingBar;
 let props = {};
 
 if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
+
+  // initalize static components
 
   (async function application() {
 

@@ -1,102 +1,95 @@
 
 <script>
-import {
-  onMount
-} from "svelte";
 
-import Highlight from 'svelte-highlight';
+  import {
+    onMount
+  } from "svelte";
 
-import {
-  javascript
-} from 'svelte-highlight/languages';
+  import Highlight from 'svelte-highlight';
 
-import {
-  github
-} from 'svelte-highlight/styles';
+  import {
+    javascript
+  } from 'svelte-highlight/languages';
 
-import Dialog, {
-  Title,
-  Content,
-  Actions,
-  InitialFocus
-} from '@smui/dialog';
+  import {
+    github
+  } from 'svelte-highlight/styles';
 
-import Button, {
-  Label
-} from '@smui/button';
+  import Dialog, {
+    Title,
+    Content,
+    Actions,
+    InitialFocus
+  } from '@smui/dialog';
 
-import List, {
-  Item,
-  Graphic,
-  Text
-} from '@smui/list';
+  import Button, {
+    Label
+  } from '@smui/button';
 
-import Radio from '@smui/radio';
-import Slider from '@smui/slider';
-import FormField from '@smui/form-field';
+  import List, {
+    Item,
+    Graphic,
+    Text
+  } from '@smui/list';
 
-import {
-  store
-} from "../index";
+  import Radio from '@smui/radio';
+  import Slider from '@smui/slider';
+  import FormField from '@smui/form-field';
 
-import './CodeView.svelte.scss';
+  import {
+    store
+  } from "../index";
 
-import copyToClipboard from "../utils/copyToClipboard";
+  import './CodeView.svelte.scss';
+
+  import copyToClipboard from "../utils/copyToClipboard";
 
 
 
-export let code;
-let codeContent;
-let applicationTheme = '';
+  export let code;
+  let codeContent;
+  let applicationTheme = '';
 
-/* EXPORT STUFF */
+  /* EXPORT STUFF */
 
-let simpleDialog;
-let eventDialog;
-let listDialog;
-let listSelectionDialog;
-let sliderDialog;
-let clicked = 'Nothing yet.';
-let response = 'Nothing yet.';
-let clickedList = 'Nothing yet.';
-let selection = 'Radishes';
-let selected = 'Nothing yet.';
-let volumeMedia = 100;
-let volumeRingtone = 80;
-let volumeAlarm = 80;
+  let simpleDialog;
+  let eventDialog;
+  let listDialog;
+  let listSelectionDialog;
+  let sliderDialog;
+  let clicked = 'Nothing yet.';
+  let response = 'Nothing yet.';
+  let clickedList = 'Nothing yet.';
+  let selection = 'Radishes';
+  let selected = 'Nothing yet.';
+  let volumeMedia = 100;
+  let volumeRingtone = 80;
+  let volumeAlarm = 80;
 
-function closeHandler(e) {
-  switch (e.detail.action) {
-    case 'none':
-      response = 'Ok, well, you\'re wrong.';
-      break;
-    case 'all':
-      response = 'You are correct. All dogs are the best dog.';
-      break;
-    default:
-      response = 'It\'s a simple question. You should be able to answer it.';
-      break;
+  function closeHandler(e) {
+    switch (e.detail.action) {
+      case 'none':
+        response = 'Ok, well, you\'re wrong.';
+        break;
+      case 'all':
+        response = 'You are correct. All dogs are the best dog.';
+        break;
+      default:
+        response = 'It\'s a simple question. You should be able to answer it.';
+        break;
+    }
   }
-}
 
-function selectionCloseHandler(e) {
-  if (e.detail.action === 'accept') {
-    selected = selection;
+  function selectionCloseHandler(e) {
+    if (e.detail.action === 'accept') {
+      selected = selection;
+    }
+    selection = 'Radishes';
   }
-  selection = 'Radishes';
-}
 
-/** END EXPORT STUFF */
+  /** END EXPORT STUFF */
 
-onMount(async () => {
-
-  const {
-    theme
-  } = await store.getState();
-
-  applicationTheme = theme.primary;
-
-  store.subscribe(async () => {
+  onMount(async () => {
 
     const {
       theme
@@ -104,9 +97,17 @@ onMount(async () => {
 
     applicationTheme = theme.primary;
 
-  });
+    store.subscribe(async () => {
 
-})
+      const {
+        theme
+      } = await store.getState();
+
+      applicationTheme = theme.primary;
+
+    });
+
+  })
 </script>
 
 <section  id="code-view" >
