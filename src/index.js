@@ -3,14 +3,22 @@ import LoadingBar, {
   reset
 } from "./components/static/LoadingBar.svelte";
 
+/*
 import {
-  application
+  application,
+  dialog
 } from "./store/index";
+*/
+
+import Store from "./store/reducers/index";
+
+console.log(Store);
+
 
 import "./utils/storage/storage.getobject.js";
 import "./utils/storage/storage.setobject.js";
 
-const store = Redux.createStore(application, /* preloadedState, */
+const store = Redux.createStore(Store, /* preloadedState, */
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 let app: App;

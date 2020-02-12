@@ -1,6 +1,4 @@
 
-import application from "./controllers/application";
-
 const __TEST_GRAPH__ = "./models/example_chart_app.js";
 
 interface GraphRow {
@@ -219,8 +217,4 @@ let graph = `subgraph ${name || "cluster"} {
 }`;
   }
 
-}
-
-export {
-  application
 }
