@@ -1,0 +1,15 @@
+
+
+/* PREFERRED DARKMODE
+
+For example:
+@include preferredLightMode(sm){
+   @content;
+}
+*/
+
+@mixin preferredLightMode(){
+  @media (prefers-color-scheme: light) {
+     @content;
+   }
+}
