@@ -35,13 +35,24 @@
 
   onMount(async () => {
 
-  	const {theme} = await store.getState();
+      	  const {
+            application
+      	  } = await store.getState();
+
+          const {
+        		theme,
+          } = await application;
 
   	applicationTheme = theme.primary;
 
     store.subscribe(async ()=>{
 
-  	  const {itemPosition,item,theme} = await store.getState();
+  	  const {
+        application
+  	  } = await store.getState();
+
+      const {itemPosition,item,theme} = await application;
+
 
       if (theme)
   	   applicationTheme = theme.primary;
@@ -70,7 +81,7 @@
     class="material-icons"
     aria-hidden="true"
     on:click = {()=>{
-       
+
     }}>open_in_new</Graphic>
 
   <Text>{data.name}</Text>

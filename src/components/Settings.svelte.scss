@@ -1,0 +1,62 @@
+
+section {
+  width:50%;
+  text-align: left;
+  display:inline-block;
+}
+
+ul {
+  list-style: none;
+  //padding-inline-start: 0.5rem;
+  padding:0px;
+  :hover {
+
+  }
+}
+a {
+ text-decoration: none;
+ color:var(--theme-link-color)
+}
+
+#settings-list,
+#settings-content {
+  margin:0px;
+  padding:0px;
+  display:inline-block;
+  float:left;
+  height:100%;
+}
+
+#settings-list {
+
+  width:20%;
+  font-size:80%;
+  min-height:220px;
+
+  li {
+
+    height:1rem;
+    padding:0.3rem;
+    padding-left:0.75rem;
+    padding-top:1rem;
+    padding-bottom:1rem;
+
+    span {
+
+      pointer-events: none;
+
+    }
+
+  }
+}
+
+#settings-content {
+  width:80%;
+
+}
+
+#settings-dialog-content {
+
+  min-width:420px;
+
+}

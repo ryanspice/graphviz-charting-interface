@@ -1,8 +1,10 @@
 
 now:
 
-  template confirmation dialog ✔
-  SCSS structure and stuff  ✔
+
+  STATE MACHINE 
+
+
   refactor / consolidate theme logic
     change UI elements to use css vars
 
@@ -29,7 +31,7 @@ next:
     fix highlights
 
 
-    mobile settings button 
+    mobile settings button
 
 later:
 
@@ -55,6 +57,15 @@ later:
 
 
 previous:
+
+2/06
+
+
+1/29
+
+  template confirmation dialog ✔
+  SCSS structure and stuff  ✔
+
 
 1/28
     add divider ✔

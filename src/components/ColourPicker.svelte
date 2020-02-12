@@ -31,7 +31,6 @@
 
   const selectFocus = function() {
     select.$$.ctx[18].children[2].click();
-
   };
 
   /**
@@ -66,17 +65,17 @@
 
 <Select bind:this={select} id="colour-picker" enhanced>
 
-    {#each colors as color}
+  {#each colors as color}
 
-        <Option value={color.name} id="colour-picker-list" on:click={()=>{selectChoice(color)}}>
+    <Option value={color.name} id="colour-picker-list" on:click={()=>{selectChoice(color)}}>
 
-            <div class={"swatch-color " + color.primary}></div>
+      <div class={"swatch-color " + color.primary}></div>
 
-            <div class={"swatch-color " + color.primary+"-accent"}></div>
+      <div class={"swatch-color " + color.primary+"-accent"}></div>
 
-        </Option>
+    </Option>
 
-    {/each}
+  {/each}
 
 </Select>
 

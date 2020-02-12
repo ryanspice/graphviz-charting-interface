@@ -31,7 +31,14 @@
 
     store.subscribe(async (t)=>{
 
-      const {action} =  await store.getState();
+        	  const {
+              application
+        	  } = await store.getState();
+            console.log(application)
+            const {
+          		action
+            } = await application;
+
 
       if (container.style.opacity==0){
         const data = await D3Graphviz(action.data);

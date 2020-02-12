@@ -205,9 +205,13 @@ onMount(() => {
 
   store.subscribe(async () => {
 
-    const {
-      navigation
-    } = await store.getState();
+      	  const {
+            application
+      	  } = await store.getState();
+
+          const {
+        		navigation
+          } = await application;
 
     open = navigation;
 

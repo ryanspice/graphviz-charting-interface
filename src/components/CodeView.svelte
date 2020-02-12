@@ -91,17 +91,34 @@
 
   onMount(async () => {
 
+	  const {
+      application
+	  } = await store.getState();
+
     const {
-      theme
-    } = await store.getState();
+  		action,
+  		theme,
+  		data,
+  		nodes,
+  		navigation,
+  		title,
+  		darkMode
+    } = await application;
+
 
     applicationTheme = theme.primary;
 
     store.subscribe(async () => {
 
+
+  	  const {
+        application
+  	  } = await store.getState();
+
       const {
-        theme
-      } = await store.getState();
+    		theme
+      } = await application;
+
 
       applicationTheme = theme.primary;
 

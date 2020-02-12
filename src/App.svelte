@@ -15,6 +15,10 @@
 	APPLICATION_TOGGLE_MENU
   } from "./store/actions/application";
 
+  import {
+    DIALOG_SETTINGS
+  } from './store/actions/dialog'
+
   import {onMount, afterUpdate} from 'svelte';
 
   import "App.svelte.scss";
@@ -51,6 +55,9 @@
 
   import DialogWelcome from "./components/DialogWelcome";
   import DialogAdd from "./components/DialogAdd";
+  import Dialog from "./components/Dialog";
+  import Settings from "./components/Settings";
+
   //export let store;
   export let loading;
 
@@ -61,6 +68,7 @@
   let applicationDayOrNight = false;
   let applicationCodeView = false;
 
+  let applicationFirstRun = false;
   let applicationReady = false;
   let applicationTheme = {
 	primary: ""
@@ -97,7 +105,7 @@
   };
 
   document.onfullscreenchange = function () {
-	applicationFullscreen = !applicationFullscreen;
+  	applicationFullscreen = !applicationFullscreen;
   };
 
   /* TABS TESTING */
@@ -106,10 +114,12 @@
   const code_b =   require("./store/models/example_chart_b.js").default;
   const code_c = require("./store/models/example_chart_c.js").default;
   let tabIndex = 0;
+
   const forceCode = async (chart) => {
-	tabIndex++;
-	D3Graph.renderDot(chart);
+  	tabIndex++;
+  	D3Graph.renderDot(chart);
   };
+
   window.forceCode = forceCode;
 
   /**
@@ -148,6 +158,18 @@
   	});
 
   };
+
+  /**
+   * [handleSettings description]
+   * @return {[type]} [description]
+   */
+
+  const handleSettings = ()=>{
+        store.dispatch({
+          type: DIALOG_SETTINGS,
+          test:'eh'
+        });
+  }
 
   // TODO :: REMOVE
 
@@ -194,6 +216,7 @@
   onMount(async function () {
 
     applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
+    applicationFirstRun = !localStorage.getItem('welcome');
 
   	store.subscribe(async () => {
 
@@ -201,6 +224,10 @@
   	  app.$$.ctx[app.$$.props.loading].set(0.3); // cant i just reset(0.3) i forget lol
 
   	  const {
+        application
+  	  } = await store.getState();
+
+      const {
     		action,
     		theme,
     		data,
@@ -208,7 +235,7 @@
     		navigation,
     		title,
     		darkMode
-  	  } = await store.getState();
+      } = await application;
 
   	  app.$$.ctx[app.$$.props.loading].set(0.6);
 
@@ -217,6 +244,7 @@
 
   	  applicationNavigationMenuState = navigation;
   	  applicationTitle = title;
+
   	  applicationDayOrNight = setDarkMode(darkMode);
 
   	  //if (applicationDayOrNight)
@@ -234,10 +262,51 @@
   	});
 
     // if first time logging on
-    const welcome = new DialogWelcome({target: document.body});
-    //welcome.open();
+    if (applicationFirstRun){
+    if (true){
+
+
+
+/*
+      store.dispatch({
+        type: DIALOG_SETTINGS
+      });*/
+
+
+      //const welcome = new DialogWelcome({target: document.body});
+      /*
+      dialog = new Dialog({target: document.body});
+
+
+      dialog.$set({
+        title:`Settings`,
+        confirm:`Save`,
+        deny:`Cancel`,
+        id:`settings-dialog-content`,
+        components:[
+          Settings
+        ]
+      })
+*/
+
+    }
+  }
 
   });
+
+  let dialog;
+  const openSettings = ()=>{
+
+    dialog.$set({
+      title:`Settings`,
+      confirm:`Save`,
+      deny:`Cancel`,
+      id:`settings-dialog-content`,
+      components:[
+        Settings
+      ]
+    })
+  }
 
   let add;
   const onAdd = () => {
@@ -245,6 +314,8 @@
     add = new DialogAdd({target:document.body});
 
   }
+
+
 
  const notMobile = true; // should have probably used css
 
@@ -292,6 +363,8 @@
 
       <Section align="end" toolbar>
 
+        <IconButton class="material-icons" on:click = {handleSettings}>settings</IconButton>
+<!--
         {#if (notMobile)}
 
         	<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
@@ -307,6 +380,7 @@
           <IconButton class="material-icons" >settings</IconButton>
 
         {/if}
+-->
 
       </Section>
 
