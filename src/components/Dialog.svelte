@@ -9,7 +9,8 @@
     Title,
     Content,
     Actions,
-    InitialFocus
+    InitialFocus,
+    Scrim
   } from '@smui/dialog';
 
   import Button, {
@@ -32,67 +33,42 @@
   export let confirm = "true";
   export let deny = "false";
   export let content = ``;
-  export let id;// = `test-dialog-content`;
+  export let id;
   export let components = [];
 
-  let simpleDialog;
-  let eventDialog;
-  let listDialog;
-  let listSelectionDialog;
-  let sliderDialog;
-  let clicked = 'Nothing yet.';
-  let response = 'Nothing yet.';
-  let clickedList = 'Nothing yet.';
-  let selection = 'Radishes';
-  let selected = 'Nothing yet.';
-  let volumeMedia = 100;
-  let volumeRingtone = 80;
-  let volumeAlarm = 80;
+  let self;
 
-  function closeHandler(e) {
-    switch (e.detail.action) {
-      case 'none':
-        response = 'Ok, well, you\'re wrong.';
-        break;
-      case 'all':
-        response = 'You are correct. All dogs are the best dog.';
-        break;
-      default:
-        response = 'It\'s a simple question. You should be able to answer it.';
-        break;
-    }
+  function onCloseHandler(){
+    self.$destroy();
   }
-
-  function selectionCloseHandler(e) {
-    if (e.detail.action === 'accept') {
-      selected = selection;
-    }
-    selection = 'Radishes';
-  }
-  let test;
 
   onMount(()=>{
 
     if (open){
-      sliderDialog.open();
+      self.open();
     }
 
   })
-afterUpdate(()=>{
 
-  if (document.getElementById(id)){
-  document.getElementById(id).innerHTML = ``;
+  afterUpdate(()=>{
 
-  components.forEach(component => {
+    if (document.getElementById(id)){
 
-    new component({target:document.getElementById(id)})
+      components.forEach(component => {
 
-  })}
+        new component({target:document.getElementById(id)})
 
-})
+      });
+
+    }
+
+  })
 </script>
 
-<Dialog bind:this={sliderDialog} aria-labelledby="slider-title" aria-describedby="slider-content">
+<Dialog
+    bind:this={self}
+    on:MDCDialog:closed={onCloseHandler}
+    class="puff-in-center" aria-labelledby="slider-title" aria-describedby="slider-content">
 
   <Title id="slider-title">{title}</Title>
 
@@ -104,7 +80,7 @@ afterUpdate(()=>{
 
     {#if (deny)}
 
-      <Button action="cancel" style="float:left;">
+      <Button on:click={onCloseHandler} action="cancel">
 
         <Label>{deny}</Label>
 
@@ -114,7 +90,7 @@ afterUpdate(()=>{
 
     {#if (confirm)}
 
-      <Button action="accept">
+      <Button on:click={onCloseHandler} action="accept">
 
         <Label>{confirm}</Label>
 

@@ -1,4 +1,8 @@
+#welcome-screen {
 
+width:100%;
+
+}
 .mdc-dialog__container {
 
   .mdc-dialog__surface {
@@ -25,7 +29,10 @@
     color: var(--theme-link-color);
 
   }
-
+ section {
+   float:left;
+   text-align:center
+ }
   section div {
 
     cursor: pointer;

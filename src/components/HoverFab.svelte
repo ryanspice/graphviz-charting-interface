@@ -9,62 +9,78 @@
 
   import "./HoverFab.svelte.scss";
 
-
   let applicationTheme = '';
-  let self;
   let hidden = true;
   let y = -200;
   let data = {
     name:``
   };
 
+  /**/
+
+  async function getApplication(){
+
+	  const {
+      application
+	  } = await store.getState();
+
+    return await application;
+  }
+
+  /**/
 
   function handleMouseOut() {
-
-	hidden = true;
-	y = -200;
-
-  }
-  function handleMouseIn() {
-
-	hidden = false;
-
+  	hidden = true;
+  	y = -200;
   };
 
   /**/
 
-  onMount(async () => {
+  function handleMouseIn() {
+  	hidden = false;
+  };
 
-      	  const {
-            application
-      	  } = await store.getState();
+  /**
+   * common onSubscribe method
+   * @return {[type]} [description]
+   */
 
-          const {
-        		theme,
-          } = await application;
+  async function onSubscribe(){
 
-  	applicationTheme = theme.primary;
+    const {
+      theme,
+      itemPosition,
+      item,
+    } = await getApplication();
 
-    store.subscribe(async ()=>{
+    if (theme)
+	   applicationTheme = theme.primary;
 
-  	  const {
-        application
-  	  } = await store.getState();
-
-      const {itemPosition,item,theme} = await application;
+    hidden = false;
 
 
-      if (theme)
-  	   applicationTheme = theme.primary;
+    y = itemPosition.y;
+    if (item){
+      data = item;
+    }
 
-      hidden = false;
+  };
 
-      y = itemPosition.y;
+  /**
+   * svelte onMount
+   * @type {[type]}
+   */
 
-      if (item)
-        data = item;
+  onMount(() => {
 
-    });
+    const {
+  		theme,
+    } = getApplication();
+
+    if (theme)
+  	 applicationTheme = theme.primary;
+
+    store.subscribe(onSubscribe);
 
   });
 

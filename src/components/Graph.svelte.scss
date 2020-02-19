@@ -2,18 +2,20 @@
 
     background-color: var(--theme-background);
 
-    width: calc(100% - var(--sidebar-offset));
 
     height: 100%;
     display: block;
 
-    margin-top: 96px;
-    margin-left:var(--sidebar-offset);
+    //margin-top: 96px;
+    width:100%;
 
     position: fixed;
     top: 0px;
     left: 0px;
     z-index: 0;
+
+    width: calc(100% - var(--sidebar-offset));
+    margin-left:var(--sidebar-offset);
 
     svg {
 

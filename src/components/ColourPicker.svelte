@@ -39,7 +39,7 @@
    * @return {[type]}       [description]
    */
 
-  const selectChoice = async function(color) {
+  const handleOption = async function(color) {
 
     store.dispatch({
       type: APPLICATION_ASSIGN_THEME,
@@ -67,7 +67,7 @@
 
   {#each colors as color}
 
-    <Option value={color.name} id="colour-picker-list" on:click={()=>{selectChoice(color)}}>
+    <Option value={color.name} id="colour-picker-list" on:click={()=>{handleOption(color)}}>
 
       <div class={"swatch-color " + color.primary}></div>
 

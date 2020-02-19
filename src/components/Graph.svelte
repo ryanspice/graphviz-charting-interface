@@ -3,7 +3,9 @@
   import { onMount, afterUpdate } from 'svelte';
 
   import {store} from "../index";
-  import {APPLICATION_LOAD} from "../store/actions/application";
+  import {
+    APPLICATION_LOAD_GRAPH
+  } from "../store/actions/application";
 
   import "./Graph.svelte.scss";
 
@@ -31,14 +33,13 @@
 
     store.subscribe(async (t)=>{
 
-        	  const {
-              application
-        	  } = await store.getState();
-            console.log(application)
-            const {
-          		action
-            } = await application;
+  	  const {
+        application
+  	  } = await store.getState();
 
+      const {
+    		action
+      } = await application;
 
       if (container.style.opacity==0){
         const data = await D3Graphviz(action.data);
@@ -51,7 +52,7 @@
     //
 
     store.dispatch({
-      type:APPLICATION_LOAD,
+      type:APPLICATION_LOAD_GRAPH,
       data:(Store)
     });
 

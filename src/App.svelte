@@ -53,10 +53,10 @@
   import ContentEditor from "./components/ContentEditor.svelte";
   import {setDarkMode} from "./store/actions/darkmode";
 
-  import DialogWelcome from "./components/DialogWelcome";
   import DialogAdd from "./components/DialogAdd";
   import Dialog from "./components/Dialog";
   import Settings from "./components/Settings";
+  import Welcome from "./components/Welcome";
 
   //export let store;
   export let loading;
@@ -237,6 +237,8 @@
     		darkMode
       } = await application;
 
+      console.log(action.type);
+
   	  app.$$.ctx[app.$$.props.loading].set(0.6);
 
   	  applicationSourceCode = data;
@@ -265,48 +267,25 @@
     if (applicationFirstRun){
     if (true){
 
-
-
-/*
-      store.dispatch({
-        type: DIALOG_SETTINGS
-      });*/
-
-
-      //const welcome = new DialogWelcome({target: document.body});
-      /*
-      dialog = new Dialog({target: document.body});
-
-
+      let dialog = new Dialog({target: document.body});
       dialog.$set({
-        title:`Settings`,
-        confirm:`Save`,
-        deny:`Cancel`,
+        title:`Welcome`,
+        confirm:``,
+        deny:``,
         id:`settings-dialog-content`,
         components:[
-          Settings
+          Welcome
         ]
-      })
-*/
+      });
 
     }
+  } else {
+
   }
 
-  });
 
-  let dialog;
-  const openSettings = ()=>{
+});
 
-    dialog.$set({
-      title:`Settings`,
-      confirm:`Save`,
-      deny:`Cancel`,
-      id:`settings-dialog-content`,
-      components:[
-        Settings
-      ]
-    })
-  }
 
   let add;
   const onAdd = () => {
@@ -354,7 +333,7 @@
 
     		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>bar_chart</IconButton>
 
-    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>add_circle_outline</IconButton>
+    		<IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{forceCode(code_c)}}>add</IconButton>
 
         {#if (notMobile)}
         {/if}
@@ -388,14 +367,31 @@
 
     <!-- Secondary Row -->
 
-    <Row class={applicationTheme.primary+"-accent"} id="second-bar">
+    <Row class={applicationTheme.primary+"-accent"} id="second-bar" >
 
       <Section align="start" toolbar>
 
         {#if (notMobile)}
           {#if ((applicationDigraphSource===false))}
-            <IconButton class="material-icons"  on:click={onAdd} aria-label="add">add</IconButton>
+            <IconButton class="material-icons"  on:click={onAdd} aria-label="add">insert_chart</IconButton>
           {/if}
+
+          <Divider></Divider>
+
+                    {#if ((true)&&(applicationDigraphSource===false))}
+                    <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
+                    const html = d3.select("#graph0").html();
+                    //downloadSource(html);
+                    //applicationCodeView=true;
+                    applicationDigraphSource=html;}} alt="print">code</IconButton>
+                    {/if}
+
+                    {#if ((true)&&(applicationDigraphSource))}
+                      <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
+                      applicationCodeView=applicationCodeView;
+                      applicationDigraphSource=false;}} alt="print">insert_chart</IconButton>
+                    {/if}
+
         {/if}
 
         {#if (!notMobile)}
@@ -410,7 +406,6 @@
           <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>insert_chart</IconButton>
         {/if}
         -->
-        <Divider></Divider>
 
 
           <!-- FOR each GRAPH in store.graph.list? -->
@@ -428,26 +423,13 @@
 
         {#if (notMobile)}
 
-          {#if ((true)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          const html = d3.select("#graph0").html();
-          //downloadSource(html);
-          //applicationCodeView=true;
-          applicationDigraphSource=html;}} alt="print">code</IconButton>
-          {/if}
-
-          {#if ((true)&&(applicationDigraphSource))}
-            <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-            applicationCodeView=applicationCodeView;
-            applicationDigraphSource=false;}} alt="print">insert_chart</IconButton>
-          {/if}
 
           <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
           const html = d3.select("#graph0").html();
           const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
           win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}} alt="print">print</IconButton>
 
-          <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
+          <IconButton class="material-icons hidden" aria-label="Download SVG" on:click={()=>{
           const svg = document.querySelector("svg");
           downloadSvg(svg);}}>file_download</IconButton>
 

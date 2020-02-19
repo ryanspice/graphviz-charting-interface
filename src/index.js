@@ -1,18 +1,15 @@
-import App from './App.svelte';
-import LoadingBar, {
-  reset
-} from "./components/static/LoadingBar.svelte";
 
-/*
+import App from './App.svelte';
+
 import {
-  application,
-  dialog
-} from "./store/index";
-*/
+  APPLICATION_LOAD
+} from "./store/actions/application";
 
 import Store from "./store/reducers/index";
 
-console.log(Store);
+import LoadingBar, {
+  reset
+} from "./components/static/LoadingBar.svelte";
 
 
 import "./utils/storage/storage.getobject.js";
@@ -35,7 +32,7 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
       target: document.body
     });
 
-    await loading.increment(.5);
+    await loading.increment(.2);
 
     app = await new App({
       target: document.body,
@@ -45,13 +42,21 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
       }
     });
 
-    await loading.increment(.01);
+    await loading.increment(.2);
 
     //TODO :: remove
     window.app = app;
     window.store = store;
 
-    requestAnimationFrame(function() {
+    requestAnimationFrame(async function() {
+
+      await console.log('eh')
+      await store.dispatch({
+        type:APPLICATION_LOAD
+      });
+
+      await loading.increment(.2);
+      await console.log('eh2');
       //loading.set(1);
     });
 

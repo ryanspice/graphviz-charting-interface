@@ -23,6 +23,7 @@ export const APPLICATION_TOGGLE_MENU = `APPLICATION_TOGGLE_MENU`;
 export const APPLICATION_TOGGLE_DARKMODE = `APPLICATION_TOGGLE_DARKMODE`;
 export const APPLICATION_SAVE = `APPLICATION_SAVE`;
 export const APPLICATION_LOAD = `APPLICATION_LOAD`;
+export const APPLICATION_LOAD_GRAPH = `APPLICATION_LOAD`;
 export const APPLICATION_LOAD_PREVIOUS = `APPLICATION_LOAD_PREVIOUS`;
 export const APPLICATION_LOAD_EXAMPLE = `APPLICATION_LOAD_EXAMPLE`;
 
@@ -86,6 +87,9 @@ export function applicationSave(...args){
 }
 export function applicationLoad(...args){
   return { type: APPLICATION_LOAD, ...args }
+}
+export function applicationGraphLoad(...args){
+  return { type: APPLICATION_LOAD_GRAPH, ...args }
 }
 export function applicationLoadPrevious(...args){
   return { type: APPLICATION_LOAD_PREVIOUS, ...args }

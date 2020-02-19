@@ -110,7 +110,6 @@
 
     store.subscribe(async () => {
 
-
   	  const {
         application
   	  } = await store.getState();
@@ -118,7 +117,6 @@
       const {
     		theme
       } = await application;
-
 
       applicationTheme = theme.primary;
 
