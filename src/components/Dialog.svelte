@@ -31,6 +31,9 @@
   export let destroy = false;
   export let open = true;
   export let confirm = "true";
+  export let onConfirm = () => {
+
+  };
   export let deny = "false";
   export let content = ``;
   export let id;
@@ -39,6 +42,7 @@
   let self;
 
   function onCloseHandler(){
+    onConfirm();
     self.$destroy();
   }
 
@@ -50,19 +54,6 @@
 
   })
 
-  afterUpdate(()=>{
-
-    if (document.getElementById(id)){
-
-      components.forEach(component => {
-
-        new component({target:document.getElementById(id)})
-
-      });
-
-    }
-
-  })
 </script>
 
 <Dialog
@@ -73,9 +64,10 @@
   <Title id="slider-title">{title}</Title>
 
   <Content id={id}>
-
+    <slot />
   </Content>
 
+  {#if (deny||confirm)}
   <Actions>
 
     {#if (deny)}
@@ -99,5 +91,6 @@
     {/if}
 
   </Actions>
+  {/if}
 
 </Dialog>

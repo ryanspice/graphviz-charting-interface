@@ -237,7 +237,7 @@
     		darkMode
       } = await application;
 
-      console.log(action.type);
+      //console.log(action.type);
 
   	  app.$$.ctx[app.$$.props.loading].set(0.6);
 
@@ -267,17 +267,6 @@
     if (applicationFirstRun){
     if (true){
 
-      let dialog = new Dialog({target: document.body});
-      dialog.$set({
-        title:`Welcome`,
-        confirm:``,
-        deny:``,
-        id:`settings-dialog-content`,
-        components:[
-          Welcome
-        ]
-      });
-
     }
   } else {
 
@@ -294,13 +283,23 @@
 
   }
 
-
-
  const notMobile = true; // should have probably used css
 
 </script>
 
 {#if applicationReady}
+  <Dialog
+    title={`Welcome`}
+    confirm={``}
+    deny={``}
+    id={`settings-dialog-content`}
+    onConfirm={()=>{applicationFirstRun = false;}}
+   >
+    <Welcome />
+  </Dialog>
+{/if}
+
+{#if (!applicationFirstRun && (applicationReady))}
 
   <TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
