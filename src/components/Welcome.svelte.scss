@@ -1,95 +1,69 @@
-
 @import '../css/abstracts/mixins/__fluidType.scss';
-
 #welcome-screen {
-
-    @include fluid-type($min_width, 720px, $min_font, 18px);
-width:100%;
-  & a {
-    width:100%;
-    text-align:center;
-  }
-
+	@include fluid-type($min_width, 720px, $min_font, 18px);
+	width: 100%;
+	& a {
+		width: 100%;
+		text-align: center;
+	}
 }
-#ax-c4ca4238a0b923820dcc509a6f75849b {
-  display:inline-block;
 
-  }
-
-  copy {
-  	font-family: monospace;
-  	text-align: center;
-  	display: block !important;
-  	display: block;
-  	margin: 0 auto;
-
-  	p:first-child {
-  		text-align: center;
-  		font-family: monospace;
-  		display: block !important;
-  		display: block;
-  		margin: 0 auto;
-  	}
-
-  	img {
-  		width: 40px;
-  	}
-  }
-
+copy {
+	font-family: monospace;
+	text-align: center;
+	display: block;
+	margin: 0 auto;
+	p:first-child {
+		text-align: center;
+		font-family: monospace;
+		display: block;
+		margin: 0 auto;
+	}
+	img {
+		width: 40px;
+	}
+}
 
 .mdc-dialog__container {
-
-  .mdc-dialog__surface {
-
-    background: var(--theme-background);
-    color: var(--theme-primary);
-
-  }
-
-  i {
-
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 auto;
-    // width:49%;
-    padding: 0;
-    text-align: center;
-    clear: both;
-
-    &.large {
-      font-size: 5rem;
-      color: var(--theme-link-color);
-    }
-    color: var(--theme-link-color);
-
-  }
- section {
-   float:left;
-   text-align:center
- }
-  section li {
-
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 auto;
-    width: 49%;
-    min-height:148px;
-    padding: 0;
-    text-align: center;
-    padding: 1rem;
-
-    a {
-      line-height:7rem;
-    }
-
-    &:hover {
-      outline: 1px solid rgba(255,255,255,0.25);
-    }
-
-    &:active {
-      outline: 1px solid rgba(255,255,255,0.05);
-    }
-
-  }
-
+	.mdc-dialog__surface {
+		background: var(--theme-background);
+		color: var(--theme-primary);
+	}
+	i {
+		cursor: pointer;
+		display: inline-block;
+		margin: 0 auto;
+		// width:49%;
+		padding: 0;
+		text-align: center;
+		clear: both;
+		&.large {
+			font-size: 5rem;
+			color: var(--theme-link-color);
+		}
+		color: var(--theme-link-color);
+	}
+	section {
+		float: left;
+		text-align: center
+	}
+	section li {
+		cursor: pointer;
+		display: inline-block;
+		margin: 0 auto;
+		width: 49%;
+		min-height: 148px;
+		padding: 0;
+		text-align: center;
+		padding: 1rem;
+		a {
+			line-height: 7rem;
+		}
+		&:hover {
+			outline: 1px solid rgba(255, 255, 255, 0.25);
+		}
+		&:active {
+			outline: 1px solid rgba(255, 255, 255, 0.05);
+		}
+	}
 }
