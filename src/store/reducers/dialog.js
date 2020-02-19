@@ -4,7 +4,7 @@ import {
 } from '../actions/dialog'
 
 import Settings from "../../components/Settings";
-import Dialog from "../../components/Dialog";
+import Dialog from "../../components/static/Dialog";
 
 async function dialog(state = [], action) {
 

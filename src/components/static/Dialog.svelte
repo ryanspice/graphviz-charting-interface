@@ -46,7 +46,7 @@
     self.$destroy();
   }
 
-  onMount(()=>{
+  afterUpdate(()=>{
 
     if (open){
       self.open();
@@ -68,27 +68,27 @@
   </Content>
 
   {#if (deny||confirm)}
-  <Actions>
+    <Actions>
 
-    {#if (deny)}
+      {#if (deny)}
 
-      <Button on:click={onCloseHandler} action="cancel">
+        <Button on:click={onCloseHandler} action="cancel">
 
-        <Label>{deny}</Label>
+          <Label>{deny}</Label>
 
-      </Button>
+        </Button>
 
-    {/if}
+      {/if}
 
-    {#if (confirm)}
+      {#if (confirm)}
 
-      <Button on:click={onCloseHandler} action="accept">
+        <Button on:click={onCloseHandler} action="accept">
 
-        <Label>{confirm}</Label>
+          <Label>{confirm}</Label>
 
-      </Button>
+        </Button>
 
-    {/if}
+      {/if}
 
   </Actions>
   {/if}

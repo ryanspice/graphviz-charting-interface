@@ -54,7 +54,7 @@
   import {setDarkMode} from "./store/actions/darkmode";
 
   import DialogAdd from "./components/DialogAdd";
-  import Dialog from "./components/Dialog";
+  import Dialog from "./components/static/Dialog";
   import Settings from "./components/Settings";
   import Welcome from "./components/Welcome";
 

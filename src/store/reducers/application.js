@@ -18,13 +18,23 @@ import {
 import initialization from "../actions/initialization";
 import {setDarkMode} from "../actions/darkmode";
 
+
+
+const state_default = {
+	theme:{ name: "Deep Purple", primary: 'swatch-color-deep-purple', secondary: '' }
+};
+
+
+
+
 async function application(state = [], action) {
 
-  state = await state;
+  state = await Object.assign(await state_default, await state);
 
   switch (action.type) {
 
 	case APPLICATION_LOAD:
+		console.info('initialization')
 	  return await initialization(await state, action);
 	case APPLICATION_TOGGLE_MENU:
 	  localStorage.setObject('navigation', !action.navigation);
