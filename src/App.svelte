@@ -16,6 +16,10 @@
   } from "./store/actions/application";
 
   import {
+    STATUS_LOAD_BAR
+  } from "./store/actions/status";
+
+  import {
     DIALOG_SETTINGS
   } from './store/actions/dialog'
 
@@ -218,13 +222,23 @@
     applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
     applicationFirstRun = !localStorage.getItem('welcome');
 
+    store.dispatch({
+      type: STATUS_LOAD_BAR,
+      value:0.1
+    });
+
   	store.subscribe(async () => {
 
-  	  app.$$.ctx[app.$$.props.loading].reset(0);
-  	  app.$$.ctx[app.$$.props.loading].set(0.3); // cant i just reset(0.3) i forget lol
+  	  //app.$$.ctx[app.$$.props.loading].reset(0);
+
+
+
+
+//  	  app.$$.ctx[app.$$.props.loading].set(0.3); // cant i just reset(0.3) i forget lol
 
   	  const {
-        application
+        application,
+        status
   	  } = await store.getState();
 
       const {
@@ -237,10 +251,6 @@
     		darkMode
       } = await application;
 
-      //console.log(action.type);
-
-  	  app.$$.ctx[app.$$.props.loading].set(0.6);
-
   	  applicationSourceCode = data;
   	  applicationTheme = theme;
 
@@ -251,15 +261,15 @@
 
   	  //if (applicationDayOrNight)
 
-  	  applicationReady = true;
+  	  //applicationReady = true;
 
-  	  app.$$.ctx[app.$$.props.loading].set(0.9);
 
-  	  requestAnimationFrame(function(){
-
-  		    app.$$.ctx[app.$$.props.loading].set(1);
-
-  	  });
+      if ((await status).progress<1){
+          store.dispatch({
+            type: STATUS_LOAD_BAR,
+            value:1
+          });
+      }
 
   	});
 
@@ -287,19 +297,18 @@
 
 </script>
 
-{#if applicationReady}
+{#if applicationFirstRun}
   <Dialog
-    title={`Welcome`}
+    title={``}
     confirm={``}
     deny={``}
     id={`settings-dialog-content`}
-    onConfirm={()=>{applicationFirstRun = false;}}
+    onConfirm={()=>{applicationReady = false;}}
    >
     <Welcome />
   </Dialog>
 {/if}
 
-{#if (!applicationFirstRun && (applicationReady))}
 
   <TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
@@ -342,23 +351,23 @@
       <Section align="end" toolbar>
 
         <IconButton class="material-icons" on:click = {handleSettings}>settings</IconButton>
-<!--
-        {#if (notMobile)}
+      <!--
+              {#if (notMobile)}
 
-        	<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
+              	<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
 
-          <ColourPicker></ColourPicker>
+                <ColourPicker></ColourPicker>
 
-          <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
+                <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
 
-        {/if}
+              {/if}
 
-        {#if (!notMobile)}
+              {#if (!notMobile)}
 
-          <IconButton class="material-icons" >settings</IconButton>
+                <IconButton class="material-icons" >settings</IconButton>
 
-        {/if}
--->
+              {/if}
+      -->
 
       </Section>
 
@@ -490,4 +499,5 @@
     <CodeView code={(applicationDigraphSource?getDigraphSource():getCode())}></CodeView>
   {/if}
 
+  {#if ((applicationReady))}
 {/if}

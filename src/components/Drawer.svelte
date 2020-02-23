@@ -72,19 +72,6 @@
   let active = 'Gray Kittens';
   let active2 = 'Inbox';
 
-  function setActive(value) {
-    active = value;
-    myDrawerOpen = false;
-  }
-
-  function setActive2(value) {
-    active2 = value;
-    open = false;
-  }
-
-  function toggleActive(value) {
-    open = !open;
-  }
   const a = (t) => {
     open = !open;
   };

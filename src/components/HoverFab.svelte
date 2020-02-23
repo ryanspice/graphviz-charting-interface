@@ -58,7 +58,8 @@
 
     hidden = false;
 
-
+    if (!itemPosition.y)
+      return console.error('fix me');
     y = itemPosition.y;
     if (item){
       data = item;
@@ -71,7 +72,11 @@
    * @type {[type]}
    */
 
-  onMount(() => {
+  onMount(async () => {
+
+	  const {
+      status
+	  } = await store.getState();
 
     const {
   		theme,
@@ -79,6 +84,7 @@
 
     if (theme)
   	 applicationTheme = theme.primary;
+
 
     store.subscribe(onSubscribe);
 

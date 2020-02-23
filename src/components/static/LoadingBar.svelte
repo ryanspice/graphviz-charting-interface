@@ -12,6 +12,8 @@
   let closed = false;
   let timer;
 
+  import {store} from "../../index";
+
   /**
    * [set description]
    * @param {[type]} value [description]
@@ -87,6 +89,28 @@
   onDestroy(() => {
 
     clearInterval(timer);
+
+  });
+
+  /**
+   * svelte onmount
+   */
+
+  onMount(()=>{
+
+    store.subscribe(async ()=>{
+
+      const {
+        status
+      } = await store.getState();
+
+      const {
+        progress
+      } = await status;
+
+      set(progress);
+
+    });
 
   });
 
