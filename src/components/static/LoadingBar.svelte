@@ -15,8 +15,7 @@
   import {store} from "../../index";
 
   /**
-   * [set description]
-   * @param {[type]} value [description]
+   * sets progress value, and clears
    */
 
   export function set(value) {
@@ -28,9 +27,8 @@
   }
 
   /**
-   * [increment description]
-   * @param  {[type]} value [description]
-   * @return {[type]}       [description]
+   * increments progress by value, and clears
+   * @param  {Number} value
    */
 
   export function increment(value) {
@@ -42,8 +40,7 @@
   }
 
   /**
-   * [clear description]
-   * @return {[type]} [description]
+   * if progress complete (1) clear timer, flags
    */
 
   export function clear() {
@@ -57,7 +54,7 @@
   }
 
   /**
-   * [reset description]
+   * reset progress, flags
    */
 
   export function reset() {
@@ -68,8 +65,7 @@
   }
 
   /**
-   * [interval description]
-   * @return {[type]} [description]
+   * clear and set timer, increment
    */
 
   export function interval() {
