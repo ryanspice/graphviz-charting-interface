@@ -1,104 +1,100 @@
 export default `
-digraph reactiveChartInterface {
+digraph G {
 
-  graph [ bgcolor="transparent", fontcolor="white", color="white", fontsize = 12, labelloc = "t",label="reactiveChartInterface", fontname = "Nramit", compound = true ];
-  node [ fontcolor="white", color="white",shape = "record" fontsize = 12, width = 0, height = 0, margin = "0.2,0.1", fontname = "Niramit" ];
-  edge [ fontcolor="white", color="white",fontsize = 10, fontname = "Niramit" ];
+  graph [concentrate=true,ranksep=0.3,nodesep=0.2, splines="ortho", bgcolor="transparent", fontcolor="white", color="white", fontsize = 12, labelloc = "t",label="reactiveChartInterface - app states", fontname = "Nramit", compound = true ];
+  node [ fontcolor="white", color="white",shape = "record" fontsize = 9, width = 0, height = 0, margin = "0.2,0.1", fontname = "Niramit" ];
+  edge [ fontcolor="white", color="white",fontsize = 10, arrowsize=0.7, fontname = "Niramit" ];
 
     graph [fontname = "Handlee"];
     node [fontname = "Handlee"];
     edge [fontname = "Handlee"];
 
 
-  subgraph theme {
+  subgraph state {
 
     graph [ label = "main [entry] [initial]", fontcolor = "0,0,0.28", bgcolor = "0,0,0.95", color = "0,0,0.55" ];
 
-  	colors;
-    mixins;
-    material;
+  	STATE_INITIALIZATION;
+    STATE_GRAPH_READY;
+    STATE_GRAPH_EDIT;
 
-  }
-  subgraph app {
-
-    index[label="index.js", shape="Msquare"];
-    scss[label="main.scss"];
-  }
-  subgraph store {
-    redux[label="store" shape = "cylinder"];
-  }
-  subgraph utils {
-    utils;
-    storage;
-    fullscreen;
-    download;
-
-    utils -> fullscreen;
-    fullscreen ->redux[dir="both"];
-
-    redux -> first[style="invis"];
-    first -> redux[label="dispatch"];
-
-    utils -> download;
-    download -> redux[dir="both"];
-
-    redux -> second[style="invis"];
-    second -> redux[label="dispatch"];
-
-    utils -> storage;
-    storage->redux[dir="both"];
+    STATE_GRAPH_FAILSAFE;
+    STATE_GRAPH_UPDATE;
+    STATE_GRAPH_SUCCESS;
+    STATE_GRAPH_FAIL;
 
   }
 
-  subgraph ui {
-    app [
-            label = "{App}"
-            shape = "record"
-    ]
-    first [
-      label = "{First Toolbar|+ title : string\|+ drawer() : boolean\|+ color() : state\|+ fullscreen() : boolean\}"
-      shape = "record"
-    ]
-    second [
-            label = "{Second Toolbar|+ name : string\l+ age : int\l|+ die() : void\l}"
-            shape = "record"
-    ]
-    drawer [
-            label = "{Drawer|+ data() : Array\}"
-            shape = "record"
-    ]
-    drawerItem [
-            label = "{Item|title : String\|nodes : Array\}"
-            shape = "record"
-    ]
-    drawerHoverFab [
-            label = "{HoverFab|title : String\|nodes : Array\|+ modify() : Promise\}"
-            shape = "record"
-    ]
-    content [
-            label = "{Graph|+ data() : Array\}"
-            shape = "record"
-    ]
+
+
+  subgraph dialogs {
+
+    graph [ label = "main [entry] [initial]", fontcolor = "0,0,0.28", bgcolor = "0,0,0.95", color = "0,0,0.55" ];
+    node [ fontcolor="white", color="white",shape = "record" fontsize = 8, width = 0, height = 0, margin = "0,0", fontname = "Niramit" ];
+
+  	DIALOG_WELCOME;
+
+
+      DIALOG_WELCOME->_UPLOAD,_CREATE,_DEFAULT[style="dotted",arrowhead="obox"];
+      _UPLOAD,_CREATE,_DEFAULT -> STORAGE[style="dotted",arrowhead="odot", arrowsize=0.5];
+    DIALOG_SETTINGS;
+    DIALOG_ADD;
+    DIALOG_EDIT;
+
   }
 
-scss->index;
+    subgraph storage {
 
-colors, mixins, material -> scss;
+      graph [ label = "main [entry] [initial]", fontcolor = "0,0,0.28", bgcolor = "0,0,0.95", color = "0,0,0.55" ];
+      node [ fontcolor="white", color="white",shape = "circle", fontsize = 8, width = 0, height = 0, margin = "0,0", fontname = "Niramit" ];
 
-drawerItem -> drawerHoverFab[style=dotted, label="modify"];
-drawerHoverFab -> redux[label="dispatch",style=dotted];
-drawerHoverFab -> app;
+      STORAGE[shape="circle", fontcolor="black", fillcolor="white", style="filled"];
 
-drawer -> drawerItem[label="" dir="both"];
+    }
 
-drawer -> redux[label="subscribe" dir="both"];
-drawer->app;
+      subgraph status {
 
-content -> redux[label="subscribe" dir="both"];
-content->app;
+        node [style="diagonals"];
 
-first, second -> app -> index;
+        STATUS_ERROR;
 
+      }
+
+      subgraph if {
+        graph [concentrate=true,ranksep=0.3,nodesep=0.2, splines="default"];
+        node [ fontcolor="white", color="white",shape = "diamond" fontsize = 8, width = 0, height = 0, margin = "0.01,0.01", fontname = "Niramit" ];
+        IF_FIRSTRUN;
+        IF_STORAGE;
+
+        STATE_INITIALIZATION:s ->IF_FIRSTRUN:n;
+
+        IF_FIRSTRUN:s ->IF_STORAGE [label="false",style="dashed",arrowhead="ediamond",constraint=true];
+
+
+        DIALOG_WELCOME -> STORAGE[style="dotted",arrowhead="odot", arrowsize=0.5];
+        IF_FIRSTRUN->DIALOG_WELCOME;
+        IF_STORAGE->DIALOG_WELCOME[style="dashed",arrowhead="ediamond"];
+
+        IF_STORAGE -> STORAGE[label="true", arrowhead="odot", arrowsize=0.5];
+
+
+      }
+
+      STORAGE -> STATE_GRAPH_READY;
+
+
+STATE_GRAPH_READY->STATE_GRAPH_EDIT->STATE_GRAPH_UPDATE;
+
+  STATE_GRAPH_READY->DIALOG_SETTINGS,DIALOG_EDIT,DIALOG_ADD -> STATE_GRAPH_UPDATE[style="dotted",arrowsize=0.5];
+
+
+
+  STATE_GRAPH_UPDATE->STATE_GRAPH_SUCCESS->STATE_GRAPH_READY;
+
+  STATE_GRAPH_UPDATE->STATE_GRAPH_FAIL;
+  STATE_GRAPH_FAIL->STATE_GRAPH_FAILSAFE->STATE_GRAPH_READY;
+
+  STATE_GRAPH_FAILSAFE->STATUS_ERROR[style="dashed",arrowsize=0.5, arrowhead=none];
 
 }
 `;
