@@ -1,11 +1,26 @@
 <script>
 
-  import {Title, Item, Graphic, Text} from '@smui/list';
+    import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
+    import Button, {Label} from '@smui/button';
+    import IconButton, {Icon} from '@smui/icon-button';
+    import List, {
+      Title,
+      Item,
+      Graphic,
+      Text} from '@smui/list';
 
   import Upload from "./static/Upload.svelte";
+
   import "./Welcome.svelte.scss";
+
+export let onDismiss = () => {};
+export let onInsertChart = () => {};
+//export let onDismiss = () => {};
 </script>
+
 <section id="welcome-screen">
+
+  <h2>Welcome!</h2>
 
   <p>
     Thank you for testing!
@@ -20,38 +35,40 @@
 
   <br/><br/>
 
-  <Item onclick="document.getElementById('welcome-file-upload').click()">
+   <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={()=>{
 
-  	<i class="material-icons large" disabled>
-  	 open_in_browser
-  	</i>
+      document.getElementById('welcome-file-upload').click();
+     }}>
+     <Media class="card-media-square" aspectRatio="square">
+     <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
 
-    <br/>
+           	<i class="material-icons large" disabled>
+           	 open_in_browser
+           	</i>
 
-  	Upload
+             <br/>
 
-  </Item>
+           	Upload
 
-  <Item>
+      </div>
 
-  	<i class="material-icons large" disabled>
-  	 create
-  	</i>
+     </Media>
+   </Card>
+   <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={onInsertChart}>
+     <Media class="card-media-square" aspectRatio="square">
+     <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
 
-    <br/>
+           	<i class="material-icons large" disabled>
+           	 insert_chart
+           	</i>
 
-  	Create
+             <br/>
 
-	</Item>
+           	Create
 
-  <br/><br/>
+      </div>
 
-  <copy id="ax-c4ca4238a0b923820dcc509a6f75849b">
-
-		<p>
-	    <a href="mailto:spice.ryan@hotmail.com" target="_self">contact@ryanspice.com</a><br>
-    </p>
-
-   </copy>
+     </Media>
+   </Card>
 
 </section>

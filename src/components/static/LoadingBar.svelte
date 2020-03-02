@@ -9,22 +9,44 @@
   import LinearProgress from '@smui/linear-progress';
 
   let progress = 0;
+  let progressMax = 1;
+  let progressShow = 0;
   let closed = false;
   let timer;
 
   import {store} from "../../index";
 
   /**
-   * sets progress value, and clears
+   * sets progress value, and clears, noMaxIncrease
    */
 
-  export function set(value) {
+  function setNoMaxIncrease(value) {
 
+    //progressMax = value;
     progress = value;
+    progressShow = progressMax/progress;
+
+    progress = progressShow;// * 0.01;
 
     clear();
 
   }
+
+    /**
+     * sets progress value, and clears
+     */
+
+    export function set(value) {
+
+      progressMax++;
+      progress = value;
+      progressShow = progressMax/progress;
+
+      progress = progressShow * 0.01;
+
+      clear();
+
+    }
 
   /**
    * increments progress by value, and clears
@@ -104,7 +126,7 @@
         progress
       } = await status;
 
-      set(progress);
+      setNoMaxIncrease(progress);
 
     });
 

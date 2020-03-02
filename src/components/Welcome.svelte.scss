@@ -1,38 +1,83 @@
+
+$max_font: 26px;
 @import '../css/abstracts/mixins/__fluidType.scss';
+
+li {
+	overflow: visible;
+}
+
 #welcome-screen {
+
+	* {
+		user-select: none;
+	}
+
 	@include fluid-type($min_width, 720px, $min_font, $max_font);
 	width: 100%;
+
 	& a {
 		width: 100%;
 		text-align: center;
+	  :hover {
+				opacity:0.8;
+	  }
 	}
+
 	li, p {
 		text-align: center;
 		font-family: monospace;
+		display: inline-block;
 		margin: 0 auto;
 	}
+
+	.mdc-card {
+
+		background:transparent;
+		border:none;
+		box-shadow: none;
+		padding:1rem;
+
+		:hover {
+			opacity:0.8;
+		}
+
+	}
+
+	.mdc-card__media--square:before {
+		//margin-top:0px;
+		display: inline-block;
+
+	}
+
+	.mdc-list-item {
+
+		overflow:visible;
+		display: inline-block;
+
+		:hover {
+
+			opacity:0.8;
+
+		}
+
+	}
+
 }
 
-copy {
-	font-family: monospace;
-	text-align: center;
-	display: block;
-	margin: 0 auto;
-	img {
-		width: 40px;
-	}
-}
 #slider-title {
 
   font-family: monospace;
-		@include fluid-type($min_width, 720px, $min_font, $max_font*1.35);
 }
-
-.mdc-dialog__container {
-	.mdc-dialog__surface {
-		background: var(--theme-background);
-		color: var(--theme-primary);
+#dialog-welcome {
+	.mdc-dialog__container {
+		.mdc-dialog__surface {
+			background: var(--theme-background);
+			color: var(--theme-primary);
+			width:100vw;
+			max-width:100vw;
+			height:100vh;margin-top:56px;
 	}
+}
 	i {
 		cursor: pointer;
 		display: inline-block;
@@ -42,7 +87,7 @@ copy {
 		text-align: center;
 		clear: both;
 		&.large {
-			font-size: 5rem;
+			font-size: 5em;
 			color: var(--theme-link-color);
 		}
 		color: var(--theme-link-color);
@@ -52,16 +97,21 @@ copy {
 		text-align: center
 	}
 	section li {
+		user-select: none;
 		cursor: pointer;
 		display: inline-block;
 		margin: 0 auto;
-		width: 49%;
-		min-height: 148px;
+		//width: 40vw;
+		//height: 40vh;
+		//min-height: 148px;
 		padding: 0;
 		text-align: center;
-		padding: 1rem;
+		//padding: 1rem;
+		i {
+  		//margin-top: 25%;
+		}
 		a {
-			line-height: 7rem;
+			//line-height: 7rem;
 		}
 		&:hover {
 			outline: 1px solid rgba(255, 255, 255, 0.25);

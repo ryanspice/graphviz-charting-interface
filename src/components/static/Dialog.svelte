@@ -23,10 +23,11 @@
     Text
   } from '@smui/list';
 
+/*
   import Radio from '@smui/radio';
   import Slider from '@smui/slider';
   import FormField from '@smui/form-field';
-
+*/
   export let title = 'undefined';
   export let destroy = false;
   export let open = true;
@@ -48,7 +49,9 @@
 
   afterUpdate(()=>{
 
+    if (self)
     if (open){
+      //console.log(self)
       self.open();
     }
 
@@ -59,9 +62,12 @@
 <Dialog
     bind:this={self}
     on:MDCDialog:closed={onCloseHandler}
+    id={"dialog-welcome"}
     class="puff-in-center" aria-labelledby="slider-title" aria-describedby="slider-content">
 
-  <Title id="slider-title">{title}</Title>
+  {#if (title)}
+      <Title id="slider-title">{title}</Title>
+  {/if}
 
   <Content id={id}>
     <slot />

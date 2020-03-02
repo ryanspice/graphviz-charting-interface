@@ -1,7 +1,7 @@
 {
   "name": "graphviz-charting-interface",
   "short_name": "GCI",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "main": "index.js",
   "author": "Ryan Spice-Finnie",
   "license": "MIT",
@@ -17,8 +17,10 @@
   "dependencies": {
     "@sveltejs/svelte-virtual-list": "^3.0.1",
     "css-loader": "^3.4.0",
+    "css-vars": "^2.2.0",
     "d3-graphviz": "^2.6.1",
     "ecmascript-toolkit": "https://github.com/ryanspice/ecmascript-toolkit#develop",
+    "material-scss-vars": "https://gist.github.com/72312991e788e8687a9275c8a64e3460.git",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

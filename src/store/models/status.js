@@ -1,6 +1,15 @@
 export default {
   progress:0.1,
-  state:'',
+  state:1000,
   files:[],
-  isSaved:true,
+  options:{
+    showWizard:false,
+    isSaved:true,
+  },
+  theme:{
+    primary:`#bb0000`,
+    primaryPalette:[],
+    secondary:`#0000aa`,
+    secodaryPalette:[],
+  }
 }

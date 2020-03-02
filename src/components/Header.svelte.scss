@@ -1,0 +1,25 @@
+.mdc-top-app-bar {
+
+  background:transparent;
+
+  div:nth-child(1) {
+
+    background: var(--primary);
+
+      * {
+        color: var(--text-primary-on-background);
+      }
+      
+  }
+
+  div:nth-child(2) {
+
+    background: var(--secondary);
+
+      * {
+        color: var(--text-primary-on-background);
+      }
+
+  }
+
+}

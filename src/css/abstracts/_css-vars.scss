@@ -2,15 +2,14 @@
 
 // global map to be filled via variables
 $css-vars: (
-
 );
 
 // the variable may be set to "true" anywhere in the code,
 // so native CSS custom properties will be used instead of the Sass global map
-$css-vars-use-native: false !default;
+$css-vars-use-native: true !default;
 
 // enables the output of debug messages
-$css-vars-debug-log: false !default;
+$css-vars-debug-log: true !default;
 
 //// FUNCTIONS ////
 

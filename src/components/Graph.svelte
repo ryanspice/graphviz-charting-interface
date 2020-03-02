@@ -17,6 +17,7 @@
 
   /**/
 
+  let state = 0;
   onMount(async () => {
 
     const container = GraphContainer;
@@ -34,13 +35,17 @@
     store.subscribe(async (t)=>{
 
   	  const {
-        application
+        application,
+        status
   	  } = await store.getState();
 
       const {
     		action
       } = await application;
 
+      state = (await status).state;
+
+        console.log(state)
       if (container.style.opacity==0){
         const data = await D3Graphviz(action.data);
       }
@@ -68,6 +73,6 @@
   //export let calculate;
 </script>
 
-<section bind:this={GraphContainer} class="graph-container">
+<section bind:this={GraphContainer} class={"graph-container " + (state>1000?'':'hidden')}>
 
 </section>

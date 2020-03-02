@@ -1,11 +1,9 @@
-.mdc-top-app-bar {
 
-  background:transparent;
-}
+
 .mdc-top-app-bar__row {
-  -webkit-box-shadow: 0 1px 1px rgba(25,25,25,0.25);
-  -moz-box-shadow: 0 1px 1px rgba(25,25,25,0.25);
-  box-shadow: 0 1px 1px rgba(25,25,25,0.25);
+  //-webkit-box-shadow: 0 1px 1px rgba(25,25,25,0.25);
+  //-moz-box-shadow: 0 1px 1px rgba(25,25,25,0.25);
+  //box-shadow: 0 1px 1px rgba(25,25,25,0.25);
 }
 
 svelte-virtual-list-viewport {

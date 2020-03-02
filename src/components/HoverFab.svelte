@@ -58,13 +58,14 @@
 
     hidden = false;
 
-    if (!itemPosition.y)
-      return console.error('fix me');
-    y = itemPosition.y;
     if (item){
       data = item;
     }
 
+        if (!itemPosition)
+        if (!itemPosition.y)
+          return;
+        y = itemPosition.y || -200;
   };
 
   /**

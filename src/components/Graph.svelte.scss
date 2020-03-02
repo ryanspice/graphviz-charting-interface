@@ -6,6 +6,10 @@
     height: 100%;
     display: block;
 
+
+    padding-top:2rem;
+    padding-bottom:2rem;
+
     //margin-top: 96px;
     width:100%;
 
@@ -14,7 +18,7 @@
     left: 0px;
     z-index: 0;
 
-    width: calc(100% - var(--sidebar-offset));
+    //width: calc(100% - var(--sidebar-offset));
     margin-left:var(--sidebar-offset);
 
     svg {

@@ -32,32 +32,21 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
       target: document.body
     });
 
-    await loading.increment(.2);
 
     app = await new App({
       target: document.body,
-      props: {
-        loading,
-        store
-      }
+      //props: {
+        //loading,
+        //store
+      //}
     });
-
-    await loading.increment(.2);
 
     //TODO :: remove
     window.app = app;
     window.store = store;
 
-    requestAnimationFrame(async function() {
-
-      await console.log('eh')
-      await store.dispatch({
-        type:APPLICATION_LOAD
-      });
-
-      await loading.increment(.2);
-      await console.log('eh2');
-      //loading.set(1);
+    await store.dispatch({
+      type:APPLICATION_LOAD
     });
 
     return app;

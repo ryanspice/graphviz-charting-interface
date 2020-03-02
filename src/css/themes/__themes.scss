@@ -1,13 +1,32 @@
 
+//@import "_palette";
+//@import './_theming.scss';
+//@import '../../../node_modules/material-scss-vars/_mixin.scss';
+//@import '../../../node_modules/material-scss-vars/_variables.scss';
 
 @include scrollbars(0.1em, $mdc-theme-primary);
+$mdc-theme-primary: $material-color-red-500;
+$mdc-theme-secondary: $material-color-red-200;
+
+@import "../../../node_modules/@material/theme/_variables";
+@import '../abstracts/_colours';
+
+@include css-vars($colour-vars);
+@include css-vars($mdc-vars);
 
  body,
  html {
    color: var(--theme-color);
-   background: var(--theme-background);
+   //background: var(--theme-background);
+   background: var(--background);
  }
 
  a {
    color:$link-color;
  }
+
+header {
+  color:var(--on-primary);
+  background: var(--primary);
+
+}

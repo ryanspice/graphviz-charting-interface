@@ -21,7 +21,7 @@
     }
   }
 }
-$min_width: 320px;
-$max_width: 3840px;//2448px;//1080px;//3840px;
-$min_font: 12px;
-$max_font: 18px;
+$min_width: 320px !default;
+$max_width: 3840px !default;//2448px;//1080px;//3840px;
+$min_font: 12px !default;
+$max_font: 32px !default;
