@@ -9,7 +9,7 @@
       * {
         color: var(--text-primary-on-background);
       }
-      
+
   }
 
   div:nth-child(2) {
@@ -22,4 +22,13 @@
 
   }
 
+}
+
+#second-bar {
+  border-bottom-right-radius: var(--header-radius);
+  width:var(--header-width);
+}
+
+#third-bar {
+  //background:$mdc-theme-secondary;
 }

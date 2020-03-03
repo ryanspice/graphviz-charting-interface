@@ -22,7 +22,7 @@ $mdc-theme-secondary: $material-color-red-200;
  }
 
  a {
-   color:$link-color;
+   color:var(--theme-link-color);
  }
 
 header {

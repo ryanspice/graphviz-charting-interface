@@ -36,8 +36,8 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
     app = await new App({
       target: document.body,
       //props: {
-        //loading,
-        //store
+      //loading,
+      //store
       //}
     });
 
@@ -46,7 +46,7 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
     window.store = store;
 
     await store.dispatch({
-      type:APPLICATION_LOAD
+      type: APPLICATION_LOAD
     });
 
     return app;

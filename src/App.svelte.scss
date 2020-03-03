@@ -7,17 +7,6 @@
   position: static !important;
 }
 
-#third-bar {
-  //background:$mdc-theme-secondary;
-}
-
-#second-bar {
-  border-bottom-right-radius: 1rem;
-  //width:115px;
-  width:155px;
-  width:175px;
-}
-
 #copywrite {
 	display: inline;
   position: fixed;
@@ -33,6 +22,7 @@
   }
 
 }
+
 #version {
 	display: inline;
   position: fixed;

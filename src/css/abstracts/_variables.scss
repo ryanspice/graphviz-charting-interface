@@ -1,23 +1,13 @@
-//@import '_colours';
 
 @import './mixins/__preferredDarkMode.scss';
 @import './mixins/__preferredLightMode.scss';
-
-
-$link-color: var(--theme-link-color);
-
-$dark-primary-text: rgba(black, 0.87);
-$dark-secondary-text: rgba(black, 0.54);
-$dark-disabled-text: rgba(black, 0.38);
-$dark-dividers: rgba(black, 0.12);
-$dark-focused: rgba(black, 0.12);
-$light-primary-text: white;
-$light-secondary-text: rgba(white, 0.7);
-$light-disabled-text: rgba(white, 0.5);
-$light-dividers: rgba(white, 0.12);
-$light-focused: rgba(white, 0.12);
 
 $min_width: 320px;
 $max_width: 3840px;//2448px;//1080px;//3840px;
 $min_font: 12px;
 $max_font: 12px;
+@include css-vars((
+  --header-radius:1rem,
+  --header-width:175px,
+
+))

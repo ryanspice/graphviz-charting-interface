@@ -2,7 +2,12 @@
 //@import '../node_modules/material-scss-vars/_mixin.scss';
 //@import '../node_modules/material-scss-vars/_variables.scss';
 //@import './css/abstracts/_variables.scss';
-span {
-  display:inline;
-  position:fixed;top:0px;left:0px;
+
+#theme-controller {
+
+  span {
+    display:inline;
+    position:fixed;top:0px;left:0px;
+  }
+
 }

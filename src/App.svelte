@@ -117,8 +117,6 @@
 
   Adjust = ShortFixedAdjust;
 
-  window.temp = components.drawer;
-
   window.updateList = function (incoming) {
 	   applicationDrawerData = incoming;
   };
@@ -141,54 +139,6 @@
 
   window.forceCode = forceCode;
 
-  /**
-   *
-   */
-
-  const toggleCodeView = () => {
-  	applicationCodeView = !applicationCodeView
-  };
-
-  /**
-   * dispatch navigation state
-   */
-
-  const toggleMenu = () => {
-
-  	store.dispatch({
-  	  type: APPLICATION_TOGGLE_MENU,
-  	  navigation: applicationNavigationMenuState
-  	});
-
-  };
-
-  /**
-   * TODO :: dispatch theme change
-   * @returns {Promise<void>}
-   */
-
-  const handleDayOrNight = async () => {
-
-  	applicationDayOrNight = !applicationDayOrNight;
-
-  	store.dispatch({
-  	  type: APPLICATION_TOGGLE_DARKMODE,
-  	  darkMode: applicationDayOrNight
-  	});
-
-  };
-
-  /**
-   * [handleSettings description]
-   * @return {[type]} [description]
-   */
-
-  const handleSettings = ()=>{
-        store.dispatch({
-          type: DIALOG_SETTINGS,
-          test:'eh'
-        });
-  }
 
   // TODO :: REMOVE
 
@@ -231,7 +181,6 @@
    * svelte lifecycle
    * @return {[type]} [description]
    */
-   let showWizard;
   onMount(async function () {
 
 //    applicationDayOrNight = setDarkMode(!localStorage.getObject('darkMode'));
@@ -263,19 +212,16 @@
         options,
         progress,
       } = await status;
-      return;
-      showWizard = options.showWizard;
+
+  	  applicationNavigationMenuState = navigation;
+  	  applicationTitle = title;
+  	  applicationReady = true;
 
   	  applicationSourceCode = data;
   	  applicationTheme = theme;
 
-  	  applicationNavigationMenuState = navigation;
-  	  applicationTitle = title;
-
+      return;
   	  applicationDayOrNight = setDarkMode(darkMode);
-
-  	  applicationReady = true;
-
   	});
 
 });
@@ -302,8 +248,10 @@
       on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
       on:mouseover={(evt)=>{
 
+
         let offset;
-        let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop
+
+        let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop //dont do this
 
         store.dispatch({
           type: RETRIEVE_ITEM,

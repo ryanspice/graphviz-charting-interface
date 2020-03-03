@@ -17,17 +17,17 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: $foreground-color;
+    background: var(--secondary);
   }
 
   ::-webkit-scrollbar-track {
-    background: $background-color;
+    background: var(--surface);
   }
 
   // For Internet Explorer ?
   body {
-    scrollbar-face-color: $foreground-color;
-    scrollbar-track-color: $background-color;
+    scrollbar-face-color: var(--secondary);
+    scrollbar-track-color: var(--primary);
 }
 
 }

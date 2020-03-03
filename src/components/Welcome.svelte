@@ -15,7 +15,7 @@
 
 export let onDismiss = () => {};
 export let onInsertChart = () => {};
-//export let onDismiss = () => {};
+
 </script>
 
 <section id="welcome-screen">

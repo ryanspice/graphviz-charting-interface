@@ -3,7 +3,7 @@ export default {
   state:1000,
   files:[],
   options:{
-    showWizard:false,
+    showWizard:true,
     isSaved:true,
   },
   theme:{

@@ -1,10 +1,11 @@
 //@flow
-
+//$FlowFixMe
 Storage.prototype.getObject = function(key) {
 
   	try {
-	let value:object = this.getItem(key);
-	let ttl:object = this.getItem(key + "~ttl");
+
+	const value:Object = this.getItem(key);
+	const ttl:Object = this.getItem(key + "~ttl");
 
 	if(ttl) {
 

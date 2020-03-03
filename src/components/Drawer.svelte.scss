@@ -1,4 +1,12 @@
 
+mdc-drawer {
+
+  color: var(--on-secondary);
+  background-color: var(--surface);
+
+}
+
+
 section {
   #drawer-container {
     height: 100%;
@@ -14,20 +22,13 @@ section {
     margin-left: -9px;
     height: 100%;
     padding-bottom: 4vh;
-
     border: 1px solid rgba(0, 0, 0, .1);
-
     pointer-events: none;
 
     > aside {
 
         margin-top: -1px;
         pointer-events:all;
-
-        & * {
-            color: var(--theme-color);
-            background-color: var(--theme-background);
-        }
 
         & .drag {
 
@@ -36,7 +37,6 @@ section {
             }
 
         }
-
 
     }
 
