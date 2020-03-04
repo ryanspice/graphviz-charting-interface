@@ -1,0 +1,44 @@
+
+@import '../css/abstracts/mixins/__on-circle.scss';
+#addition-fab {
+    > * {
+      transition: .15s;
+    }
+    @include on-circle($item-count:7, $circle-size: 13em, $item-size: 'initial');
+
+      position:fixed;
+      bottom:0rem;
+      right:0rem;
+      button:first-of-type {
+        transform: none !important;
+      }
+    button {
+      background-color:var(--primary);
+      color:var(--on-primary);
+
+      border-radius: 50%;
+      width:5em;
+      height:5em;
+      
+      &.extra {
+
+        //background-color:var(--secondary);
+        width:4.5em;
+        height:4.5em;
+        z-index: initial;
+
+        &:hover {
+          z-index:3;
+          background-color:var(--primary);
+        }
+
+      }
+
+
+      &:hover,
+      &:active {
+        filter: grayscale(0);
+      }
+    }
+
+}

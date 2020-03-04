@@ -39,9 +39,13 @@
 
     import {Item, Graphic, Text} from '@smui/list';
 
+      import openFullscreen from '../utils/openFullscreen';
+      import closeFullscreen from '../utils/closeFullscreen';
+
     import {setDarkMode} from "../store/actions/darkmode";
     import Divider from './Divider.Material.svelte';
-    import HoverFab from "./HoverFab.svelte";
+    //import HoverFab from "./HoverFab.svelte";
+    import ColourPicker from "./ColourPicker.svelte";
 
     let showWizard;
       let applicationSourceCode = ``;
@@ -52,7 +56,6 @@
       let applicationCodeView = false;
 
       let applicationFirstRun = false;
-      let applicationReady = false;
       let applicationTheme = {
     	primary: ""
       };
@@ -74,6 +77,22 @@
 
       let tabIndex = 0;
 
+
+        /**
+         * TODO :: dispatch theme change
+         * @returns {Promise<void>}
+         */
+
+        const handleDayOrNight = async () => {
+
+        	applicationDayOrNight = !applicationDayOrNight;
+
+        	store.dispatch({
+        	  type: APPLICATION_TOGGLE_DARKMODE,
+        	  darkMode: applicationDayOrNight
+        	});
+
+        };
 
         /**
          * dispatch navigation state
@@ -134,7 +153,6 @@
              progress,
            } = await status;
 
-           return;
            applicationTheme = theme;
 
            showWizard = options.showWizard;
@@ -142,12 +160,11 @@
            applicationSourceCode = data;
 
            applicationNavigationMenuState = navigation;
-           applicationTitle = title;
+           //applicationTitle = title;
 
            // applicationDayOrNight = setDarkMode(darkMode);
 
-           applicationReady = true;
-
+            return;
          });
 
         });
@@ -198,7 +215,6 @@
       <Section align="end" toolbar>
 
         <IconButton class="material-icons" on:click = {handleSettings}>settings</IconButton>
-      <!--
               {#if (notMobile)}
 
               	<IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
@@ -208,6 +224,7 @@
                 <IconButton class="material-icons" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
 
               {/if}
+              <!--
 
               {#if (!notMobile)}
 
@@ -263,7 +280,7 @@
 
           <!-- FOR each GRAPH in store.graph.list? -->
           <!-- disable when viewing other  -->
-          <HoverFab></HoverFab>
+          <!-- <HoverFab></HoverFab> -->
           <!--
         {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>

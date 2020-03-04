@@ -59,7 +59,10 @@
 
   import downloadSvg from './utils/downloadSvg';
   import downloadSource from './utils/downloadSource';
+
   import HoverFab from "./components/HoverFab.svelte";
+  import AdditionFab from "./components/AdditionFab.svelte";
+
   import ContentEditor from "./components/ContentEditor.svelte";
   import {setDarkMode} from "./store/actions/darkmode";
 
@@ -102,7 +105,8 @@
     themecontroller: new ThemeController({
       target: document.body
     }),
-  	//hoverFab: new HoverFab({target: document.body})
+  	hoverFab: new HoverFab({target: document.body}),
+  	additionFab: new AdditionFab({target: document.body})
   	//editors: new ContentEditor({target: document.body})
   };
 
@@ -291,5 +295,5 @@
   {#if ((applicationReady))}
 {/if}
 
-<span id="copywrite">Copyright © 2020 <a href="">ryanspice.com</a><span class="hidden"> | Powered by <a href="">Graphviz</a>, <a href="">Svelte</a>, <a href="">Material</a> and <a href="">Redux</a></span></span>
+<span id="copywrite" style="display:none;">Copyright © 2020 <a href="">ryanspice.com</a><span class="hidden"> | Powered by <a href="">Graphviz</a>, <a href="">Svelte</a>, <a href="">Material</a> and <a href="">Redux</a></span></span>
 <span id="version" >v1.0.0-alpha.0</span>

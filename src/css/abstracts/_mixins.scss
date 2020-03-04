@@ -2,6 +2,7 @@
 @import './mixins/__preferredDarkMode.scss';
 @import './mixins/__preferredLightMode.scss';
 @import './mixins/__fluidType.scss';
+@import './mixins/__on-circle.scss';
 
 
 @mixin transform($transforms) {
