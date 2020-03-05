@@ -3,11 +3,12 @@
   display: inline-block;
   position: fixed;
   z-index: 0;
-  top: 0px;
-  left: var(--view-x);
 
+  left: var(--view-x);
   width:calc(100% - var(--view-x));
-  height: 100%;
+
+  top: 96px;
+  height:calc(100% - 96px);
 
   margin-left:var(--sidebar-offset);
 
@@ -24,7 +25,7 @@
     margin: 0px auto;
 
   }
-  
+
   #graph0 > text {
     display:none;
   }

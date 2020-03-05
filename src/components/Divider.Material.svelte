@@ -6,10 +6,10 @@
   export let vertical = true;
 
   let className = `MuiDivider-root ${vertical}`;
+  import('./Divider.Material.svelte.scss');
 
   onMount(()=>{
 
-    import('./Divider.Material.svelte.scss');
 
     if (vertical === true) {
       vertical = 'MuiDivider-vertical';
