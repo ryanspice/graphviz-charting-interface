@@ -1,38 +1,32 @@
 .graph-container {
 
-    background-color: var(--theme-background);
+  display: inline-block;
+  position: fixed;
+  z-index: 0;
+  top: 0px;
+  left: var(--view-x);
 
+  width:calc(100% - var(--view-x));
+  height: 100%;
 
+  margin-left:var(--sidebar-offset);
+
+  padding-top:2rem;
+  padding-bottom:2rem;
+
+  background-color: var(--background);
+
+  svg {
+    width: 100%;
     height: 100%;
     display: block;
+    display: block;
+    margin: 0px auto;
 
+  }
+  
+  #graph0 > text {
+    display:none;
+  }
 
-    padding-top:2rem;
-    padding-bottom:2rem;
-
-    //margin-top: 96px;
-    width:100%;
-
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 0;
-
-    //width: calc(100% - var(--sidebar-offset));
-    margin-left:var(--sidebar-offset);
-
-    svg {
-
-        width: 100%;
-        height: 100%;
-        display: block;
-        display: block;
-        margin: 0px auto;
-
-    }
-
-
-}
-#graph0 > text {
-  display:none;
 }
