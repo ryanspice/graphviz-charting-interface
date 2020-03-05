@@ -6,32 +6,3 @@
   width: auto !important;
   position: static !important;
 }
-
-#copywrite {
-	display: inline;
-  position: fixed;
-  top: calc(100% - 32px);
-  left: 16px;
-  height: 25px;
-	color:var(--text-disabled-on-background);
-  width:calc(100% - 16px);
-
-  @include respond(sm){
-    //display:none;
-    font-size:80%;
-  }
-
-}
-
-#version {
-	display: inline;
-  position: fixed;
-  top: calc(100% - 32px);
-  left: calc(100% - 114px);
-  height: 25px;
-	color:var(--text-disabled-on-background);
-
-  @include respond(sm){
-    display:none;
-  }
-}

@@ -294,6 +294,3 @@
 
   {#if ((applicationReady))}
 {/if}
-
-<span id="copywrite" style="display:none;">Copyright © 2020 <a href="">ryanspice.com</a><span class="hidden"> | Powered by <a href="">Graphviz</a>, <a href="">Svelte</a>, <a href="">Material</a> and <a href="">Redux</a></span></span>
-<span id="version" >v1.0.0-alpha.0</span>
