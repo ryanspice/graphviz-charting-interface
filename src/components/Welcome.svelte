@@ -39,6 +39,7 @@ export let onInsertChart = () => {};
 
       document.getElementById('welcome-file-upload').click();
      }}>
+
      <Media class="card-media-square" aspectRatio="square">
      <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
 
