@@ -7,7 +7,7 @@ $max_width: 3840px;//2448px;//1080px;//3840px;
 $min_font: 12px;
 $max_font: 12px;
 @include css-vars((
-  --header-radius:1rem,
-  --header-width:175px,
-
+  --header-height:48px,
+  --view-x:48px,
+  --graph-display-title:'none'
 ))

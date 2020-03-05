@@ -28,7 +28,7 @@
   import FormField from '@smui/form-field';
 
   export let title;
-  export let destroy = false;
+//  export let destroy = false;
   export let open = false;
   export let confirm = "Export";
   export let deny = "Cancel";

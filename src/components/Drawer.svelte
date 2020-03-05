@@ -115,7 +115,7 @@
     if (x >= DragBounds[0])
       if (x <= DragBounds[1])
         if (DragResize) {
-          drawerDragX = x + 5;
+          drawerDragX = x + 6;
         }
     if (drawerDragX < 92)
       drawerDragX = 58;
@@ -127,6 +127,7 @@
 
     drawerDragX = x;
 
+    document.querySelector(':root').style.setProperty('--view-x', x+'px');
   };
 
   /**
@@ -272,7 +273,7 @@
 
       <!-- DELETE GRAPH BUTTON -->
 
-      <IconButton style="position:absolute;bottom:96px;z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={async   () => {
+      <IconButton style="position:absolute;bottom:var(--header-size);z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={async   () => {
 
         confirmationDialog = await {
           title:`Delete {this} Graph?`,

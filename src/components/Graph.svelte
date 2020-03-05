@@ -45,7 +45,6 @@
 
       state = (await status).state;
 
-        console.log(state)
       if (container.style.opacity==0){
         const data = await D3Graphviz(action.data);
       }
@@ -69,8 +68,6 @@
 
   });
 
-  //export let channel;
-  //export let calculate;
 </script>
 
 <section bind:this={GraphContainer} class={"graph-container " + (state>1000?'':'hidden')}>

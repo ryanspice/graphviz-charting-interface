@@ -1,5 +1,5 @@
 <script>
-
+  
   import 'redux';
   import {store} from "../index";
 
@@ -43,7 +43,7 @@ import {Item, Graphic, Text} from '@smui/list';
   import closeFullscreen from '../utils/closeFullscreen';
 
 import {setDarkMode} from "../store/actions/darkmode";
-import Divider from './Divider.Material.svelte';
+import Divider from './static/Divider.Material.svelte';
 //import HoverFab from "./HoverFab.svelte";
 import ColourPicker from "./ColourPicker.svelte";
 
@@ -76,7 +76,9 @@ const notMobile = true; // should have probably used css
 Adjust = ShortFixedAdjust;
 
 let tabIndex = 0;
+let screen;
 
+let toggleCodeView = () => {};
 
 /**
  * TODO :: dispatch theme change
@@ -225,16 +227,12 @@ onMount(async function () {
         {#if (notMobile)}
 
           {#if ((applicationDigraphSource===false))}
+
             <IconButton class="material-icons"  on:click={onAdd} aria-label="add">insert_chart</IconButton>
+
           {/if}
 
           <Divider></Divider>
-
-          {#if ((true)&&(applicationDigraphSource===false))}
-
-
-
-          {/if}
 
           {#if ((true)&&(applicationDigraphSource))}
 
@@ -264,26 +262,12 @@ onMount(async function () {
 
     	{/each}
 
-      <!--
-      <IconButton class="material-icons" aria-label="add" title="add" on:click={()=>{
+      {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
 
-        }}>add_box</IconButton>
+        <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{}}>add_box</IconButton>
 
-        -->
-        <Divider></Divider>
+      {/if}
 
-        {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{}}>insert_chart</IconButton>
-        {/if}
-
-          <!-- FOR each GRAPH in store.graph.list? -->
-          <!-- disable when viewing other  -->
-          <!-- <HoverFab></HoverFab> -->
-          <!--
-        {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
-        {/if}
-        -->
 
       </Section>
 
@@ -296,6 +280,14 @@ onMount(async function () {
           const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
           win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}} alt="print">print</IconButton>
 
+          <!-- FOR each GRAPH in store.graph.list? -->
+          <!-- disable when viewing other  -->
+          <!-- <HoverFab></HoverFab> -->
+          <!--
+            {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
+              <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
+            {/if}
+          -->
 
           <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
           const html = d3.select("#graph0").html();

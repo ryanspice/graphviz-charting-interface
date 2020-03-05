@@ -1,8 +1,8 @@
 
-mdc-drawer {
+.mdc-drawer {
 
   color: var(--on-secondary);
-  background-color: var(--surface);
+  background-color: var(--surface) !important;
 
 }
 
@@ -11,7 +11,7 @@ section {
   #drawer-container {
     height: 100%;
     display: block;
-    margin-top: 96px;
+    margin-top: var(--header-height);
   }
 }
 
@@ -24,6 +24,8 @@ section {
     padding-bottom: 4vh;
     border: 1px solid rgba(0, 0, 0, .1);
     pointer-events: none;
+    //background-color: var(--surface);
+
 
     > aside {
 
@@ -75,6 +77,14 @@ section {
     width:50% !important;
     max-width:50% !important;
 }
+
+
+svelte-virtual-list-contents {
+
+    margin-top:var(--header-height);
+
+}
+
 
 * :global(.mdc-drawer--modal, .mdc-drawer-scrim) {
     /* This is not needed for a page-wide modal. */

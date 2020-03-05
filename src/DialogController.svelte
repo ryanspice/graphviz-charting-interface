@@ -41,10 +41,13 @@ import Welcome from "./components/Welcome";
 
     });
 
-    store.dispatch({
-      type: STATUS_STATE,
-      value:1010
-    });
+            // for debugging
+            //
+            store.dispatch({
+              type: STATUS_STATE,
+              value:1010
+            });
+
   });
 
   afterUpdate(()=>{
@@ -54,7 +57,7 @@ import Welcome from "./components/Welcome";
 </script>
 
 <Dialog
-  open={false}
+  open={true}
   title={``}
   confirm={``}
   deny={``}
