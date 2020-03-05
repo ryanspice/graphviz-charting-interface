@@ -1,8 +1,10 @@
 .mdc-top-app-bar {
 
-  background:transparent;
-
   div:nth-child(1) {
+
+    button:nth-of-type(2), button:nth-of-type(3) {
+     font-size:1.3rem;
+   }
 
     background: var(--primary);
 
@@ -25,8 +27,6 @@
 }
 
 #second-bar {
-  //border-bottom-right-radius: var(--header-radius);
-  //width:var(--header-width);
 }
 
 #third-bar {
