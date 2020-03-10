@@ -8,8 +8,7 @@
     Title,
     Content,
     Actions,
-    InitialFocus,
-    Scrim
+    InitialFocus
   } from '@smui/dialog';
 
   import Button, {
@@ -83,7 +82,7 @@
 
   <Content id={id}>
 
-    <slot />
+    <slot InitialFocus />
 
   </Content>
 

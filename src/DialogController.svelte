@@ -14,19 +14,41 @@ import {store} from "./index";
   import Dialog from "./components/static/Dialog";
   import Welcome from "./components/Welcome";
 
+  // TODO: proper localization
+  const copy = (require('./lang/en.json'));
+
   export let title = 'undefined';
   export let confirm = "true";
   export let deny = "false";
 
+  let dWelcome = false;
   let dDelete = false;
+
+  const handleDialog = (state) => {
+
+    switch(state){
+
+      case 1090:
+        dDelete = true;
+      break;
+      default:
+
+    }
+
+  }
+
+  /**
+   *
+   */
 
   export let onConfirm = () => {
 
   };
 
-  const dialogs = {
-    delete:false
-  };
+  /**
+   * svelte onMount,
+   *  subscribe and dispatch dialogs based on "state"
+   */
 
   onMount(async function () {
 
@@ -42,14 +64,7 @@ import {store} from "./index";
           state,
         } = await status;
 
-        switch(await state){
-
-          case 1090:
-            dDelete = true;
-          break;
-          default:
-
-        }
+        handleDialog(await state);
 
     });
 
@@ -66,20 +81,20 @@ import {store} from "./index";
   afterUpdate(()=>{
 
   });
-let copy = (require('./lang/en.json'));
-console.log(copy)
+
 </script>
+
 
 <!-- WELCOME -->
 
 <Dialog
-  open={false}
+  open={dWelcome}
   id="dialog-welcome"
   title={``}
   confirm={``}
   deny={``}
   onConfirm={()=>{
-    console.log('eh')
+    dWelcome = false;
     store.dispatch({
       type: STATUS_STATE,
       value:1010
