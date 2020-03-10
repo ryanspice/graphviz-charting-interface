@@ -47,7 +47,7 @@
   import Header from './components/Header.svelte';
 
   import Drawer, {DrawerToggle} from './components/Drawer.svelte';
-  import Divider from './components/Divider.Material.svelte';
+  import Divider from './components/static/Divider.Material.svelte';
   import Graph from './components/Graph.svelte';
   import CodeView from './components/CodeView';
   import ColourPicker from "./components/ColourPicker.svelte";
@@ -238,59 +238,59 @@
 
 </script>
 
-  <Header />
+<Header />
 
-  <!-- material "fab" moves to position of list item to show details -->
-  <!-- potentially move to index ? -->
+<!-- material "fab" moves to position of list item to show details -->
+<!-- potentially move to index ? -->
 
-  <!-- working project node list -->
-  <!-- potentially move to index ? -->
+<!-- working project node list -->
+<!-- potentially move to index ? -->
 
-  <VirtualList items={applicationDrawerData} let:item>
+<VirtualList items={applicationDrawerData} let:item>
 
-    <Item href="javascript:void(0)"
-      on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
-      on:mouseover={(evt)=>{
+  <Item href="javascript:void(0)"
+    on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
+    on:mouseover={(evt)=>{
 
 
-        let offset;
+      let offset;
 
-        let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop //dont do this
+      let scrollTop = document.querySelector('body > section > div > aside > div.mdc-drawer__content > nav > svelte-virtual-list-viewport').scrollTop //dont do this
 
-        store.dispatch({
-          type: RETRIEVE_ITEM,
-          item: item,
-          itemPosition: {x:0, y:(91+evt.target.offsetTop-scrollTop)}
-        });
+      store.dispatch({
+        type: RETRIEVE_ITEM,
+        item: item,
+        itemPosition: {x:0, y:(91+evt.target.offsetTop-scrollTop)}
+      });
 
-      }}
-      on:mouseout={()=>{
+    }}
+    on:mouseout={()=>{
 
-        hovering = false;
+      hovering = false;
 
-      }}>
+    }}>
 
-      <!-- thats narsty -->
+    <!-- thats narsty -->
 
-      <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
+    <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
 
-        {#if hovering==item.name}
-        {:else}
-          <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
-        {/if}
+      {#if hovering==item.name}
+      {:else}
+        <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
+      {/if}
 
-      <Text>{item.name}</Text>
+    <Text>{item.name}</Text>
 
-    </Item>
+  </Item>
 
-  </VirtualList>
+</VirtualList>
 
-  <!-- CODE VIEW -->
-  <!-- potentially move to index ? -->
+<!-- CODE VIEW -->
+<!-- potentially move to index ? -->
 
-  {#if (applicationCodeView||applicationDigraphSource)}
-    <CodeView code={(applicationDigraphSource?getDigraphSource():getCode())}></CodeView>
-  {/if}
+{#if (applicationCodeView||applicationDigraphSource)}
+  <CodeView code={(applicationDigraphSource?getDigraphSource():getCode())}></CodeView>
+{/if}
 
-  {#if ((applicationReady))}
+{#if ((applicationReady))}
 {/if}

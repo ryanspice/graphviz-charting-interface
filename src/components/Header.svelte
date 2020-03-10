@@ -1,5 +1,5 @@
 <script>
-  
+
   import 'redux';
   import {store} from "../index";
 
@@ -65,6 +65,13 @@ let applicationNavigationMenuState = true;
 let applicationDrawerData = [
 {name: '', number: ''}
 ];
+
+let charts = [
+  {icon:'insert_chart'},
+  {icon:'show_chart'},
+  {icon:'link'},
+];
+
 let dense = true;
 let prominent = false;
 let variant = 'short';
@@ -121,7 +128,16 @@ const handleSettings = ()=>{
       });
 }
 
+/**
+ * [onAdd description]
+ * @return {[type]} [description]
+ */
+
 const onAdd = ()=>{};
+
+/**
+ * svelte onMount
+ */
 
 onMount(async function () {
 
@@ -172,12 +188,6 @@ onMount(async function () {
 });
 
 
-  let charts = [
-    {icon:'insert_chart'},
-    {icon:'show_chart'},
-    {icon:'link'},
-  ];
-
 </script>
 
   <TopAppBar {dense} {prominent} {variant} bind:collapsed>
@@ -191,6 +201,7 @@ onMount(async function () {
         <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
 
         <ColourPicker></ColourPicker>
+
         <IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
 
         <Title class="hidden">{applicationTitle}</Title>
@@ -198,8 +209,6 @@ onMount(async function () {
         {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
           <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
         {/if}
-
-
 
       </Section>
 
@@ -276,7 +285,7 @@ onMount(async function () {
         {#if (notMobile)}
 
           <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
-          const html = d3.select("#graph0").html();
+          const html = window.d3.select("#graph0").html();
           const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
           win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}} alt="print">print</IconButton>
 
@@ -290,7 +299,7 @@ onMount(async function () {
           -->
 
           <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          const html = d3.select("#graph0").html();
+          const html = window.d3.select("#graph0").html();
           //downloadSource(html);
           //applicationCodeView=true;
           applicationDigraphSource=html;}} alt="print">code</IconButton>

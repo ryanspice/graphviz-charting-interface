@@ -1,0 +1,7 @@
+{
+  "dialog":{
+    "delete":{
+      "title":"Permanently Delete Graph?"
+    }
+  }
+}

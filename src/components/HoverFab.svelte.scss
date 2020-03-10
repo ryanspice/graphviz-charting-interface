@@ -4,6 +4,9 @@
   position:fixed;
   left:0px;
   top:-200px;
-  pointer-events:auto ;  border-radius: 4px;
-  color: var(--theme-color);
+  pointer-events:auto ;
+  border-radius: 4px;
+  color: var(--on-secondary);
+  background-color: var(--surface);
+  //pointer-events: none;
 }
