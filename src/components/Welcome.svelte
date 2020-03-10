@@ -13,7 +13,7 @@
 
   import "./Welcome.svelte.scss";
 
-export let onDismiss = () => {};
+export const onDismiss = () => {};
 export let onInsertChart = () => {};
 
 </script>

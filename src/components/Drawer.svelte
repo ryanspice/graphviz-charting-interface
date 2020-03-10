@@ -7,6 +7,10 @@
   } from "../index";
 
   import {
+    STATUS_STATE
+  } from '../store/actions/status';
+
+  import {
     onMount
   } from 'svelte';
 
@@ -44,17 +48,6 @@
 
   import H6 from '@smui/common/H6.svelte';
 
-  let confirmation;
-  let confirmationDialog = {
-    title: ``,
-    text: ``,
-    clicked: null,
-    confirm: () => {},
-    deny: () => {}
-  };
-  const setConfirmation = (obj) => {
-    Object.assign(confirmationDialog, obj);
-  }
 
   //
 
@@ -236,55 +229,15 @@
 
       </Content>
 
-      <!-- CONFIRMATION DIALOG -->
-
-      <Dialog bind:this={confirmation} aria-labelledby="simple-title" aria-describedby="simple-content">
-
-        <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-        <Title>
-
-          {confirmationDialog.title}
-
-        </Title>
-
-        <Content>
-
-          {confirmationDialog.text}
-
-        </Content>
-
-        <Actions>
-
-          <Button on:click={confirmationDialog.confirm}>
-
-            <Label>No</Label>
-
-          </Button>
-
-          <Button on:click={confirmationDialog.deny}>
-
-            <Label>Yes</Label>
-
-          </Button>
-
-        </Actions>
-
-      </Dialog>
-
       <!-- DELETE GRAPH BUTTON -->
 
-      <IconButton style="position:absolute;bottom:var(--header-size);z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={async   () => {
+      <IconButton style="background:black;position:absolute;bottom:48px;z-index:2;left:4px" class="material-icons" aria-label="" title="" on:click={async   () => {
 
-        confirmationDialog = await {
-          title:`Delete {this} Graph?`,
-          text:``,
-          confirm:()=>{
-            // TODO :: DISPATCH EVENT TO REMOVE CURRENT TABLE
-          },
-          deny:()=>{}
-        };
+          store.dispatch({
+            type: STATUS_STATE,
+            value:1090
+          });
 
-        await confirmation.open();
 
         }}>delete_forever</IconButton>
 

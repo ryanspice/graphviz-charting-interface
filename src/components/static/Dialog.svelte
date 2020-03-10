@@ -16,27 +16,39 @@
     Label
   } from '@smui/button';
 
-  export let id;
-  export let title = 'undefined';
-  export let open = true;
-  export let confirm = "true";
-  export let onConfirm = () => {
-
-  };
-  export let deny = "false";
+  import "./Dialog.svelte.scss";
 
   let self;
 
+  export let id;
+  export let title = 'undefined';
+  export let open = true;
+  export let full = true;
+
+  export let onConfirm = () => {
+
+  };
+
+  export let confirm = "true";
+  export let deny = "false";
+
+  /**
+   * destroy on close - on:MDCDialog:closed -- disabled
+   */
+
   const onCloseHandler  = function(){
     onConfirm();
-    self.$destroy();
+    //  self.$destroy();
   }
+
+  /**
+   * svelte afterUpdate
+   */
 
   afterUpdate(()=>{
 
     if (self)
     if (open){
-      //console.log(self)
       self.open();
     }
 
@@ -48,11 +60,11 @@
   id={id}
   bind:this={self}
   on:MDCDialog:closed={onCloseHandler}
-  class="puff-in-center" aria-labelledby="slider-title" aria-describedby="slider-content">
+  class={full?"puff-in-center full":"puff-in-center"} aria-labelledby="slider-title" aria-describedby="slider-content">
 
   {#if (title)}
 
-      <Title id="slider-title">{title}</Title>
+    <Title id="slider-title">{title}</Title>
 
   {/if}
 
@@ -63,6 +75,7 @@
   </Content>
 
   {#if (deny||confirm)}
+
     <Actions>
 
       {#if (deny)}
@@ -85,7 +98,8 @@
 
       {/if}
 
-  </Actions>
+    </Actions>
+
   {/if}
 
 </Dialog>
