@@ -25,20 +25,33 @@
   export let open = true;
   export let full = true;
 
-  export let onConfirm = () => {
-
-  };
+  export let onDismiss = () => { };
+  export let onConfirm = () => { };
+  export let onDeny = () => { };
 
   export let confirm = "true";
   export let deny = "false";
 
   /**
-   * destroy on close - on:MDCDialog:closed -- disabled
    */
 
-  const onCloseHandler  = function(){
-    onConfirm();
+  const onDismissHandler  = function(){
+    onDismiss();
     //  self.$destroy();
+  }
+
+  /**
+   */
+
+  const onConfirmHandler  = function(){
+    onConfirm();
+  }
+
+  /**
+   */
+
+  const onDenyHandler  = function(){
+    onDeny();
   }
 
   /**
@@ -59,7 +72,7 @@
 <Dialog
   id={id}
   bind:this={self}
-  on:MDCDialog:closed={onCloseHandler}
+  on:MDCDialog:closed={onDismissHandler}
   class={full?"puff-in-center full":"puff-in-center"} aria-labelledby="slider-title" aria-describedby="slider-content">
 
   {#if (title)}
@@ -80,7 +93,7 @@
 
       {#if (deny)}
 
-        <Button on:click={onCloseHandler} action="cancel">
+        <Button on:click={onConfirmHandler} action="cancel">
 
           <Label>{deny}</Label>
 
@@ -90,7 +103,7 @@
 
       {#if (confirm)}
 
-        <Button on:click={onCloseHandler} action="accept">
+        <Button on:click={onDenyHandler} action="accept">
 
           <Label>{confirm}</Label>
 
