@@ -48,23 +48,7 @@
 
   import H6 from '@smui/common/H6.svelte';
 
-
-  //
-
-  let applicationDrawer;
-
-
   let open = false;
-
-  function calculate() {
-    //console.log('eh')
-  }
-  let clicked = 'nothing yet';
-  let myDrawer;
-  let myDrawerOpen = false;
-  let active = 'Gray Kittens';
-  let active2 = 'Inbox';
-
   const a = (t) => {
     open = !open;
   };
@@ -121,6 +105,8 @@
     drawerDragX = x;
 
     document.querySelector(':root').style.setProperty('--view-x', x+'px');
+    localStorage.setItem('--view-x',x);
+
   };
 
   /**
@@ -193,6 +179,9 @@
     document.addEventListener('mouseup', handleDragStop);
     //document.addEventListener('dblclick', handleDoubleClick);
 
+    let x = localStorage.getItem('--view-x') || 0;
+    handleDragResize({x:x})
+
     store.subscribe(async () => {
 
   	  const {
@@ -215,7 +204,7 @@
 
   <div id="drawer-container" on:dblclick = {handleDoubleClick}>
 
-    <Drawer variant="modal" bind:this={applicationDrawer} class={drawerCssClass} width={drawerDragX} bind:open={open}>
+    <Drawer variant="modal" class={drawerCssClass} width={drawerDragX} bind:open={open}>
 
       <!-- DRAGGABLE AREA -->
 
@@ -243,15 +232,15 @@
 
     </Drawer>
 
-    <!-- TODO :: REMOVE? -->
+    <Scrim style="display: none"/> <!-- unused -->
 
-    <Scrim style="display: none"/>
-
+    <!-- TODO :: REMOVE -->
     <!-- Content that exists East of the Drawer ::: Graph was here, maybe it'll be better for resizing? TODO :: REMOVE? -->
-
+    <!--
     <AppContent class="app-content" style="display: none">
 
     </AppContent>
+    -->
 
   </div>
 
