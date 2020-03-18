@@ -3,6 +3,11 @@
 
   z-index:5;
 
+  background: var(--secondary);
+  opacity:0.15;
+
+  width:0px;
+
 }
 
 .mdc-select {
@@ -17,8 +22,23 @@
 
 }
 
-.mdc-list {
+// NON SPECIFIC, REMOVE IF MORE THAN ONE COLOUR PICKER LIKE INTERFACE
 
-  background:var(--theme-background);
+body > div.mdc-menu-surface.mdc-menu.mdc-select__menu > ul {
+  background:var(--secondary);
+}
 
+body > div.mdc-menu-surface.mdc-menu.mdc-select__menu {
+  box-shadow:none;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+  padding-top:10px;
+  background:var(--secondary);
+}
+
+:not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item--selected:after, :not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item--selected:before {
+  background-color:white !important;
+}
+:not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item--selected:after, :not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item--selected:before {
+  background-color: white !important;
 }

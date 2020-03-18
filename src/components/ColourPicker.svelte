@@ -29,8 +29,8 @@
    * @return {[type]} [description]
    */
 
-  const selectFocus = function() {
-    select.$$.ctx[18].children[2].click();
+  const handleFocus = function() {
+     select.$$.ctx[18].children[2].click();
   };
 
   /**
@@ -46,7 +46,17 @@
       data: color
     });
 
-  };
+    };
+
+    /**
+     * [getColor description]
+     * @param  {Color} str
+     * @return {Color}
+     */
+
+    const getColor = function(color) {
+      return color.name.replace(' ','-').toLowerCase();
+    };
 
   /**
    * [width description]
@@ -55,13 +65,11 @@
 
   onMount(() => {
 
-    select.$$.ctx[18].style.width = "0";
-
   })
 
 </script>
 
-<IconButton class="material-icons" on:click={selectFocus}>color_lens</IconButton>
+<IconButton class="material-icons" on:click={handleFocus}>color_lens</IconButton>
 
 <Select bind:this={select} id="colour-picker" enhanced>
 
@@ -69,14 +77,12 @@
 
     <Option value={color.name} id="colour-picker-list" on:click={()=>{handleOption(color)}}>
 
-      <div class={"swatch-color " + color.primary}></div>
+      <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-500)"}></div>
 
-      <div class={"swatch-color " + color.primary+"-accent"}></div>
+      <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-300)"}></div>
 
     </Option>
 
   {/each}
 
 </Select>
-
-<!-- <pre class="status">Selected: {colorsPreloaded}</pre> -->
