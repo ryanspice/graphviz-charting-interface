@@ -63,6 +63,7 @@ async function application(state = [], action) {
 	case APPLICATION_ASSIGN_THEME:
 	  if (action.data){
 		  localStorage.setObject('theme', action.data);
+		  localStorage.setObject('--theme', action.data);
       return {
         ...state,
         theme: action.data,

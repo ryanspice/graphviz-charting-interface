@@ -30,7 +30,9 @@
    */
 
   const handleFocus = function() {
+
      select.$$.ctx[18].children[2].click();
+
   };
 
   /**
@@ -55,6 +57,7 @@
    */
 
   const getColor = function(color) {
+
     return color.name.replace(' ','-').toLowerCase();
   };
 

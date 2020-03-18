@@ -8,7 +8,7 @@
 export default async function initialization(state = [], action) {
 
   const swatches = (await import("../../theme/colors.js")).default;
-  const theme = localStorage.getObject('theme') || swatches[3];
+  const theme = localStorage.getObject('--theme') || swatches[3];
   const data = localStorage.getObject('data') || action.data;
   const navigation = localStorage.getObject('navigation');
   const title = localStorage.getObject('title') || 'Example.graphviz';

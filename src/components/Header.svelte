@@ -1,7 +1,6 @@
 <script>
 
   import 'redux';
-  import {store} from "../index";
 
   import './Header.svelte.scss';
 
@@ -44,9 +43,14 @@ import {Item, Graphic, Text} from '@smui/list';
   import closeFullscreen from '../utils/closeFullscreen';
 
 import {setDarkMode} from "../store/actions/darkmode";
-import Divider from './static/Divider.Material.svelte';
-//import HoverFab from "./HoverFab.svelte";
+
+import Divider from './overwrite/Divider.Material.svelte';
+
+
 import ColourPicker from "./ColourPicker.svelte";
+
+
+import {store} from "../index";
 
 let showWizard;
 let applicationSourceCode = ``;

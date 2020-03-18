@@ -47,7 +47,7 @@
   import Header from './components/Header.svelte';
 
   import Drawer, {DrawerToggle} from './components/Drawer.svelte';
-  import Divider from './components/static/Divider.Material.svelte';
+
   import Graph from './components/Graph.svelte';
   import CodeView from './components/CodeView';
   import ColourPicker from "./components/ColourPicker.svelte";
