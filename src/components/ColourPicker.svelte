@@ -46,17 +46,17 @@
       data: color
     });
 
-    };
+  };
 
-    /**
-     * [getColor description]
-     * @param  {Color} str
-     * @return {Color}
-     */
+  /**
+   * [getColor description]
+   * @param  {Color} str
+   * @return {Color}
+   */
 
-    const getColor = function(color) {
-      return color.name.replace(' ','-').toLowerCase();
-    };
+  const getColor = function(color) {
+    return color.name.replace(' ','-').toLowerCase();
+  };
 
   /**
    * [width description]
