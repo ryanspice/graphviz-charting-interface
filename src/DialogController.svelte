@@ -12,7 +12,7 @@ import {store} from "./index";
   } from './store/actions/status';
 
   import Dialog from "./components/static/Dialog";
-  import Welcome from "./components/Welcome";
+  import Welcome from "./components/content/Welcome";
 
   // TODO: proper localization
   const copy = (require('./lang/en.json'));

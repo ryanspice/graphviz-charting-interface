@@ -1,15 +1,18 @@
 <script>
 
     import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
+
     import Button, {Label} from '@smui/button';
+
     import IconButton, {Icon} from '@smui/icon-button';
+
     import List, {
       Title,
       Item,
       Graphic,
       Text} from '@smui/list';
 
-  import Upload from "./static/Upload.svelte";
+  import Upload from "../static/Upload.svelte";
 
   import "./Welcome.svelte.scss";
 

@@ -68,7 +68,6 @@
 
   import Dialog from "./components/static/Dialog";
   import Settings from "./components/Settings";
-  import Welcome from "./components/Welcome";
 
   import DialogController from "./DialogController.svelte";
   import ThemeController from "./ThemeController.svelte";
