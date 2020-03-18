@@ -66,7 +66,6 @@
   import ContentEditor from "./components/ContentEditor.svelte";
   import {setDarkMode} from "./store/actions/darkmode";
 
-  import DialogAdd from "./components/DialogAdd";
   import Dialog from "./components/static/Dialog";
   import Settings from "./components/Settings";
   import Welcome from "./components/Welcome";
@@ -230,10 +229,6 @@
 
 });
 
-  let add;
-  const onAdd = () => {
-    add = new DialogAdd({target:document.body});
-  };
  const notMobile = true; // should have probably used css
 
 </script>
@@ -265,19 +260,10 @@
 
     }}
     on:mouseout={()=>{
-
       hovering = false;
-
     }}>
 
-    <!-- thats narsty -->
-
     <Graphic class="material-icons" aria-hidden="true">{item.icon || "insert_link"}</Graphic>
-
-      {#if hovering==item.name}
-      {:else}
-        <!--<Graphic class="material-icons" aria-hidden="true">insert_link</Graphic>-->
-      {/if}
 
     <Text>{item.name}</Text>
 

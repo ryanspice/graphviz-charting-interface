@@ -12,6 +12,7 @@
 } from "../store/actions/application";
 
 import {
+  STATUS_ADD,
   STATUS_LOAD_BAR,
   STATUS_SETTINGS
 } from "../store/actions/status";
@@ -200,10 +201,6 @@ onMount(async function () {
 
         <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
 
-        <ColourPicker></ColourPicker>
-
-        <IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
-
         <Title class="hidden">{applicationTitle}</Title>
 
         {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
@@ -214,6 +211,10 @@ onMount(async function () {
 
       <Section align="end" toolbar>
 
+        <IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
+
+        <ColourPicker></ColourPicker>
+
         <IconButton class="material-icons" aria-label="App Settings" on:click = {handleSettings}>settings</IconButton>
 
         {#if (notMobile)}
@@ -221,7 +222,6 @@ onMount(async function () {
           <IconButton class="material-icons hidden" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
 
         {/if}
-
 
       </Section>
 
@@ -237,7 +237,12 @@ onMount(async function () {
 
           {#if ((applicationDigraphSource===false))}
 
-            <IconButton class="material-icons"  on:click={onAdd} aria-label="add">insert_chart</IconButton>
+            <IconButton class="material-icons"  on:click={()=>{
+              store.dispatch({
+                type:STATUS_ADD,
+                value:1030
+              })
+              }} aria-label="add">insert_chart</IconButton>
 
           {/if}
 
@@ -255,7 +260,12 @@ onMount(async function () {
 
         {#if (!notMobile)}
 
-          <IconButton class="material-icons"  on:click={onAdd} aria-label="add">add</IconButton>
+          <IconButton class="material-icons"  on:click={()=>{
+            store.dispatch({
+              type:STATUS_ADD,
+              value:1030
+            })
+            }} aria-label="add">add</IconButton>
 
         {/if}
 

@@ -23,6 +23,7 @@ import {store} from "./index";
 
   let dWelcome = false;
   let dDelete = false;
+  let dSettings = false;
 
   const handleDialog = (state) => {
 
@@ -84,7 +85,6 @@ import {store} from "./index";
 
 </script>
 
-
 <!-- WELCOME -->
 
 <Dialog
@@ -125,6 +125,25 @@ import {store} from "./index";
     store.dispatch({
       type: STATUS_STATE,
       value:1099
+    });
+  }}
+ >
+
+</Dialog>
+
+<!-- SETTINGS -->
+
+<Dialog
+  open={dSettings}
+  id="dialog-settings"
+  title={copy.dialog.settings.title}
+  confirm={`Yes`}
+  deny={`No`}
+  onConfirm={()=>{
+    dSettings = false;
+    store.dispatch({
+      type: STATUS_STATE,
+      value:1020
     });
   }}
  >

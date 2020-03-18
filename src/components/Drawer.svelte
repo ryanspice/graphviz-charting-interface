@@ -232,15 +232,7 @@
 
     </Drawer>
 
-    <Scrim style="display: none"/> <!-- unused -->
-
-    <!-- TODO :: REMOVE -->
-    <!-- Content that exists East of the Drawer ::: Graph was here, maybe it'll be better for resizing? TODO :: REMOVE? -->
-    <!--
-    <AppContent class="app-content" style="display: none">
-
-    </AppContent>
-    -->
+    <Scrim style="display: none"/>
 
   </div>
 

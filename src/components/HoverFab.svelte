@@ -65,7 +65,7 @@
         if (!itemPosition)
         if (!itemPosition.y)
           return;
-        y = itemPosition.y || -200;
+        y = itemPosition.y-48 || -200;
   };
 
   /**
@@ -91,6 +91,18 @@
 
   });
 
+  /**
+   * [handleMouseScroll description]
+   * @param  {[type]} evt [description]
+   * @return {[type]}     [description]
+   */
+
+  const handleMouseScroll = (evt)=>{
+
+    	hidden = true;
+    	y = -200;
+      evt.preventDefault();
+  }
 </script>
 
 <Item
@@ -98,6 +110,7 @@
   class={applicationTheme}
   style={(hidden)?'display:none':('top:'+y+'px;width:'+data.name.length*8)}
   href="javascript:void(0)"
+  on:scroll={handleMouseScroll}
   on:mouseout={handleMouseOut} >
 
   <Graphic

@@ -2,6 +2,13 @@
   "dialog":{
     "delete":{
       "title":"Permanently Delete Graph?"
+    },
+    "settings":{
+      "title":"Settings"
     }
+
+  },
+  "settings":{
+    "title":"Settings"
   }
 }
