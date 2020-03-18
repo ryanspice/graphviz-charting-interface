@@ -13,6 +13,7 @@ import {store} from "./index";
 
   import Dialog from "./components/static/Dialog";
   import Welcome from "./components/content/Welcome";
+  import Settings from "./components/content/Settings";
 
   // TODO: proper localization
   const copy = (require('./lang/en.json'));
@@ -147,5 +148,5 @@ import {store} from "./index";
     });
   }}
  >
-
+ <Settings />
 </Dialog>

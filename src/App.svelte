@@ -67,7 +67,6 @@
   import {setDarkMode} from "./store/actions/darkmode";
 
   import Dialog from "./components/static/Dialog";
-  import Settings from "./components/Settings";
 
   import DialogController from "./DialogController.svelte";
   import ThemeController from "./ThemeController.svelte";

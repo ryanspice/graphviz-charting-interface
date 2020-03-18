@@ -3,7 +3,7 @@ import {
   DIALOG_SETTINGS
 } from '../actions/dialog'
 
-import Settings from "../../components/Settings";
+import Settings from "../../components/content/Settings";
 import Dialog from "../../components/static/Dialog";
 
 async function dialog(state = [], action) {
