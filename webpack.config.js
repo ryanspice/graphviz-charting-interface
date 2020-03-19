@@ -13,6 +13,7 @@ const app = async env => {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+    const webpack = require('webpack');
     const path = require('path');
     const merge = require('webpack-merge');
 
@@ -88,7 +89,12 @@ const app = async env => {
                     preset: ['default', { discardComments: { removeAll: true } }]
                 },
                 canPrint: true
-            })
+            }),
+            new webpack.ProvidePlugin({
+              "log": 'LogLevel',
+              "env":['../.env','default']
+            }),
+
         ],
         output:{
             library : name,
@@ -125,7 +131,7 @@ const app = async env => {
     (builds[0].plugins.splice(1,1));  // remove buggy circular dependency plugin
 
 
-    return builds;
+    return builds[0];
 };
 
 /**/

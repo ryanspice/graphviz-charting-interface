@@ -1,19 +1,17 @@
 
 now:
 
+  make app empty
+  
 
-  STATE MACHINE 
+next:
 
-
-  refactor / consolidate theme logic
-    change UI elements to use css vars
-
+  STATE MACHINE
 
   day and night mode on load
       - events must trigger when graph is done loading to override colours
 
 
-next:
 
     multiple tabs / graphs
         - render multiple charts
@@ -21,7 +19,7 @@ next:
 
     refactoring
         print preview force white theme
-        hook theme up with a font yo
+        hook theme everywhere
 
     re-render properly
     fab + details
@@ -57,6 +55,11 @@ later:
 
 
 previous:
+
+
+  refactor / consolidate theme logic
+    change UI elements to use css vars
+
 
 2/06
 
