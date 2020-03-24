@@ -52,10 +52,12 @@
 
       case 1001:
         dUpload = true;
-        dialogUpload.$$.ctx[2]();
+        dialogUpload.$$.ctx[4]();
       break;
       case 1001:
         dUpload = false;
+        dWelcome = false;
+
         dSettings = true;
       break;
       case 1002:
@@ -63,6 +65,7 @@
           type: STATUS_STATE,
           value:1003
         });
+        dialogWelcome.$$.ctx[0].$$.ctx[10]();
       break;
 
       case 1020:
@@ -162,8 +165,8 @@
   open={dUpload}
   id="dialog-upload"
   title={lang.dialog.upload.title}
-  confirm={``}
-  deny={``}
+  confirm={`ok`}
+  deny={`cancel`}
   onConfirm={()=>{
     dUpload = false;
     store.dispatch({

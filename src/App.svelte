@@ -233,11 +233,8 @@
 
 <Header />
 
-<!-- material "fab" moves to position of list item to show details -->
-<!-- potentially move to index ? -->
-
 <!-- working project node list -->
-<!-- potentially move to index ? -->
+<!-- potentially move to index ? it gets moved  -->
 
 <VirtualList items={applicationDrawerData} let:item>
 

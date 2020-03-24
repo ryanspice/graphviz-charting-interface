@@ -8,6 +8,10 @@
 
   let eInput;
 
+  let name;
+  let size;
+
+
   /**
    * dispatches uploaded files code to store
    * @param  {file} input .graphviz files
@@ -25,7 +29,9 @@
     let i = 0;
 
     try {
-
+        console.log(files[i])
+       name = files[i].name;
+       size = files[i].size;
       const fileURL = await window.URL.createObjectURL(files[i]);
       const fileContent = await fetch(fileURL);
 
@@ -70,6 +76,16 @@
   };
 
 </script>
+
+ {#if name}
+
+  <div>
+
+    {name} - {size}kb
+
+  </div>
+
+{/if}
 
 <form enctype="multipart/form-data" action="/upload/file" method="post" hidden>
 
