@@ -9,19 +9,16 @@
   import Card, {Media} from '@smui/card';
 
   import List, {
-    Title,
     Item,
-    Graphic,
     Text
   } from '@smui/list';
 
   import "./Welcome.svelte.scss";
 
-  export let onInsertChart = () => {
-
-  };
+  export let onInsertChart = () => { };
 
 </script>
+
 <section id="welcome-screen" >
 
   <h2>{lang.welcome.welcome}</h2>
@@ -34,7 +31,6 @@
 
   </p>
 
-
   <br/><br/>
 
    <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={()=>{
@@ -43,10 +39,11 @@
          type: STATUS_STATE,
          value:1001
        });
-//      document.getElementById('welcome-file-upload').click();
+
      }}>
 
      <Media class="card-media-square" aspectRatio="square">
+
      <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
 
            	<i class="material-icons large" disabled>
@@ -60,9 +57,13 @@
       </div>
 
      </Media>
+
    </Card>
+
    <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={onInsertChart}>
+
      <Media class="card-media-square" aspectRatio="square">
+
      <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
 
            	<i class="material-icons large" disabled>
@@ -71,11 +72,12 @@
 
              <br/>
 
-           	{lang.welcome.buttons.create}
+          	<Text>{lang.welcome.buttons.create}</Text>
 
       </div>
 
      </Media>
+
    </Card>
 
 </section>
