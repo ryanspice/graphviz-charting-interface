@@ -92,7 +92,8 @@ const app = async env => {
             }),
             new webpack.ProvidePlugin({
               "log": 'LogLevel',
-              "env":['../.env','default']
+              "env":['../.env','default'],
+              "lang":[path.resolve('./src/lang/en.json')]
             }),
 
         ],

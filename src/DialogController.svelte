@@ -5,7 +5,7 @@
     afterUpdate
   } from 'svelte';
 
-import {store} from "./index";
+  import {store} from "./index";
 
   import {
     STATUS_STATE
@@ -13,16 +13,25 @@ import {store} from "./index";
 
   import Dialog from "./components/static/Dialog";
   import Welcome from "./components/content/Welcome";
+  import Upload from "./components/static/Upload.svelte";
   import Settings from "./components/content/Settings";
 
-  // TODO: proper localization
-  const copy = (require('./lang/en.json'));
+
+    import LinearProgress from '@smui/linear-progress';
+
+      let progress = 0;
+      let progressMax = 1;
+      let progressShow = 0;
+      let closed = false;
+      let timer;
+
 
   export let title = 'undefined';
   export let confirm = "true";
   export let deny = "false";
 
   let dWelcome = localStorage.getItem('--welcome') || true;
+  let dialogUpload = {}
   let dialogWelcome = {
     visible:true
   }
@@ -30,12 +39,31 @@ import {store} from "./index";
 
   let dDelete = false;
   let dSettings = false;
+  let dUpload = false;
+
+
 
   const handleDialog = (state) => {
 
     log.debug(`DialogController ${state}`)
 
     switch(state){
+
+
+      case 1001:
+        dUpload = true;
+        dialogUpload.$$.ctx[2]();
+      break;
+      case 1001:
+        dUpload = false;
+        dSettings = true;
+      break;
+      case 1002:
+        store.dispatch({
+          type: STATUS_STATE,
+          value:1003
+        });
+      break;
 
       case 1020:
         dSettings = true;
@@ -120,9 +148,33 @@ import {store} from "./index";
       type: STATUS_STATE,
       value:1020
     });
-
   }}
   />
+
+</Dialog>
+
+<!-- UPLOAD GRAPH -->
+
+<Dialog
+  open={dUpload}
+  id="dialog-upload"
+  title={lang.dialog.upload.title}
+  confirm={``}
+  deny={``}
+  onConfirm={()=>{
+    dUpload = false;
+    store.dispatch({
+      type: STATUS_STATE,
+      value:1002
+    });
+  }}
+ >
+
+ <Upload
+   bind:this={dialogUpload} />
+
+
+   <LinearProgress {progress} {closed} />
 
 </Dialog>
 
@@ -131,7 +183,7 @@ import {store} from "./index";
 <Dialog
   open={dDelete}
   id="dialog-delete"
-  title={copy.dialog.delete.title}
+  title={lang.dialog.delete.title}
   confirm={`Yes`}
   deny={`No`}
   onConfirm={()=>{
@@ -150,7 +202,7 @@ import {store} from "./index";
 <Dialog
   open={dSettings}
   id="dialog-settings"
-  title={copy.dialog.settings.title}
+  title={lang.dialog.settings.title}
   confirm={`Yes`}
   deny={`No`}
   onConfirm={()=>{

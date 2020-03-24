@@ -1,14 +1,12 @@
 <script>
+
+  import {store} from "../../index";
+
   import {
-    onMount,
-    afterUpdate
-  } from 'svelte';
+    STATUS_STATE
+  } from '../../store/actions/status';
 
-  import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
-
-  import Button, {Label} from '@smui/button';
-
-  import IconButton, {Icon} from '@smui/icon-button';
+  import Card, {Media} from '@smui/card';
 
   import List, {
     Title,
@@ -16,8 +14,6 @@
     Graphic,
     Text
   } from '@smui/list';
-
-  import Upload from "../static/Upload.svelte";
 
   import "./Welcome.svelte.scss";
 
@@ -28,24 +24,26 @@
 </script>
 <section id="welcome-screen" >
 
-  <h2>Welcome!</h2>
+  <h2>{lang.welcome.welcome}</h2>
 
-  <p>
-    Thank you for testing!
-    Try editing and manipulating GraphViz digraphs!
+  <p>{lang.welcome.thanks}
 
   <br/><br/>
 
-  See <a target="_blank" href="https://www.graphviz.org/">graphviz.org</a> for more information.
+   {lang.welcome.see} <a target="_blank" href="https://www.graphviz.org/">graphviz.org</a> {lang.welcome.info}
+
   </p>
 
-  <Upload />
 
   <br/><br/>
 
    <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={()=>{
 
-      document.getElementById('welcome-file-upload').click();
+       store.dispatch({
+         type: STATUS_STATE,
+         value:1001
+       });
+//      document.getElementById('welcome-file-upload').click();
      }}>
 
      <Media class="card-media-square" aspectRatio="square">
@@ -57,7 +55,7 @@
 
              <br/>
 
-           	Upload
+           	<Text>{lang.welcome.buttons.upload}</Text>
 
       </div>
 
@@ -73,7 +71,7 @@
 
              <br/>
 
-           	Create
+           	{lang.welcome.buttons.create}
 
       </div>
 

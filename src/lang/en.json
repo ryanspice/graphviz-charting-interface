@@ -1,9 +1,18 @@
 {
    "welcome":{
      "welcome":"Welcome!",
-     "thanks":"Thank you for testing!/nTry editing and manipulating GraphViz digraphs!"
+     "thanks":"Try editing and manipulating GraphViz digraphs!",
+     "buttons":{
+       "upload":"upload",
+       "create":"create"
+     },
+     "see":"See",
+     "info":"for more information."
    },
   "dialog":{
+    "upload":{
+      "title":""
+    },
     "delete":{
       "title":"Permanently Delete Graph?"
     },

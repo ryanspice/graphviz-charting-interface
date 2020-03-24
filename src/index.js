@@ -43,7 +43,9 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
     });
 
 
-    console.log(log)
+    log.debug(env)
+    log.debug(lang)
+    log.debug(log)
 
     return app;
   }(
