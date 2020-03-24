@@ -1,8 +1,7 @@
 <script>
 
   import {
-    onMount,
-    afterUpdate
+    onMount
   } from 'svelte';
 
   import {store} from "./index";
@@ -16,16 +15,6 @@
   import Upload from "./components/static/Upload.svelte";
   import Settings from "./components/content/Settings";
 
-
-    import LinearProgress from '@smui/linear-progress';
-
-      let progress = 0;
-      let progressMax = 1;
-      let progressShow = 0;
-      let closed = false;
-      let timer;
-
-
   export let title = 'undefined';
   export let confirm = "true";
   export let deny = "false";
@@ -36,52 +25,72 @@
     visible:true
   }
 
-
   let dDelete = false;
   let dSettings = false;
   let dUpload = false;
 
-
+/**
+ * state mechanics
+ * @param  {[type]} state status state
+ */
 
   const handleDialog = (state) => {
 
-    log.debug(`DialogController ${state}`)
+    log.debug(`dialog ${state}`)
 
     switch(state){
 
-
       case 1001:
+
         dUpload = true;
         dialogUpload.$$.ctx[4]();
+
       break;
+
       case 1001:
+
         dUpload = false;
         dWelcome = false;
-
         dSettings = true;
+
       break;
+
       case 1002:
+
         store.dispatch({
           type: STATUS_STATE,
           value:1003
         });
+
         dialogWelcome.$$.ctx[0].$$.ctx[10]();
+
       break;
 
       case 1020:
+
         dSettings = true;
+
       break;
 
 
       case 1021:
+
         dSettings = false;
+
       break;
+
       case 1090:
+
         dDelete = true;
+
       break;
+
       case 9000:
-        log.error(state.error)
+
+        log.error(state.error);
+
       break;
+
       default:
 
     }
@@ -118,18 +127,6 @@
         handleDialog(await state);
 
     });
-
-    // for debugging
-    //
-/*
-    store.dispatch({
-      type: STATUS_STATE,
-      value:1010
-    });
-*/
-  });
-
-  afterUpdate(()=>{
 
   });
 
