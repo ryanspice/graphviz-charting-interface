@@ -22,7 +22,7 @@
   hover = hoverOverride || false;
   }}>
 
-  <Fab class="addition-fab" color="primary" on:click={() => {
+  <Fab class="addition-fab" on:click={() => {
       hoverOverride = !hoverOverride;
     }} on:mouseenter={()=>{
       hover = hoverOverride || true;
@@ -37,7 +37,7 @@
 
   	{#each controls as control, i}
 
-      <Fab class="addition-fab extra" color="primary" on:click={() => {
+      <Fab class="addition-fab extra" on:click={() => {
 
         }}>
 

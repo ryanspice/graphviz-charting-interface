@@ -22,14 +22,29 @@ import {store} from "./index";
   export let confirm = "true";
   export let deny = "false";
 
-  let dWelcome = false;
+  let dWelcome = localStorage.getItem('--welcome') || true;
+  let dialogWelcome = {
+    visible:true
+  }
+
+
   let dDelete = false;
   let dSettings = false;
 
   const handleDialog = (state) => {
 
+    log.debug(`DialogController ${state}`)
+
     switch(state){
 
+      case 1020:
+        dSettings = true;
+      break;
+
+
+      case 1021:
+        dSettings = false;
+      break;
       case 1090:
         dDelete = true;
       break;
@@ -72,12 +87,12 @@ import {store} from "./index";
 
     // for debugging
     //
-
+/*
     store.dispatch({
       type: STATUS_STATE,
       value:1010
     });
-
+*/
   });
 
   afterUpdate(()=>{
@@ -89,27 +104,25 @@ import {store} from "./index";
 <!-- WELCOME -->
 
 <Dialog
+  bind:this={dialogWelcome}
   open={dWelcome}
   id="dialog-welcome"
   title={``}
   confirm={``}
   deny={``}
-  onConfirm={()=>{
-    dWelcome = false;
-    store.dispatch({
-      type: STATUS_STATE,
-      value:1010
-    });
-  }}
  >
 
   <Welcome
-    onInsertChart = {()=>{
+  onInsertChart={()=>{
+    // i really dont know how to reference things properly, or maybe im just slow atm
+    dialogWelcome.$$.ctx[0].$$.ctx[10]();
+    store.dispatch({
+      type: STATUS_STATE,
+      value:1020
+    });
 
-      //STORE dispatch new chart
-
-    }
-  }/>
+  }}
+  />
 
 </Dialog>
 
@@ -148,5 +161,7 @@ import {store} from "./index";
     });
   }}
  >
+
  <Settings />
+
 </Dialog>

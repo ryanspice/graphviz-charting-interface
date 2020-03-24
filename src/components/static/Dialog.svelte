@@ -17,7 +17,7 @@
 
   import "./Dialog.svelte.scss";
 
-  let self;
+ export let self;
 
   export let id;
   export let title = 'undefined';

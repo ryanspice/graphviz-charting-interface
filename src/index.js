@@ -1,37 +1,32 @@
 
+import "./utils/storage/storage.getobject.js";
+import "./utils/storage/storage.setobject.js";
+
 import App from './App.svelte';
+import Store from "./store/reducers/index";
 
 import {
   APPLICATION_LOAD
 } from "./store/actions/application";
 
-import Store from "./store/reducers/index";
-
-import LoadingBar, {
-  reset
-} from "./components/static/LoadingBar.svelte";
-
-import "./utils/storage/storage.getobject.js";
-import "./utils/storage/storage.setobject.js";
-
+import LoadingBar from "./components/static/LoadingBar.svelte";
 
 let app: App;
 let store: Store;
-let loading: LoadingBar;
 let props = {};
 
-if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
+// initalize static components
 
-  // initalize static components
+if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
 
   (async function application() {
 
     await require("./debug");
 
-    store = Redux.createStore(Store, /* preloadedState, */
+    store = await Redux.createStore(Store, /* preloadedState, */
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-    loading = await new LoadingBar({
+    await new LoadingBar({
       target: document.body
     });
 
@@ -47,14 +42,15 @@ if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
       type: APPLICATION_LOAD
     });
 
-    //log.debug('index.js', 'eh')
+
+    console.log(log)
 
     return app;
   }(
     props
   ));
 
-}
+};
 
 export {
   store

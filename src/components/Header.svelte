@@ -1,8 +1,5 @@
 <script>
 
-  import 'redux';
-
-  import './Header.svelte.scss';
 
   import {
 	RETRIEVE_ITEM,
@@ -13,16 +10,17 @@
 import {
   STATUS_ADD,
   STATUS_LOAD_BAR,
-  STATUS_SETTINGS
+  STATUS_SETTINGS,
+  STATUS_STATE,
 } from "../store/actions/status";
 
 import {
-  DIALOG_SETTINGS
+  DIALOG_SETTINGS,
 } from '../store/actions/dialog'
 
 import {
   onMount,
-  afterUpdate
+  afterUpdate,
 } from 'svelte';
 
 import IconButton from '@smui/icon-button';
@@ -46,11 +44,14 @@ import {setDarkMode} from "../store/actions/darkmode";
 
 import Divider from './overwrite/Divider.Material.svelte';
 
-
 import ColourPicker from "./ColourPicker.svelte";
+
+  import 'redux';
 
 
 import {store} from "../index";
+
+import './Header.svelte.scss';
 
 let showWizard;
 let applicationSourceCode = ``;
@@ -127,10 +128,10 @@ const toggleMenu = () => {
  */
 
 const handleSettings = ()=>{
-      store.dispatch({
-        type: DIALOG_SETTINGS,
-        test:'eh'
-      });
+  store.dispatch({
+    type: STATUS_STATE,
+    value: 1020
+  });
 }
 
 /**

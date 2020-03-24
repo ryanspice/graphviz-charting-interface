@@ -1,27 +1,32 @@
 <script>
+  import {
+    onMount,
+    afterUpdate
+  } from 'svelte';
 
-    import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
+  import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
 
-    import Button, {Label} from '@smui/button';
+  import Button, {Label} from '@smui/button';
 
-    import IconButton, {Icon} from '@smui/icon-button';
+  import IconButton, {Icon} from '@smui/icon-button';
 
-    import List, {
-      Title,
-      Item,
-      Graphic,
-      Text} from '@smui/list';
+  import List, {
+    Title,
+    Item,
+    Graphic,
+    Text
+  } from '@smui/list';
 
   import Upload from "../static/Upload.svelte";
 
   import "./Welcome.svelte.scss";
 
-export const onDismiss = () => {};
-export let onInsertChart = () => {};
+  export let onInsertChart = () => {
+
+  };
 
 </script>
-
-<section id="welcome-screen">
+<section id="welcome-screen" >
 
   <h2>Welcome!</h2>
 

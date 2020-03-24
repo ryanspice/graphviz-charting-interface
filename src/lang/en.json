@@ -1,4 +1,8 @@
 {
+   "welcome":{
+     "welcome":"Welcome!",
+     "thanks":"Thank you for testing!/nTry editing and manipulating GraphViz digraphs!"
+   },
   "dialog":{
     "delete":{
       "title":"Permanently Delete Graph?"
