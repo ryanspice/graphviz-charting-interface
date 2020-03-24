@@ -20,6 +20,7 @@ export default async function initialization(state = [], action) {
   const darkMode = localStorage.getObject('darkMode');
 
   return {
+    error:``,
 	...state,
 	theme,
 	action,

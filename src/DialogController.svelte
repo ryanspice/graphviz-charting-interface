@@ -76,6 +76,9 @@
       case 1090:
         dDelete = true;
       break;
+      case 9000:
+        log.error(state.error)
+      break;
       default:
 
     }

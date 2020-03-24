@@ -1,10 +1,5 @@
 <script>
 
-  import {
-    onMount,
-    afterUpdate
-  } from 'svelte';
-
   import {store} from "../../index";
 
   import {
@@ -12,6 +7,11 @@
   } from '../../store/actions/status';
 
   let eInput;
+
+  /**
+   * dispatches uploaded files code to store
+   * @param  {file} input .graphviz files
+   */
 
   async function handleFiles(input) {
 
@@ -21,42 +21,53 @@
       log.warn('currently there is only support for 1 file to be uploaded');
     }
 
+    // TODO: multi file support
+    let i = 0;
+
     try {
 
-      const fileURL = await window.URL.createObjectURL(files[0]);
-
-      let fileContent = await fetch(fileURL);
-      fileContent = await fileContent.text();
+      const fileURL = await window.URL.createObjectURL(files[i]);
+      const fileContent = await fetch(fileURL);
 
       await store.dispatch({
         type: STATUS_STATE,
         value:1002,
-        content:fileContent
+        content: await fileContent.text()
       });
 
       window.URL.revokeObjectURL(fileURL);
 
     } catch(e) {
 
-      log.error(e);
+      await store.dispatch({
+        type: STATUS_STATE,
+        value:9000,
+        error:e
+      });
 
     }
 
-  }
+  };
+
+  /**
+   *
+   */
 
   export let click = function(){
+
     eInput.click();
+
   };
+
+  /**
+   *
+   */
 
   export let callback = async function(){
 
     await handleFiles(eInput);
 
-   return true;
   };
-
-  onMount(()=>{
-  })
 
 </script>
 
