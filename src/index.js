@@ -1,58 +1,59 @@
+/**
+ * index.js
+ *  this acts as the entry point of the app,
+ *  here we bootstrap our libraries, Svelte, and Redux
+ *
+ * utils
+ *  here we provide a collection of helper functions
+ */
 
-import "./utils/storage/storage.getobject.js";
-import "./utils/storage/storage.setobject.js";
+import "./debug";
 
-import App from './App.svelte';
-import Store from "./store/reducers/index";
+import "./utils/storage/storage.getobject";
+import "./utils/storage/storage.setobject";
 
-import {
-  APPLICATION_LOAD
-} from "./store/actions/application";
+import {createStore} from 'redux';
 
-import LoadingBar from "./components/static/LoadingBar.svelte";
+declare var log: any;
+declare var env: any;
+declare var lang: any;
 
-let app: App;
-let store: Store;
+let app;
+let store;
 let props = {};
+let id = 'rci';
 
-// initalize static components
+/**
+ * initialize application, store, and stuff
+ */
 
-if (!window.app) { // TODO :: fix app runs twice for some reason, webpack issue?
+(async function application() {
 
-  (async function application() {
+  if (window[id])
+	return log.error(new Error("FAILURE: application already initialized"));
 
-    await require("./debug");
+  window[id] = true;
 
-    store = await Redux.createStore(Store, /* preloadedState, */
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+  const {__REDUX_DEVTOOLS_EXTENSION__} = window;
+  const App = (await import(/* webpackPreload: true, webpackPrefetch: true */ './app/App.svelte')).default;
+  const Store = (await import(/* webpackPreload: true, webpackPrefetch: true */ './store/reducers/index')).default;
 
-    await new LoadingBar({
-      target: document.body
-    });
+  store = await createStore(Store, /* preloadedState, */
+	__REDUX_DEVTOOLS_EXTENSION__ && __REDUX_DEVTOOLS_EXTENSION__());
 
-    app = await new App({
-      target: document.body
-    });
+  log.debug(env);
+  log.debug(lang);
+  log.debug(log);
 
-    //TODO :: remove
-    window.app = app;
-    //window.store = store;
+  return app = await new App({
+	target: document.body
+  });
 
-    await store.dispatch({
-      type: APPLICATION_LOAD
-    });
+}(
+  props
+));
 
-
-    log.debug(env)
-    log.debug(lang)
-    log.debug(log)
-
-    return app;
-  }(
-    props
-  ));
-
-};
+/* */
 
 export {
   store

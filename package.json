@@ -11,6 +11,8 @@
     "profile": "webpack --profile --json > stats.json && webpack-stats-graph"
   },
   "devDependencies": {
+    "loglevel": "latest",
+    "redux": "^4.0.5",
     "svelte": "^3.0.0",
     "svelte-loader": "2.13.3"
   },

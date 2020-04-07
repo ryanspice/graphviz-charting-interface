@@ -1,16 +1,17 @@
 <script>
 
-import {store} from "./index";
-import "./ThemeController.scss";
-
-  import {
-    STATUS_STATE
-  } from './store/actions/status'
-
   import {
     onMount,
     afterUpdate
   } from 'svelte';
+
+import {store} from "../index";
+
+  import {
+    STATUS_STATE
+  } from '../store/actions/status'
+
+  import "./ThemeController.scss";
 
   onMount(async function () {
 

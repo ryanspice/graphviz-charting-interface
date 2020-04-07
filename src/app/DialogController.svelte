@@ -4,16 +4,16 @@
     onMount
   } from 'svelte';
 
-  import {store} from "./index";
+  import {store} from "../index";
 
   import {
     STATUS_STATE
-  } from './store/actions/status';
+  } from '../store/actions/status';
 
-  import Dialog from "./components/static/Dialog";
-  import Welcome from "./components/content/Welcome";
-  import Upload from "./components/static/Upload.svelte";
-  import Settings from "./components/content/Settings";
+  import Dialog from "../components/static/Dialog";
+  import Welcome from "../components/content/Welcome";
+  import Upload from "../components/static/Upload.svelte";
+  import Settings from "../components/content/Settings";
 
   export let title = 'undefined';
   export let confirm = "true";
@@ -71,7 +71,6 @@
         dSettings = true;
 
       break;
-
 
       case 1021:
 
@@ -144,14 +143,14 @@
  >
 
   <Welcome
-  onInsertChart={()=>{
-    // i really dont know how to reference things properly, or maybe im just slow atm
-    dialogWelcome.$$.ctx[0].$$.ctx[10]();
-    store.dispatch({
-      type: STATUS_STATE,
-      value:1020
-    });
-  }}
+    onInsertChart={()=>{
+      // i really dont know how to reference things properly, or maybe im just slow atm
+      dialogWelcome.$$.ctx[0].$$.ctx[10]();
+      store.dispatch({
+        type: STATUS_STATE,
+        value:1020
+      });
+    }}
   />
 
 </Dialog>
@@ -175,9 +174,6 @@
 
  <Upload
    bind:this={dialogUpload} />
-
-
-   <LinearProgress {progress} {closed} />
 
 </Dialog>
 

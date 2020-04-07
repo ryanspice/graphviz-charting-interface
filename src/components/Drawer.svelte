@@ -227,12 +227,11 @@
             value:1090
           });
 
-
         }}>delete_forever</IconButton>
 
     </Drawer>
 
-    <Scrim style="display: none"/>
+    <Scrim />
 
   </div>
 
