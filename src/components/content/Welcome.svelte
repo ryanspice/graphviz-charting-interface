@@ -1,83 +1,109 @@
 <script>
 
-  import {store} from "../../index";
+    import {store} from "../../index";
 
-  import {
-    STATUS_STATE
-  } from '../../store/actions/status';
+    import {
+        STATUS_STATE
+    } from '../../store/actions/status';
 
-  import Card, {Media} from '@smui/card';
+    import "./Welcome.svelte.scss";
 
-  import List, {
-    Item,
-    Text
-  } from '@smui/list';
+    import {Text} from '@smui/list';
 
-  import "./Welcome.svelte.scss";
+    import Card, {Media} from '@smui/card';
 
-  export let onInsertChart = () => { };
+    /**
+     *
+     */
+
+    const handleCardUpload = () => {
+
+        store.dispatch({
+            type: STATUS_STATE,
+            value: 1001
+        });
+
+    };
+
+    /**
+     *
+     */
+
+    const handleCardCreate = () => {
+
+        store.dispatch({
+            type: STATUS_STATE,
+            value: 1001
+        });
+
+    };
+
+    /**
+     *
+     */
+
+    export let onInsertChart = () => {
+
+    };
+
 
 </script>
 
-<section id="welcome-screen" >
+<section id="welcome-screen">
 
-  <h2>{lang.welcome.welcome}</h2>
+    <h2>{lang.welcome.welcome}</h2>
 
-  <p>{lang.welcome.thanks}
+    <p>
+        {lang.welcome.thanks}
 
-  <br/><br/>
+        <br/><br/>
 
-   {lang.welcome.see} <a target="_blank" href="https://www.graphviz.org/">graphviz.org</a> {lang.welcome.info}
+        {lang.welcome.see} <a target="_blank" href="https://www.graphviz.org/">graphviz.org</a> {lang.welcome.info}
 
-  </p>
+    </p>
 
-  <br/><br/>
+    <br/><br/>
 
-   <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={()=>{
+    <Card on:click={handleCardUpload}>
 
-       store.dispatch({
-         type: STATUS_STATE,
-         value:1001
-       });
+        <Media class="card-media-square" aspectRatio="square">
 
-     }}>
+            <div>
 
-     <Media class="card-media-square" aspectRatio="square">
+                <i class="material-icons large" disabled>
+                    open_in_browser
+                </i>
 
-     <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
+                <br/>
 
-           	<i class="material-icons large" disabled>
-           	 open_in_browser
-           	</i>
+                <Text>{lang.welcome.buttons.upload}</Text>
 
-             <br/>
+            </div>
 
-           	<Text>{lang.welcome.buttons.upload}</Text>
+        </Media>
 
-      </div>
+    </Card>
 
-     </Media>
+    <Card on:click={handleCardCreate}>
 
-   </Card>
+        <Media class="card-media-square" aspectRatio="square">
 
-   <Card style="display:inline-block;width: 49%;margin:0px auto; cursor:pointer;" on:click={onInsertChart}>
+            <div>
 
-     <Media class="card-media-square" aspectRatio="square">
+                <i class="material-icons large" disabled>
+                    insert_chart
+                </i>
 
-     <div style=" position: absolute; top: 37%;width:100%;padding-bottom:2rem;">
+                <br/>
 
-           	<i class="material-icons large" disabled>
-           	 insert_chart
-           	</i>
+                <Text>{lang.welcome.buttons.create}</Text>
 
-             <br/>
+            </div>
 
-          	<Text>{lang.welcome.buttons.create}</Text>
+        </Media>
 
-      </div>
+    </Card>
 
-     </Media>
-
-   </Card>
+    <section><a href="https://ryanspice.com/">ryanspice.com</a></section>
 
 </section>
