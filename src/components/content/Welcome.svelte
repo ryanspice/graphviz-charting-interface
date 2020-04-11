@@ -33,7 +33,7 @@
 
         store.dispatch({
             type: STATUS_STATE,
-            value: 1001
+            value: 1002
         });
 
     };

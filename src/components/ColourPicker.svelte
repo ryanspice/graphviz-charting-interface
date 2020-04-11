@@ -10,7 +10,8 @@
     Option
   } from '@smui/select';
 
-  import IconButton from '@smui/icon-button';
+
+  import HeaderButton from "./HeaderButton.svelte";
 
   import {
     APPLICATION_ASSIGN_THEME
@@ -70,9 +71,18 @@
 
   })
 
+export let state;
+
+export let sign;
+
 </script>
 
-<IconButton class="material-icons" on:click={handleFocus}>color_lens</IconButton>
+<HeaderButton
+        state={state}
+        sign={sign}
+        class="material-icons"
+        icon="color_lens"
+        click={handleFocus} />
 
 <Select bind:this={select} id="colour-picker" enhanced>
 

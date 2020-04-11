@@ -1,234 +1,264 @@
 <script>
 
+    import {
+        RETRIEVE_ITEM,
+        APPLICATION_TOGGLE_DARKMODE,
+        APPLICATION_TOGGLE_MENU
+    } from "../store/actions/application";
 
-  import {
-	RETRIEVE_ITEM,
-	APPLICATION_TOGGLE_DARKMODE,
-	APPLICATION_TOGGLE_MENU
-} from "../store/actions/application";
+    import {
+        STATUS_ADD,
+        STATUS_LOAD_BAR,
+        STATUS_SETTINGS,
+        STATUS_STATE,
+    } from "../store/actions/status";
 
-import {
-  STATUS_ADD,
-  STATUS_LOAD_BAR,
-  STATUS_SETTINGS,
-  STATUS_STATE,
-} from "../store/actions/status";
+    import {
+        DIALOG_SETTINGS,
+    } from '../store/actions/dialog'
 
-import {
-  DIALOG_SETTINGS,
-} from '../store/actions/dialog'
+    import {
+        onMount,
+        afterUpdate,
+    } from 'svelte';
 
-import {
-  onMount,
-  afterUpdate,
-} from 'svelte';
+    import HeaderButton from './HeaderButton.svelte';
 
-import IconButton from '@smui/icon-button';
+    import TopAppBar, {
+        Row,
+        Section,
+        Title,
+        FixedAdjust,
+        DenseFixedAdjust,
+        ProminentFixedAdjust,
+        ShortFixedAdjust
+    } from '@smui/top-app-bar';
 
-import TopAppBar, {
-  Row,
-  Section,
-  Title,
-  FixedAdjust,
-  DenseFixedAdjust,
-  ProminentFixedAdjust,
-  ShortFixedAdjust
-} from '@smui/top-app-bar';
+    import {Item, Graphic, Text} from '@smui/list';
 
-import {Item, Graphic, Text} from '@smui/list';
+    import openFullscreen from '../utils/openFullscreen';
+    import closeFullscreen from '../utils/closeFullscreen';
 
-  import openFullscreen from '../utils/openFullscreen';
-  import closeFullscreen from '../utils/closeFullscreen';
+    import {setDarkMode} from "../store/actions/darkmode";
 
-import {setDarkMode} from "../store/actions/darkmode";
+    import Divider from './overwrite/Divider.Material.svelte';
 
-import Divider from './overwrite/Divider.Material.svelte';
+    import ColourPicker from "./ColourPicker.svelte";
 
-import ColourPicker from "./ColourPicker.svelte";
-
-  import 'redux';
+    import 'redux';
 
 
-import {store} from "../index";
+    import {store} from "../index";
 
-import './Header.svelte.scss';
+    import './Header.svelte.scss';
 
-let showWizard;
-let applicationSourceCode = ``;
-let applicationDigraphSource = false;
+    let showWizard;
+    let applicationSourceCode = ``;
+    let applicationDigraphSource = false;
 
-let applicationFullscreen = false;
-let applicationDayOrNight = false;
-let applicationCodeView = false;
+    let applicationFullscreen = false;
+    let applicationDayOrNight = false;
+    let applicationCodeView = false;
 
-let applicationFirstRun = false;
-let applicationTheme = {
-primary: ""
-};
+    let applicationFirstRun = false;
+    let applicationTheme = {
+        primary: ""
+    };
 
-let applicationNavigationMenuState = true;
+    let applicationNavigationMenuState = true;
 
-let applicationDrawerData = [
-{name: '', number: ''}
-];
+    let applicationDrawerData = [
+        {name: '', number: ''}
+    ];
 
-let charts = [
-  {icon:'insert_chart'},
-  {icon:'show_chart'},
-  {icon:'link'},
-];
+    let charts = [
+        {icon: 'insert_chart'},
+        {icon: 'show_chart'},
+        {icon: 'link'},
+    ];
 
-let dense = true;
-let prominent = false;
-let variant = 'short';
-let collapsed = false;
-let applicationTitle;
-let Adjust = FixedAdjust;
+    let dense = true;
+    let prominent = false;
+    let variant = 'short';
+    let collapsed = false;
+    let applicationTitle;
+    let Adjust = FixedAdjust;
 
-const notMobile = true; // should have probably used css
-Adjust = ShortFixedAdjust;
+    const notMobile = true; // should have probably used css
+    Adjust = ShortFixedAdjust;
 
-let tabIndex = 0;
-let screen;
+    let tabIndex = 0;
+    let screen;
 
-let toggleCodeView = () => {};
+    let toggleCodeView = () => {
+    };
 
-/**
- * TODO :: dispatch theme change
- * @returns {Promise<void>}
- */
+    /**
+     * TODO :: dispatch theme change
+     * @returns {Promise<void>}
+     */
 
-const handleDayOrNight = async () => {
+    const handleDayOrNight = async () => {
 
-	applicationDayOrNight = !applicationDayOrNight;
+        applicationDayOrNight = !applicationDayOrNight;
 
-	store.dispatch({
-	  type: APPLICATION_TOGGLE_DARKMODE,
-	  darkMode: applicationDayOrNight
-	});
+        store.dispatch({
+            type: APPLICATION_TOGGLE_DARKMODE,
+            darkMode: applicationDayOrNight
+        });
 
-};
+    };
 
-/**
- * dispatch navigation state
- */
+    /**
+     * dispatch navigation state
+     */
 
-const toggleMenu = () => {
+    const toggleMenu = () => {
 
-	store.dispatch({
-	  type: APPLICATION_TOGGLE_MENU,
-	  navigation: applicationNavigationMenuState
-	});
+        store.dispatch({
+            type: APPLICATION_TOGGLE_MENU,
+            navigation: applicationNavigationMenuState
+        });
 
-};
+    };
 
-/**
- * [handleSettings description]
- * @return {[type]} [description]
- */
+    /**
+     * [handleSettings description]
+     * @return {[type]} [description]
+     */
 
-const handleSettings = ()=>{
-  store.dispatch({
-    type: STATUS_STATE,
-    value: 1020
-  });
-}
+    const handleSettings = () => {
+        store.dispatch({
+            type: STATUS_STATE,
+            value: 1020
+        });
+    }
 
-/**
- * [onAdd description]
- * @return {[type]} [description]
- */
+    /**
+     * [onAdd description]
+     * @return {[type]} [description]
+     */
 
-const onAdd = ()=>{};
+    const onAdd = () => {
+    };
 
-/**
- * svelte onMount
- */
+    /**
+     * svelte onMount
+     */
 
-onMount(async function () {
+    onMount(async function () {
 
- // applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
- applicationFirstRun = localStorage.getItem('welcome');
+        // applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
+        applicationFirstRun = localStorage.getItem('welcome');
 
- store.dispatch({
-   type: STATUS_LOAD_BAR,
-   value:0.1
- });
+        store.dispatch({
+            type: STATUS_LOAD_BAR,
+            value: 0.1
+        });
 
- store.subscribe(async () => {
+        store.subscribe(async () => {
 
-   const {
-     application,
-     status
-   } = await store.getState();
+            const {
+                application,
+                status
+            } = await store.getState();
 
-   const {
-     action,
-     theme,
-     data,
-     nodes,
-     navigation,
-     title,
-     darkMode
-   } = await application;
+            const {
+                action,
+                theme,
+                data,
+                nodes,
+                navigation,
+                title,
+                darkMode
+            } = await application;
 
-   const {
-     options,
-     progress,
-   } = await status;
+            const {
+                options,
+                progress,
+            } = await status;
 
-   applicationTheme = theme;
+            state = (await status).state;
 
-   showWizard = options.showWizard;
+            applicationTheme = theme;
 
-   applicationSourceCode = data;
+            showWizard = options.showWizard;
 
-   applicationNavigationMenuState = navigation;
-   //applicationTitle = title;
+            applicationSourceCode = data;
 
-   // applicationDayOrNight = setDarkMode(darkMode);
+            applicationNavigationMenuState = navigation;
+            //applicationTitle = title;
 
-    return;
- });
+            // applicationDayOrNight = setDarkMode(darkMode);
 
-});
+            return;
+        });
 
+    });
+
+    let state;
 
 </script>
 
-  <TopAppBar {dense} {prominent} {variant} bind:collapsed>
+<TopAppBar {dense} {prominent} {variant} bind:collapsed>
 
     <!-- Primary Row -->
 
     <Row>
 
-      <Section>
+        <!-- Row Beginning -->
 
-        <IconButton class="material-icons" on:click={toggleMenu}>{!applicationNavigationMenuState?'menu':'menu_open'}</IconButton>
+        <Section>
 
-        <Title class="hidden">{applicationTitle}</Title>
+            <HeaderButton class="material-icons"
+                          sign=">"
+                          icon={!applicationNavigationMenuState?'menu':'menu_open'}
+                          click={toggleMenu}></HeaderButton>
 
-        {#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
-          <IconButton class="material-icons" aria-label="insert_chart" title="return" on:click={toggleCodeView}>insert_chart</IconButton>
-        {/if}
+            <HeaderButton class="material-icons"
+                          state="1000"
+                          sign="="
+                          icon={!applicationDayOrNight?'nights_stay':'wb_sunny'}
+                          click={handleDayOrNight}/>
 
-      </Section>
+            <!-- Sidebar Toggle -->
 
-      <Section align="end" toolbar>
+					{#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
+              <HeaderButton class="material-icons" aria-label="insert_chart" title="return" click={toggleCodeView}>
+                  insert_chart
+              </HeaderButton>
+					{/if}
 
-        <IconButton class="material-icons" on:click = {handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</IconButton>
+        </Section>
 
-        <ColourPicker></ColourPicker>
+        <!-- Row End -->
 
-        <IconButton class="material-icons" aria-label="App Settings" on:click = {handleSettings}>settings</IconButton>
+        <Section align="end" toolbar>
 
-        {#if (notMobile)}
+          <ColourPicker
+                  state="1000"
+                  sign=">=" />
 
-          <IconButton class="material-icons hidden" on:click = {!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</IconButton>
+          <HeaderButton class="material-icons"
+                        state="1000"
+                        sign=">"
+                        on:click={handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</HeaderButton>
 
-        {/if}
 
-      </Section>
+            <HeaderButton
+                    state="1000"
+                    sign=">"
+                    class="material-icons" aria-label="App Settings" click={handleSettings}>settings
+            </HeaderButton>
+
+					{#if (notMobile)}
+          <!--
+              <HeaderButton class="material-icons hidden"
+                          on:click={!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</HeaderButton>
+-->
+					{/if}
+
+        </Section>
 
     </Row>
 
@@ -236,97 +266,107 @@ onMount(async function () {
 
     <Row id="second-bar">
 
-      <Section align="start" toolbar>
+        <Section align="start" toolbar>
 
-        {#if (notMobile)}
+					{#if (notMobile)}
 
-          {#if ((applicationDigraphSource===false))}
+						{#if ((applicationDigraphSource===false))}
 
-            <IconButton class="material-icons"  on:click={()=>{
-              store.dispatch({
-                type:STATUS_ADD,
-                value:1030
-              })
-              }} aria-label="add">insert_chart</IconButton>
+                <HeaderButton class="material-icons" click={()=>{
+								store.dispatch({
+								type:STATUS_ADD,
+								value:1030
+								})
+								}} aria-label="add">insert_chart
+                </HeaderButton>
 
-          {/if}
+						{/if}
 
-          <Divider></Divider>
+              <Divider></Divider>
 
-          {#if ((true)&&(applicationDigraphSource))}
+						{#if ((true)&&(applicationDigraphSource))}
 
-            <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-            applicationCodeView=applicationCodeView;
-            applicationDigraphSource=false;}} alt="print">insert_chart</IconButton>
+                <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
+								applicationCodeView=applicationCodeView;
+								applicationDigraphSource=false;}} alt="print">insert_chart
+                </HeaderButton>
 
-          {/if}
+						{/if}
 
-        {/if}
+					{/if}
 
-        {#if (!notMobile)}
+					{#if (!notMobile)}
 
-          <IconButton class="material-icons"  on:click={()=>{
-            store.dispatch({
-              type:STATUS_ADD,
-              value:1030
-            })
-            }} aria-label="add">add</IconButton>
+              <HeaderButton class="material-icons" click={()=>{
+							store.dispatch({
+							type:STATUS_ADD,
+							value:1030
+							})
+							}} aria-label="add">add
+              </HeaderButton>
 
-        {/if}
+					{/if}
 
-        {#if ((tabIndex!==0))}
+					{#if ((tabIndex!==0))}
 
-          <IconButton class="material-icons" aria-label="bar_chart" title="bar_chart" on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart</IconButton>
+              <HeaderButton class="material-icons" aria-label="bar_chart" title="bar_chart"
+                            on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart
+              </HeaderButton>
 
-        {/if}
+					{/if}
 
-    	{#each charts as control, i}
+					{#each charts as control, i}
 
-        <IconButton class="material-icons" aria-label="" title="" on:click={()=>{}}>bar_chart</IconButton>
+              <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}}>bar_chart</HeaderButton>
 
-    	{/each}
+					{/each}
 
-      {#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+					{#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
 
-        <IconButton class="material-icons" aria-label="edit" title="edit" on:click={()=>{}}>add_box</IconButton>
+              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{}}>add_box
+              </HeaderButton>
 
-      {/if}
+					{/if}
 
 
-      </Section>
+        </Section>
 
-      <Section align="end" toolbar>
+        <Section align="end" toolbar>
 
-        {#if (notMobile)}
+					{#if (notMobile)}
 
-          <IconButton class="material-icons hidden" aria-label="Print this page" on:click={()=>{
-          const html = window.d3.select("#graph0").html();
-          const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-          win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}} alt="print">print</IconButton>
+              <HeaderButton class="material-icons hidden" aria-label="Print this page" click={()=>{
+							const html = window.d3.select("#graph0").html();
+							const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+							win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}}
+                            alt="print">print
+              </HeaderButton>
 
-          <!-- FOR each GRAPH in store.graph.list? -->
-          <!-- disable when viewing other  -->
-          <!-- <HoverFab></HoverFab> -->
-          <!--
-            {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
-              <IconButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</IconButton>
-            {/if}
-          -->
+              <!-- FOR each GRAPH in store.graph.list? -->
+              <!-- disable when viewing other  -->
+              <!-- <HoverFab></HoverFab> -->
+              <!--
+								{#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
+									<HeaderButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</HeaderButton>
+								{/if}
+							-->
 
-          <IconButton class="material-icons" aria-label="Preview SVG source" on:click={()=>{
-          const html = window.d3.select("#graph0").html();
-          //downloadSource(html);
-          //applicationCodeView=true;
-          applicationDigraphSource=html;}} alt="print">code</IconButton>
+              <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
+							const html = window.d3.select("#graph0").html();
+							//downloadSource(html);
+							//applicationCodeView=true;
+							applicationDigraphSource=html;}} alt="print">code
+              </HeaderButton>
 
-                    <IconButton class="material-icons" aria-label="Download SVG" on:click={()=>{
-                    const svg = document.querySelector("svg");
-                    downloadSvg(svg);}}>file_download</IconButton>
+              <HeaderButton class="material-icons" aria-label="Download SVG" click={()=>{
+							const svg = document.querySelector("svg");
+							downloadSvg(svg);}}>file_download
+              </HeaderButton>
 
-        {/if}
+					{/if}
 
-      </Section>
+        </Section>
 
     </Row>
 
-  </TopAppBar>
+</TopAppBar>

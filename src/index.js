@@ -68,5 +68,3 @@ export default ((async function application() {
 export {
   store
 };
-
-//export default app;
