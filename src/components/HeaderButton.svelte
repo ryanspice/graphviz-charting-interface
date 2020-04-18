@@ -40,6 +40,8 @@
 
     export let sign = ">="; // greater than, less than, or equal too
 
+    export let alt = ""; // greater than, less than, or equal too
+
     export let icon = `sync_problem`;
 
     export let click = () => {
@@ -73,7 +75,7 @@
 {#if (_show_)}
 
     <IconButton class="material-icons"
-                on:click={click}>
+                on:click={click} alt={alt}>
 
 			{icon}
 

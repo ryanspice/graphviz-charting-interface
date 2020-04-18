@@ -9,32 +9,30 @@ import {
 	APPLICATION_TOGGLE_CODE,
 	APPLICATION_TOGGLE_DIALOGUE,
 	APPLICATION_TOGGLE_FULLSCREEN,
-	APPLICATION_TOGGLE_DARKMODE,
-	APPLICATION_ASSIGN_THEME,
 	APPLICATION_ASSIGN_DRAWER_OFFSET,
 	RETRIEVE_ITEM
 } from '../actions/application'
 
 import initialization from "../actions/initialization";
-import {setDarkMode} from "../actions/darkmode";
 
-
-
-const state_default = {
-	theme:{ name: "Deep Purple", primary: 'swatch-color-deep-purple', secondary: '' }
+const APPLICATION = {
+	theme:{}
 };
 
+/**
+ *
+ * @param state
+ * @param action
+ * @returns {Promise<{[p: string]: *}|(Array&{navigation: *, data: *, action: *, drawer: (*|{width: number}), theme: *, itemPosition: {x: number, y: number}, title: (*|string)})|*>}
+ */
 
+async function application(state:any = APPLICATION, action) {
 
-
-async function application(state = [], action) {
-
-  state = await Object.assign(await state_default, await state);
+  state = await state;
 
   switch (action.type) {
 
-	case APPLICATION_LOAD:
-		console.info('initialization')
+	  case APPLICATION_LOAD:
 	  return await initialization(await state, action);
 	case APPLICATION_TOGGLE_MENU:
 	  localStorage.setObject('navigation', !action.navigation);
@@ -45,9 +43,6 @@ async function application(state = [], action) {
 	  return {...state, action};
 	case APPLICATION_TOGGLE_CODE:
 	  return {...state, action};
-	case APPLICATION_TOGGLE_DARKMODE:
-	  const darkMode = setDarkMode(action.darkMode,state.data);
-	  return {...state, action, darkMode};
 	case APPLICATION_SAVE:
 	  return {...state, action};
 	case APPLICATION_LOAD_PREVIOUS:
@@ -60,17 +55,6 @@ async function application(state = [], action) {
 	case RETRIEVE_ITEM:
 	  return {...state, action, item:action.item, itemPosition:action.itemPosition};
 
-	case APPLICATION_ASSIGN_THEME:
-	  if (action.data){
-		  localStorage.setObject('theme', action.data);
-		  localStorage.setObject('--theme', action.data);
-      return {
-        ...state,
-        theme: action.data,
-        action
-      };
-    }
-    return {...state,action};
 	case APPLICATION_ASSIGN_DRAWER_OFFSET:
 
 	  if (action.value) {
@@ -82,10 +66,6 @@ async function application(state = [], action) {
 	  return state
   }
 }
-function theme(state= [], action) {
-  switch(action.type) {
 
-  }
-}
 
 export default application;

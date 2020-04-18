@@ -20,14 +20,12 @@ export const APPLICATION_TOGGLE_FULLSCREEN = `APPLICATION_TOGGLE_FULLSCREEN`;
 export const APPLICATION_TOGGLE_DIALOGUE = `APPLICATION_TOGGLE_DIALOGUE`;
 export const APPLICATION_TOGGLE_CODE = `APPLICATION_TOGGLE_CODE`;
 export const APPLICATION_TOGGLE_MENU = `APPLICATION_TOGGLE_MENU`;
-export const APPLICATION_TOGGLE_DARKMODE = `APPLICATION_TOGGLE_DARKMODE`;
 export const APPLICATION_SAVE = `APPLICATION_SAVE`;
 export const APPLICATION_LOAD = `APPLICATION_LOAD`;
 export const APPLICATION_LOAD_GRAPH = `APPLICATION_LOAD`;
 export const APPLICATION_LOAD_PREVIOUS = `APPLICATION_LOAD_PREVIOUS`;
 export const APPLICATION_LOAD_EXAMPLE = `APPLICATION_LOAD_EXAMPLE`;
 
-export const APPLICATION_ASSIGN_THEME = `APPLICATION_ASSIGN_THEME`;
 
 // TODO :: Bring into separate file ?
 
@@ -79,9 +77,6 @@ export function applicationToggleCode(...args){
 export function applicationToggleMenu(...args){
   return { type: APPLICATION_TOGGLE_MENU, ...args }
 }
-export function applicationToggleDarkMode(...args){
-  return { type: APPLICATION_TOGGLE_DARKMODE, ...args }
-}
 export function applicationSave(...args){
   return { type: APPLICATION_SAVE, ...args }
 }
@@ -96,9 +91,6 @@ export function applicationLoadPrevious(...args){
 }
 export function applicationLoadExample(...args){
   return { type: APPLICATION_LOAD_EXAMPLE, ...args }
-}
-export function applicationAssignTheme(...args){
-  return { type: APPLICATION_ASSIGN_THEME, ...args }
 }
 export function applicationAssignDrawerOffset(...args){
   return { type: APPLICATION_ASSIGN_DRAWER_OFFSET, ...args }

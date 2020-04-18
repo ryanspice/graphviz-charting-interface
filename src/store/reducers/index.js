@@ -2,9 +2,13 @@
 import application from "./application";
 import dialog from "./dialog";
 import status from "./status";
+import theme from "./theme";
 
-export default Redux.combineReducers({
+import {combineReducers} from 'redux';
+
+export default combineReducers({
   application,
   dialog,
-  status
+  status,
+  theme
 })

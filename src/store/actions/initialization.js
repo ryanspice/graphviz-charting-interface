@@ -1,3 +1,6 @@
+import {store} from "../../index";
+import {THEME_SET} from "./theme";
+
 /**
  * setup the initial state of the application
  * @param state
@@ -11,13 +14,19 @@ export default async function initialization(state = [], action) {
   const theme = localStorage.getObject('--theme') || swatches[3];
   const data = localStorage.getObject('data') || action.data;
   const navigation = localStorage.getObject('navigation');
-  const title = localStorage.getObject('title') || 'Example.graphviz';
+  const title = localStorage.getObject('title') || 'reactive-graph-interface';
 
   const drawer = localStorage.getObject('drawer') || {
 	width: 58
   };
 
   const darkMode = localStorage.getObject('darkMode');
+
+	store.dispatch({
+			type: THEME_SET,
+			data: theme
+		}
+	)
 
   return {
     error:``,

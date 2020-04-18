@@ -1,72 +1,72 @@
 <script>
 
-  import { onMount, afterUpdate } from 'svelte';
+    import {onMount, afterUpdate} from 'svelte';
 
-  import {store} from "../index";
-  import {
-    APPLICATION_LOAD_GRAPH
-  } from "../store/actions/application";
+    import {store} from "../index";
+    import {
+        APPLICATION_LOAD_GRAPH
+    } from "../store/actions/application";
 
-  import "./Graph.svelte.scss";
+    import "./Graph.svelte.scss";
 
-  import D3Graphviz from "../utils/D3Graphviz";
+    import D3Graphviz from "../utils/D3Graphviz";
 
-  let GraphContainer;
-  let GraphStore;
-  let Store;
+    let GraphContainer;
+    let GraphStore;
+    let Store;
 
-  /**/
+    /**/
 
-  let state = 0;
-  onMount(async () => {
+    let state = 0;
+    onMount(async () => {
 
-    const container = GraphContainer;
-    container.style.opacity = 0;
+        const container = GraphContainer;
+        container.style.opacity = 0;
 
-    GraphStore = (await import("../store")).default;
-    Store = await new GraphStore();
+        GraphStore = (await import("../store")).default;
+        Store = await new GraphStore();
 
-    if (!Store.data){
-      return new Error("GraphStore data is invalid");
-    }
+        if (!Store.data) {
+            return new Error("GraphStore data is invalid");
+        }
 
-    //
+        //
 
-    store.subscribe(async (t)=>{
+        store.subscribe(async (t) => {
 
-  	  const {
-        application,
-        status
-  	  } = await store.getState();
+            const {
+                application,
+                status
+            } = await store.getState();
 
-      const {
-    		action
-      } = await application;
+            const {
+                action
+            } = await application;
 
-      state = (await status).state;
+            state = (await status).state;
 
-      if (container.style.opacity==0){
-        const data = await D3Graphviz(action.data);
-      }
+            if (container.style.opacity == 0) {
+                const data = await D3Graphviz(action.data);
+            }
 
-      container.style.opacity = 1;
+            container.style.opacity = 1;
+
+        });
+
+        //
+
+        store.dispatch({
+            type: APPLICATION_LOAD_GRAPH,
+            data: (Store)
+        });
 
     });
 
-    //
+    /**/
 
-    store.dispatch({
-      type:APPLICATION_LOAD_GRAPH,
-      data:(Store)
+    afterUpdate(async () => {
+
     });
-
-  });
-
-  /**/
-
-  afterUpdate(async () => {
-
-  });
 
 </script>
 

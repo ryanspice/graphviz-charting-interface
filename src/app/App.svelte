@@ -86,9 +86,9 @@
 
     let applicationFirstRun = false;
     let applicationReady = false;
-    let applicationTheme = {
-        primary: ""
-    };
+    //let applicationTheme = {
+//        primary: ""
+//    };
 
     let applicationNavigationMenuState = true;
 
@@ -99,12 +99,12 @@
     new LoadingBar({target: document.body});
 
     const components = {
+        themecontroller: new ThemeController({
+            target: document.body
+        }),
         drawer: new Drawer({target: document.body}),
         graph: new Graph({target: document.body}),
         dialogcontroller: new DialogController({
-            target: document.body
-        }),
-        themecontroller: new ThemeController({
             target: document.body
         }),
         hoverFab: new HoverFab({target: document.body}),
@@ -201,12 +201,12 @@
 
             const {
                 application,
-                status
+                status,
+                    theme
             } = await store.getState();
 
             const {
                 action,
-                theme,
                 data,
                 nodes,
                 navigation,
@@ -224,7 +224,7 @@
             applicationReady = true;
 
             applicationSourceCode = data;
-            applicationTheme = theme;
+            //applicationTheme = theme;
 
             return;
             applicationDayOrNight = setDarkMode(darkMode);
@@ -244,7 +244,10 @@
 <VirtualList items={applicationDrawerData} let:item>
 
     <Item href="javascript:void(0)"
-          on:mousemove={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}
+          on:mousemove={(evt)=>{
+            evt.preventDefault();
+            evt.stopPropagation();
+          }}
           on:mouseover={(evt)=>{
 
 

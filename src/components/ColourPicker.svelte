@@ -1,79 +1,78 @@
 <script>
 
-  import './ColourPicker.svelte.scss';
+    import './ColourPicker.svelte.scss';
 
-  import {
-    onMount
-  } from 'svelte';
+    import {
+        onMount
+    } from 'svelte';
 
-  import Select, {
-    Option
-  } from '@smui/select';
+    import {
+        THEME_SET
+    } from "../store/actions/theme";
 
+    import {
+        store
+    } from "../index";
 
-  import HeaderButton from "./HeaderButton.svelte";
+    import Select, {
+        Option
+    } from '@smui/select';
 
-  import {
-    APPLICATION_ASSIGN_THEME
-  } from "../store/actions/application";
+    import HeaderButton from "./HeaderButton.svelte";
 
-  import {
-    store
-  } from "../index";
+    import colors from '../theme/colors';
 
-  import colors from '../theme/colors';
+    let select;
 
-  let select;
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
 
-  /**
-   * [description]
-   * @return {[type]} [description]
-   */
+    const handleFocus = function () {
 
-  const handleFocus = function() {
+        select.$$.ctx[18].children[2].click();
 
-     select.$$.ctx[18].children[2].click();
+    };
 
-  };
+    /**
+     * [description]
+     * @param  {[type]} color [description]
+     * @return {[type]}       [description]
+     */
 
-  /**
-   * [description]
-   * @param  {[type]} color [description]
-   * @return {[type]}       [description]
-   */
+    const handleOption = async function (color) {
 
-  const handleOption = async function(color) {
+        store.dispatch({
+            type: THEME_SET,
+            data: color
+        });
 
-    store.dispatch({
-      type: APPLICATION_ASSIGN_THEME,
-      data: color
-    });
+    };
 
-  };
+    /**
+     * [getColor description]
+     * @param  {Color} str
+     * @return {Color}
+     */
 
-  /**
-   * [getColor description]
-   * @param  {Color} str
-   * @return {Color}
-   */
+    const getColor = function (color) {
 
-  const getColor = function(color) {
+        return color.name.replace(' ', '-').toLowerCase();
+    };
 
-    return color.name.replace(' ','-').toLowerCase();
-  };
+    /**
+     * [width description]
+     * @type {String}
+     */
 
-  /**
-   * [width description]
-   * @type {String}
-   */
+    onMount(() => {
 
-  onMount(() => {
+    })
 
-  })
+    export let state;
 
-export let state;
-
-export let sign;
+    export let sign;
 
 </script>
 
@@ -82,20 +81,20 @@ export let sign;
         sign={sign}
         class="material-icons"
         icon="color_lens"
-        click={handleFocus} />
+        click={handleFocus}/>
 
 <Select bind:this={select} id="colour-picker" enhanced>
 
-  {#each colors as color}
+	{#each colors as color}
 
-    <Option value={color.name} id="colour-picker-list" on:click={()=>{handleOption(color)}}>
+      <Option value={color.name} id="colour-picker-list" on:click={()=>{handleOption(color)}}>
 
-      <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-500)"}></div>
+          <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-500)"}></div>
 
-      <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-300)"}></div>
+          <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-300)"}></div>
 
-    </Option>
+      </Option>
 
-  {/each}
+	{/each}
 
 </Select>

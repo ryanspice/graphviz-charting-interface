@@ -148,13 +148,15 @@
 
     onMount(async function () {
 
-        // applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
+        applicationDayOrNight = setDarkMode(localStorage.getObject('darkMode'));
         applicationFirstRun = localStorage.getItem('welcome');
 
+        /*
         store.dispatch({
             type: STATUS_LOAD_BAR,
             value: 0.1
         });
+        */
 
         store.subscribe(async () => {
 
@@ -169,7 +171,6 @@
                 data,
                 nodes,
                 navigation,
-                title,
                 darkMode
             } = await application;
 
@@ -187,9 +188,8 @@
             applicationSourceCode = data;
 
             applicationNavigationMenuState = navigation;
-            //applicationTitle = title;
 
-            // applicationDayOrNight = setDarkMode(darkMode);
+            applicationDayOrNight = setDarkMode(darkMode);
 
             return;
         });
@@ -213,7 +213,7 @@
             <HeaderButton class="material-icons"
                           sign=">"
                           icon={!applicationNavigationMenuState?'menu':'menu_open'}
-                          click={toggleMenu}></HeaderButton>
+                          click={toggleMenu}/>
 
             <HeaderButton class="material-icons"
                           state="1000"
@@ -235,28 +235,28 @@
 
         <Section align="end" toolbar>
 
-          <ColourPicker
-                  state="1000"
-                  sign=">=" />
 
-          <HeaderButton class="material-icons"
-                        state="1000"
-                        sign=">"
-                        on:click={handleDayOrNight}>{!applicationDayOrNight?'nights_stay':'wb_sunny'}</HeaderButton>
+            <ColourPicker
+                    state="1000"
+                    sign="="/>
 
+            <HeaderButton class="material-icons"
+                          state="1000"
+                          sign=">"
+                          icon={!applicationDayOrNight?'nights_stay':'wb_sunny'}
+                          click={handleDayOrNight}/>
 
             <HeaderButton
                     state="1000"
                     sign=">"
-                    class="material-icons" aria-label="App Settings" click={handleSettings}>settings
-            </HeaderButton>
+                    icon="settings"
+                    class="material-icons" aria-label="App Settings" click={handleSettings}/>
 
-					{#if (notMobile)}
-          <!--
-              <HeaderButton class="material-icons hidden"
-                          on:click={!applicationFullscreen?openFullscreen:closeFullscreen}>{applicationFullscreen?'fullscreen':'fullscreen_exit'}</HeaderButton>
--->
-					{/if}
+            <!--
+								<HeaderButton class="material-icons hidden"
+								 icon={applicationFullscreen?'fullscreen':'fullscreen_exit'}
+														click={!applicationFullscreen?openFullscreen:closeFullscreen} />
+							-->
 
         </Section>
 
@@ -272,13 +272,14 @@
 
 						{#if ((applicationDigraphSource===false))}
 
-                <HeaderButton class="material-icons" click={()=>{
-								store.dispatch({
-								type:STATUS_ADD,
-								value:1030
-								})
-								}} aria-label="add">insert_chart
-                </HeaderButton>
+                <HeaderButton class="material-icons"
+                              icon="insert_chart"
+                              click={()=>{
+								              store.dispatch({
+								              type:STATUS_ADD,
+								              value:1030
+								              })
+								              }} aria-label="add"/>
 
 						{/if}
 
@@ -286,10 +287,12 @@
 
 						{#if ((true)&&(applicationDigraphSource))}
 
-                <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
-								applicationCodeView=applicationCodeView;
-								applicationDigraphSource=false;}} alt="print">insert_chart
-                </HeaderButton>
+                <HeaderButton class="material-icons" aria-label="Preview SVG source"
+                              alt="print"
+                              icon="insert_chart"
+                              click={()=>{
+								              applicationCodeView=applicationCodeView;
+								              applicationDigraphSource=false;}}/>
 
 						{/if}
 
@@ -297,34 +300,33 @@
 
 					{#if (!notMobile)}
 
-              <HeaderButton class="material-icons" click={()=>{
-							store.dispatch({
-							type:STATUS_ADD,
-							value:1030
-							})
-							}} aria-label="add">add
-              </HeaderButton>
+              <HeaderButton class="material-icons"
+                            icon="add"
+                            click={()=>{
+							              store.dispatch({
+							              type:STATUS_ADD,
+							              value:1030
+							              })
+							              }} aria-label="add"/>
 
 					{/if}
 
 					{#if ((tabIndex!==0))}
 
-              <HeaderButton class="material-icons" aria-label="bar_chart" title="bar_chart"
-                            on:click={()=>{forceCode(applicationSourceCode.data)}}>bar_chart
-              </HeaderButton>
+              <HeaderButton class="material-icons" aria-label="bar_chart" title="bar_chart" icon="bar_chart"
+                            click={()=>{forceCode(applicationSourceCode.data)}}/>
 
 					{/if}
 
 					{#each charts as control, i}
 
-              <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}}>bar_chart</HeaderButton>
+              <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}} icon="bar_chart"/>
 
 					{/each}
 
 					{#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
 
-              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{}}>add_box
-              </HeaderButton>
+              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{}} icon="add_box"/>
 
 					{/if}
 
@@ -334,34 +336,31 @@
         <Section align="end" toolbar>
 
 					{#if (notMobile)}
-
-              <HeaderButton class="material-icons hidden" aria-label="Print this page" click={()=>{
-							const html = window.d3.select("#graph0").html();
-							const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-							win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}}
-                            alt="print">print
-              </HeaderButton>
-
+          <!--
+                          <HeaderButton class="material-icons hidden" aria-label="Print this page" click={()=>{
+                          const html = window.d3.select("#graph0").html();
+                          const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+                          win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}}
+                                        alt="print" icon="print" />
+        -->
               <!-- FOR each GRAPH in store.graph.list? -->
               <!-- disable when viewing other  -->
               <!-- <HoverFab></HoverFab> -->
               <!--
-								{#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
-									<HeaderButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</HeaderButton>
-								{/if}
-							-->
+                {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
+                  <HeaderButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</HeaderButton>
+                {/if}
+              -->
 
               <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
 							const html = window.d3.select("#graph0").html();
 							//downloadSource(html);
 							//applicationCodeView=true;
-							applicationDigraphSource=html;}} alt="print">code
-              </HeaderButton>
+							applicationDigraphSource=html;}} alt="print" icon="code"/>
 
               <HeaderButton class="material-icons" aria-label="Download SVG" click={()=>{
 							const svg = document.querySelector("svg");
-							downloadSvg(svg);}}>file_download
-              </HeaderButton>
+							downloadSvg(svg);}} icon="file_download"/>
 
 					{/if}
 

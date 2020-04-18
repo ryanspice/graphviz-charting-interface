@@ -24,7 +24,6 @@ export default class GraphStore {
   };
 
   #node:Function<String> = (data:GraphRow) => {
-
     return `node_${unique_id(data?.id)}[${this.#table(data)}]`;
   };
 

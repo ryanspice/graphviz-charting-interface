@@ -20,6 +20,11 @@ async function status(state = STATUS, action) {
       state.progress = action.value;
 	  return {...state, action};
 
+    case STATUS_LOAD_FILE:
+      return {...state, action};
+    case STATUS_SAVE:
+      return {...state, action};
+
     case STATUS_SETTINGS:
       state.options = {...state.options, ...action.value}
     return {...state, action};
