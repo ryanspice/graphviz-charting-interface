@@ -7,27 +7,15 @@
 
     import {store} from "../index";
 
-    import "./ThemeController.scss";
+    const styleElement = document.createElement('style');
 
-    onMount(async function () {
+    /**
+     * return full string of css to override style
+     */
 
-        store.subscribe(async () => {
+    function styleElementCSS(primary) {
 
-            const {
-                theme
-            } = await store.getState();
-
-             const {
-                 primary
-             } = await theme;
-
-            if (document.getElementById('theme')) {
-                document.getElementById('theme').remove();
-            }
-            let elm = document.createElement('style');
-            elm.id = "theme";
-            elm.type = "text/css";
-            elm.innerHTML = `
+        styleElement.innerHTML = `
             :root {
               --primary: var(--material-color-${primary}-500);
               --secondary: var(--material-color-${primary}-a100);
@@ -58,14 +46,39 @@
           header {
             background:var(--theme-primary);
           }
-
           `;
 
-            document.body.append(elm);
+    }
+
+    /**
+     * subscribe to theme variables from state
+     */
+
+    onMount(async function () {
+
+        store.subscribe(async () => {
+
+            const {
+                theme
+            } = await store.getState();
+
+            const {
+                primary
+            } = await theme;
+
+            if (styleElement) {
+                await styleElement.remove();
+            }
+
+            await styleElementCSS(primary);
+            await document.body.append(styleElement);
 
         });
 
     });
+
+    /**
+     */
 
     afterUpdate(() => {
 
