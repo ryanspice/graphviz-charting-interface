@@ -1,14 +1,24 @@
 {
-   "welcome":{
-     "welcome":"Welcome!",
-     "thanks":"Try editing and manipulating GraphViz digraphs!",
-     "buttons":{
-       "upload":"upload",
-       "create":"create"
-     },
-     "see":"See",
-     "info":"for more information."
-   },
+  "welcome":{
+    "welcome":"Welcome!",
+    "thanks":"Try editing and manipulating GraphViz digraphs!",
+    "buttons":{
+      "upload":"upload",
+      "create":"create"
+    },
+    "see":"See",
+    "info":"for more information."
+  },
+  "create":{
+    "title":"Create New",
+    "body":"Choose a template or start from scratch",
+    "buttons":{
+      "upload":"upload",
+      "create":"create"
+    },
+    "texta":"See",
+    "textb":"for more information."
+  },
   "dialog":{
     "upload":{
       "title":""

@@ -8,8 +8,8 @@
  */
 
 import pkg from "../package.json";
-import "./debug";
 
+import "./debug";
 import "./utils/storage/storage.getobject";
 import "./utils/storage/storage.setobject";
 
@@ -25,7 +25,7 @@ let props = {};
 
 const id = pkg.short_name;
 const target = {
-  target:document.body
+	target: document.body
 };
 
 /**
@@ -34,37 +34,36 @@ const target = {
 
 export default ((async function application() {
 
-  // TODO : remove window check, bug in ETK dev server
+	// TODO : remove window check, bug in ETK dev server
 
-  if (window[id])
-	return log.error(new Error("FAILURE: application already initialized"));
+	if (window[id])
+		return log.error(new Error("FAILURE: application already initialized"));
 
-  window[id] = true;
+	window[id] = true;
 
-  // BOOTSTRAP application and redux
+	// BOOTSTRAP application and redux
 
-  const {__REDUX_DEVTOOLS_EXTENSION__} = window;
-  const App = (await import(/* webpackPreload: true, webpackPrefetch: true */ './app/App.svelte')).default;
-  const Store = (await import(/* webpackPreload: true, webpackPrefetch: true */ './store/reducers/index')).default;
+	const {__REDUX_DEVTOOLS_EXTENSION__} = window;
+	const App = (await import(/* webpackPreload: true, webpackPrefetch: true */ './app/App.svelte')).default;
+	const Store = (await import(/* webpackPreload: true, webpackPrefetch: true */ './store/reducers/index')).default;
 
-  // REDUX store creation for component consumption
+	// REDUX store creation for component consumption
 
-  store = await createStore(Store, /* preloadedState, */
-	__REDUX_DEVTOOLS_EXTENSION__ && __REDUX_DEVTOOLS_EXTENSION__());
+	store = await createStore(Store, /* preloadedState, */
+		__REDUX_DEVTOOLS_EXTENSION__ && __REDUX_DEVTOOLS_EXTENSION__());
 
-  // DEBUG
+	// DEBUG
 
-  log.debug('ENV',env);
-  log.debug('LANG',lang);
+	log.debug('ENV', env);
+	log.debug('LANG', lang);
 
-  return app = await new App(target);
-
+	return app = await new App(target);
 }(
-  props
+	props
 )));
 
 /* */
 
 export {
-  store
+	store
 };

@@ -1,8 +1,18 @@
 $max_font: 26px;
 @import '../css/abstracts/mixins/__fluidType.scss';
 
+#create-screen > div > div > div > i {
+  //margin-left:10.3em;
+  margin:0px auto;
+}
+#create-screen > div:nth-child(5) > div > div > i {
+  margin-left:0px;
+}
 
-#welcome-screen {
+#create-screen {
+
+    height:99%;
+    overflow-x:hidden;
 
   @include fluid-type($min_width, 720px, $min_font, $max_font);
   width: 100%;
@@ -20,6 +30,14 @@ $max_font: 26px;
       opacity: 0.8;
     }
   }
+
+  i {
+    font-size: 5em;
+  }
+  i:not:first-of-type {
+    //margin-left:25rem;
+  }
+
 
   li {
     overflow: visible;
@@ -47,6 +65,7 @@ $max_font: 26px;
 
   .mdc-card {
 
+    text-align: center;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -90,72 +109,4 @@ $max_font: 26px;
 
   }
 
-}
-
-#slider-title {
-
-  font-family: monospace;
-}
-
-#dialog-welcome {
-
-  margin-top: 48px;
-
-  .mdc-dialog__scrim {
-
-    pointer-events: none;
-
-  }
-
-
-
-  i {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 auto;
-    // width:49%;
-    padding: 0;
-    text-align: center;
-    clear: both;
-
-    &.large {
-      font-size: 5em;
-      color: var(--theme-link-color);
-    }
-
-    color: var(--theme-link-color);
-  }
-
-  section {
-    float: left;
-    text-align: center
-  }
-
-  section li {
-    user-select: none;
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 auto;
-    //width: 40vw;
-    //height: 40vh;
-    //min-height: 148px;
-    padding: 0;
-    text-align: center;
-    //padding: 1rem;
-    i {
-      //margin-top: 25%;
-    }
-
-    a {
-      //line-height: 7rem;
-    }
-
-    &:hover {
-      outline: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
-    &:active {
-      outline: 1px solid rgba(255, 255, 255, 0.05);
-    }
-  }
 }

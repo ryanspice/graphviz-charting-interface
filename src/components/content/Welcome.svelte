@@ -33,7 +33,8 @@
 
         store.dispatch({
             type: STATUS_STATE,
-            value: 1002
+            value: 1002,
+            time: new Date().getTime()
         });
 
     };
