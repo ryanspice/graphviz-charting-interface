@@ -1,6 +1,17 @@
 
 @import '../css/abstracts/mixins/__on-circle.scss';
+
+#mdc-fab {
+
+}
+
 #addition-fab {
+ :not(first){
+  -webkit-box-shadow: 0px 4px 17px 6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 4px 17px 6px rgba(0,0,0,0.75);
+  box-shadow: 0px 4px 17px 6px rgba(0,0,0,0.75);
+ }
+
     > * {
       transition: .15s;
     }

@@ -1,42 +1,36 @@
+
 header {
-  background:transparent !important;
+  background: transparent;
+
   .mdc-top-app-bar {
-    background:transparent !important;
+    background: transparent;
   }
 }
-
 
 .mdc-top-app-bar {
 
   div:nth-child(1) {
 
+    button {
+      color: var(--header-icon-color);
+    }
+
     button:nth-of-type(2), button:nth-of-type(3) {
-     font-size:1.3rem;
-   }
+      font-size: 1.3rem;
+    }
 
     background: var(--primary);
-
-      * {
-        color: var(--text-primary-on-background);
-      }
 
   }
 
   div:nth-child(2) {
 
-    background: var(--secondary);
+    button {
+      color: var(--header-icon-color);
+    }
 
-      * {
-        color: var(--text-primary-on-background);
-      }
+    background: var(--secondary);
 
   }
 
-}
-
-#second-bar {
-}
-
-#third-bar {
-  //background:$mdc-theme-secondary;
 }

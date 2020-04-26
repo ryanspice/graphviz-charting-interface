@@ -36,9 +36,11 @@
 
     const templates = [
         { icon: "add", text: "new"},
-        { icon: "insert_chart", text: "UML Diagram"},
-        { icon: "insert_chart", text: "UX Diagram"},
-        { icon: "insert_chart", text: "Feature Diagram"},
+        { icon: "code", text: "UML Diagram"},
+        { icon: "language", text: "Network Overview"},
+        { icon: "autorenew", text: "Generic UI/UX Flow"},
+        { icon: "assignment", text: "Feature UI/UX Flow"},
+        { icon: "web", text: "Website Outline"},
     ];
 
 </script>

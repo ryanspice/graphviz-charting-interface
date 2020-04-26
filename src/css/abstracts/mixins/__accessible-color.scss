@@ -1,0 +1,14 @@
+@mixin accessible-color {
+    color:
+            rgb(
+                            var(--accessible-color),
+                            var(--accessible-color),
+                            var(--accessible-color)
+            );
+    background-color:
+            rgb(
+                            var(--red),
+                            var(--green),
+                            var(--blue)
+            );
+}

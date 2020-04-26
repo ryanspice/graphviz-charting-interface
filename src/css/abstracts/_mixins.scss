@@ -1,8 +1,9 @@
-
 @import './mixins/__preferredDarkMode.scss';
 @import './mixins/__preferredLightMode.scss';
 @import './mixins/__fluidType.scss';
 @import './mixins/__on-circle.scss';
+@import './mixins/__breakpoints.scss';
+@import './mixins/__accessible-color.scss';
 
 
 @mixin transform($transforms) {
@@ -36,32 +37,5 @@
   } @else {
     background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
     background: radial-gradient(ellipse at center, $start-color, $end-color);
-  }
-}
-
-/*
-  RESPONSIVE MEDIA QUERIES
-  use inside class definitions if styles differ between media resolutions
-  media queries
-
-  For example:
-  @include respond(sm){
-  @include respond(sm){
-    font-size: 50%
-  }
-*/
-
-@mixin respond($breakpoint){
-  @if $breakpoint == sm {
-    @media (max-width: 33.75em) { @content }; //540px
-  }
-  @if $breakpoint == md {
-    @media (max-width: 45em) { @content }; //720px
-  }
-  @if $breakpoint == lrg {
-    @media (max-width: 71.25em) { @content }; //1140px
-  }
-  @if $breakpoint == xl {
-    @media (min-width: 80em) { @content }; //1280px
   }
 }
