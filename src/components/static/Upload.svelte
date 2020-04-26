@@ -3,7 +3,8 @@
   import {store} from "../../index";
 
   import {
-    STATUS_STATE
+    STATUS_STATE,
+    STATUS_LOAD_FILE
   } from '../../store/actions/status';
 
   let eInput;
@@ -36,9 +37,16 @@
       const fileContent = await fetch(fileURL);
 
       await store.dispatch({
-        type: STATUS_STATE,
-        value:1002,
-        content: await fileContent.text()
+        type: STATUS_LOAD_FILE,
+        value:1009,
+        files: [
+          {
+            icon: 'insert_chart',
+            content: await fileContent.text(),
+            name,
+            size
+          }
+        ]
       });
 
       window.URL.revokeObjectURL(fileURL);

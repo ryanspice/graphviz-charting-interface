@@ -5,11 +5,5 @@ export default {
   options:{
     showWizard:true,
     isSaved:true,
-  },
-  theme:{
-    primary:`#bb0000`,
-    primaryPalette:[],
-    secondary:`#0000aa`,
-    secodaryPalette:[],
   }
 }

@@ -8,7 +8,7 @@
 import {store} from "../index";
 import {APPLICATION_LOAD} from "../store/actions/application";
 
-const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-container'){
+const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-container', dataOverride){
 
   const D3 = (await import("d3-graphviz"));
   const D3Graph = await D3.graphviz(target);
@@ -40,7 +40,7 @@ const D3Graphviz = async function D3Graphviz(GraphStore, target = '.graph-contai
     //D3Graph.zoomScaleExtent([0,500]);
     //D3Graph._translation = {x:dimensions.x/2.75,y:dimensions.y+100};
 
-    D3Graph.renderDot(GraphStore.data).on("end",function(){
+    D3Graph.renderDot(dataOverride || GraphStore.data).on("end",function(){
 
       const drawer = document.querySelector('body > section > div > aside > div.mdc-drawer__content nav');
       const vlvp = document.querySelector('svelte-virtual-list-viewport');

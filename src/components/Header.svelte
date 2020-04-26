@@ -71,11 +71,6 @@
         {name: '', number: ''}
     ];
 
-    let charts = [
-        {icon: 'insert_chart'},
-        {icon: 'show_chart'},
-        {icon: 'link'},
-    ];
 
     let dense = true;
     let prominent = false;
@@ -92,6 +87,8 @@
 
     let toggleCodeView = () => {
     };
+
+    let _files_ = [];
 
     /**
      * TODO :: dispatch theme change
@@ -177,7 +174,10 @@
             const {
                 options,
                 progress,
+                files
             } = await status;
+
+            _files_ = files;
 
             state = (await status).state;
 
@@ -303,10 +303,16 @@
               <HeaderButton class="material-icons"
                             icon="add"
                             click={()=>{
+
+
+                            /*
 							              store.dispatch({
 							              type:STATUS_ADD,
 							              value:1030
 							              })
+							              */
+
+
 							              }} aria-label="add"/>
 
 					{/if}
@@ -318,7 +324,7 @@
 
 					{/if}
 
-					{#each charts as control, i}
+					{#each _files_ as control, i}
 
               <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}} icon="bar_chart"/>
 
@@ -326,7 +332,12 @@
 
 					{#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
 
-              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{}} icon="add_box"/>
+              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{
+                                         store.dispatch({
+                            type: STATUS_STATE,
+                            value: 1008
+                            });
+              }} icon="add_box"/>
 
 					{/if}
 

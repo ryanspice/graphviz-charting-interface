@@ -43,11 +43,15 @@
                 action
             } = await application;
 
+            const {
+                files
+            } = await status;
+
             state = (await status).state;
 
-            if (container.style.opacity == 0) {
-                const data = await D3Graphviz(action.data);
-            }
+            action.data.data = files[files.length - 1].content;
+
+            await D3Graphviz(action.data, '.graph-container', files[files.length - 1].content);
 
             container.style.opacity = 1;
 

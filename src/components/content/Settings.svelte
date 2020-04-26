@@ -2,6 +2,8 @@
 
   import "./Settings.svelte.scss";
 
+  import pkg from "../../../package.json";
+
   import {Title, Item, Graphic, Text} from '@smui/list';
 
   const STATE = {
@@ -153,7 +155,9 @@
 {#if STATE_CURRENT===STATE.ABOUT}
 
   <Item>
-  <Text>created by : ryan spice-finnie</Text>
+
+      <Text>created by : ryan spice-finnie</Text>
+
   </Item>
 
 {/if}

@@ -4,6 +4,7 @@
 
 export const STATUS_LOAD_BAR = `STATUS_LOAD_BAR`;
 export const STATUS_LOAD_FILE = `STATUS_LOAD_FILE`;
+export const STATUS_LOAD_GRAPH = `STATUS_LOAD_GRAPH`;
 export const STATUS_SAVE = `STATUS_SAVE`;
 export const STATUS_STATE = `STATUS_STATE`;
 export const STATUS_SETTINGS = `STATUS_SETTINGS`;
@@ -11,6 +12,9 @@ export const STATUS_THEME = `STATUS_THEME`;
 
 export function statusLoadBar(...args){
   return { type: STATUS_LOAD_BAR, ...args }
+}
+export function statusLoadGraph(...args){
+  return { type: STATUS_LOAD_GRAPH, ...args }
 }
 export function statusLoadFile(...args){
   return { type: STATUS_LOAD_FILE, ...args }

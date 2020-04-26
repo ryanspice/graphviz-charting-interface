@@ -47,7 +47,7 @@
 
             case 1001:
 
-                dUpload = true;
+                //dUpload = true;
                 dialogUpload.$$.ctx[4]();
 
                 break;
@@ -97,6 +97,28 @@
                 dialogCreate.$$.ctx[0].$$.ctx[10]();
 
                 break;
+
+            // UPLOAD
+
+            case 1008:
+                dWelcome = true;
+                break;
+            case 1009:
+
+                store.dispatch({
+                    type: STATUS_STATE,
+                    value: 1010
+                });
+
+                dWelcome = false;
+                dCreate = false;
+                dUpload = false;
+                dialogWelcome.$$.ctx[0].$$.ctx[10]();
+                dialogCreate.$$.ctx[0].$$.ctx[10]();
+
+                break;
+
+            // SETTINGS
 
             case 1020:
 
