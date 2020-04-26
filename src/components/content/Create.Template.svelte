@@ -36,11 +36,14 @@
 
     const templates = [
         { icon: "add", text: "new"},
+            /*
         { icon: "code", text: "UML Diagram"},
         { icon: "language", text: "Network Overview"},
         { icon: "autorenew", text: "Generic UI/UX Flow"},
         { icon: "assignment", text: "Feature UI/UX Flow"},
         { icon: "web", text: "Website Outline"},
+
+             */
     ];
 
 </script>
