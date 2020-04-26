@@ -44,6 +44,8 @@
 
     export let icon = `sync_problem`;
 
+    export let style = ``;
+
     export let click = () => {
 
     }
@@ -75,6 +77,7 @@
 {#if (_show_)}
 
     <IconButton class="material-icons"
+                style={style}
                 on:click={click} alt={alt}>
 
 			{icon}

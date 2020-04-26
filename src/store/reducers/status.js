@@ -14,6 +14,7 @@ import STATUS from "../models/status";
 async function status(state = STATUS, action) {
 
   state = await state;
+  //console.log(state);
 
   switch (action.type) {
 

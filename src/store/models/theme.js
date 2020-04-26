@@ -4,4 +4,8 @@ interface Theme {
 	mode:'auto'|'light'|'dark';
 }
 
-export default ({"theme":"red","mode":"auto"} : Theme);
+export default (
+	{
+		"theme": localStorage.getObject('--theme') || "red",
+		"mode": localStorage.getObject('--mode') || "auto"
+	} : Theme);

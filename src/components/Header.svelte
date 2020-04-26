@@ -14,6 +14,10 @@
     } from "../store/actions/status";
 
     import {
+        THEME_CYCLE_MODE,
+    } from "../store/actions/theme";
+
+    import {
         DIALOG_SETTINGS,
     } from '../store/actions/dialog'
 
@@ -61,9 +65,6 @@
     let applicationCodeView = false;
 
     let applicationFirstRun = false;
-    let applicationTheme = {
-        primary: ""
-    };
 
     let applicationNavigationMenuState = true;
 
@@ -88,20 +89,20 @@
     let toggleCodeView = () => {
     };
 
+    /* Store Variables for HTML */
+
     let _files_ = [];
+    let _mode_ = 'auto';
 
     /**
-     * TODO :: dispatch theme change
+     * dispatch day and night change
      * @returns {Promise<void>}
      */
 
     const handleDayOrNight = async () => {
 
-        applicationDayOrNight = !applicationDayOrNight;
-
         store.dispatch({
-            type: APPLICATION_TOGGLE_DARKMODE,
-            darkMode: applicationDayOrNight
+            type: THEME_CYCLE_MODE
         });
 
     };
@@ -159,12 +160,12 @@
 
             const {
                 application,
+                theme,
                 status
             } = await store.getState();
 
             const {
                 action,
-                theme,
                 data,
                 nodes,
                 navigation,
@@ -177,11 +178,15 @@
                 files
             } = await status;
 
+            const {
+                primary,
+                mode
+            } = await theme;
+
             _files_ = files;
+            _mode_ = mode;
 
             state = (await status).state;
-
-            applicationTheme = theme;
 
             showWizard = options.showWizard;
 
@@ -215,13 +220,41 @@
                           icon={!applicationNavigationMenuState?'menu':'menu_open'}
                           click={toggleMenu}/>
 
-            <HeaderButton class="material-icons"
-                          state="1000"
-                          sign="="
-                          icon={!applicationDayOrNight?'nights_stay':'wb_sunny'}
-                          click={handleDayOrNight}/>
+					{#if (_mode_=="auto")}
+              <HeaderButton class="material-icons"
+                            style="position:absolute;left:0px;top:-4px;opacity:0.15;font-size:2rem;"
+                            state="1000"
+                            sign="="
+                            icon={applicationDayOrNight?'sync':'sync_disabled'}
+                            click={handleDayOrNight}/>
 
-            <!-- Sidebar Toggle -->
+              <HeaderButton class="material-icons"
+                            style="pointer-events:none;position:absolute;left:0px;top:-4px;font-size:0.75rem;"
+                            state="1000"
+                            sign="="
+                            icon={'nights_stay'}
+                            click={handleDayOrNight}/>
+
+              <HeaderButton class="material-icons"
+                            style="pointer-events:none;position:absolute;left:8px;top:4px;font-size:0.75rem;"
+                            state="1000"
+                            sign="="
+                            icon={'wb_sunny'}
+                            click={handleDayOrNight}/>
+
+					{:else}
+              <HeaderButton class="material-icons"
+                            state="1000"
+                            sign="="
+                            icon={_mode_==="dark"?'nights_stay':'wb_sunny'}
+                            click={handleDayOrNight}/>
+
+					{/if}
+
+
+
+
+                <!-- Sidebar Toggle -->
 
 					{#if ((tabIndex===0)&&(applicationCodeView===true)&&(applicationDigraphSource===false))}
               <HeaderButton class="material-icons" aria-label="insert_chart" title="return" click={toggleCodeView}>
@@ -266,43 +299,43 @@
 
     <Row id="second-bar">
 
-        <Section align="start" toolbar>
+    <Section align="start" toolbar>
 
-					{#if (notMobile)}
+			{#if (notMobile)}
 
-						{#if ((applicationDigraphSource===false))}
+				{#if ((applicationDigraphSource===false))}
 
-                <HeaderButton class="material-icons"
-                              icon="insert_chart"
-                              click={()=>{
-								              store.dispatch({
-								              type:STATUS_ADD,
-								              value:1030
-								              })
-								              }} aria-label="add"/>
+            <HeaderButton class="material-icons"
+                          icon="insert_chart"
+                          click={()=>{
+						              store.dispatch({
+						              type:STATUS_ADD,
+						              value:1030
+						              })
+						              }} aria-label="add"/>
 
-						{/if}
+				{/if}
 
-              <Divider></Divider>
+          <Divider></Divider>
 
-						{#if ((true)&&(applicationDigraphSource))}
+				{#if ((true)&&(applicationDigraphSource))}
 
-                <HeaderButton class="material-icons" aria-label="Preview SVG source"
-                              alt="print"
-                              icon="insert_chart"
-                              click={()=>{
-								              applicationCodeView=applicationCodeView;
-								              applicationDigraphSource=false;}}/>
+            <HeaderButton class="material-icons" aria-label="Preview SVG source"
+                          alt="print"
+                          icon="insert_chart"
+                          click={()=>{
+						              applicationCodeView=applicationCodeView;
+						              applicationDigraphSource=false;}}/>
 
-						{/if}
+				{/if}
 
-					{/if}
+			{/if}
 
-					{#if (!notMobile)}
+			{#if (!notMobile)}
 
-              <HeaderButton class="material-icons"
-                            icon="add"
-                            click={()=>{
+      <HeaderButton class="material-icons"
+                    icon="add"
+              click={()=>{
 
 
                             /*
@@ -313,69 +346,69 @@
 							              */
 
 
-							              }} aria-label="add"/>
+			}} aria-label="add"/>
 
-					{/if}
+			{/if}
 
-					{#if ((tabIndex!==0))}
+		{#if ((tabIndex!==0))}
 
-              <HeaderButton class="material-icons" aria-label="bar_chart" title="bar_chart" icon="bar_chart"
-                            click={()=>{forceCode(applicationSourceCode.data)}}/>
+            <HeaderButton class="material-icons" aria-label="bar_chart" title="bar_chart" icon="bar_chart"
+            click={()=>{forceCode(applicationSourceCode.data)}}/>
 
-					{/if}
+		{/if}
 
-					{#each _files_ as control, i}
+		{#each _files_ as control, i}
 
-              <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}} icon="bar_chart"/>
+            <HeaderButton class="material-icons" aria-label="" title="" click={()=>{}} icon="bar_chart"/>
 
-					{/each}
+		{/each}
 
-					{#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
+		{#if ((applicationCodeView===false)&&(applicationDigraphSource===false))}
 
-              <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{
+            <HeaderButton class="material-icons" aria-label="edit" title="edit" click={()=>{
                                          store.dispatch({
                             type: STATUS_STATE,
                             value: 1008
                             });
               }} icon="add_box"/>
 
-					{/if}
+		{/if}
 
 
-        </Section>
+    </Section>
 
-        <Section align="end" toolbar>
+    <Section align="end" toolbar>
 
-					{#if (notMobile)}
-          <!--
+				{#if (notMobile)}
+                <!--
                           <HeaderButton class="material-icons hidden" aria-label="Print this page" click={()=>{
                           const html = window.d3.select("#graph0").html();
                           const win = window.open("", "graph0", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
                           win.document.body.innerHTML = `<textarea style="width:100%;height:100%;">${html}</textarea>`;}}
                                         alt="print" icon="print" />
         -->
-              <!-- FOR each GRAPH in store.graph.list? -->
-              <!-- disable when viewing other  -->
-              <!-- <HoverFab></HoverFab> -->
-              <!--
-                {#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
-                  <HeaderButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</HeaderButton>
-                {/if}
-              -->
+        <!-- FOR each GRAPH in store.graph.list? -->
+        <!-- disable when viewing other  -->
+        <!-- <HoverFab></HoverFab> -->
+        <!--
+					{#if ((tabIndex===0)&&(applicationCodeView===false)&&(applicationDigraphSource===false))}
+						<HeaderButton class="material-icons" aria-label="edit" title="edit" on:click={toggleCodeView}>edit</HeaderButton>
+					{/if}
+				-->
 
-              <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
+            <HeaderButton class="material-icons" aria-label="Preview SVG source" click={()=>{
 							const html = window.d3.select("#graph0").html();
 							//downloadSource(html);
 							//applicationCodeView=true;
 							applicationDigraphSource=html;}} alt="print" icon="code"/>
 
-              <HeaderButton class="material-icons" aria-label="Download SVG" click={()=>{
+            <HeaderButton class="material-icons" aria-label="Download SVG" click={()=>{
 							const svg = document.querySelector("svg");
 							downloadSvg(svg);}} icon="file_download"/>
 
-					{/if}
+			{/if}
 
-        </Section>
+    </Section>
 
     </Row>
 

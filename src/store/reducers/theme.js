@@ -4,6 +4,7 @@ import {
 	THEME_SET,
 	THEME_LOAD,
 	THEME_LOAD_FROM_STORAGE,
+	THEME_CYCLE_MODE,
 } from '../actions/theme';
 
 import THEME from "../models/theme";
@@ -25,6 +26,25 @@ async function theme(state: any = THEME, action) {
 
 		case THEME_:
 			return {...state, action};
+
+		case THEME_CYCLE_MODE:
+
+			let mode;
+			switch(state.mode){
+				case 'auto':
+					mode =  'dark';
+					break;
+				case 'light':
+					mode =  'auto';
+					break;
+				case 'dark':
+					mode =  'light';
+					break;
+			}
+			localStorage.setObject('--mode', mode);
+
+			return {...state, action, mode};
+			break;
 
 		case THEME_THEME_MODE:
 

@@ -91,7 +91,7 @@
 
           <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-500)"}></div>
 
-          <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-300)"}></div>
+          <div class="swatch-color " style={"background:var(--material-color-" + getColor(color) +"-200)"}></div>
 
       </Option>
 
