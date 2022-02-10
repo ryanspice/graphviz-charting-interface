@@ -24,7 +24,7 @@
     "ecmascript-toolkit": "https://github.com/ryanspice/ecmascript-toolkit#develop",
     "material-scss-vars": "https://gist.github.com/72312991e788e8687a9275c8a64e3460.git",
     "mini-css-extract-plugin": "^0.9.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.1.2",
