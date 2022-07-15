@@ -13,7 +13,7 @@
   "devDependencies": {
     "loglevel": "latest",
     "redux": "^4.0.5",
-    "svelte": "^3.0.0",
+    "svelte": "^3.49.0",
     "svelte-loader": "2.13.3"
   },
   "dependencies": {
